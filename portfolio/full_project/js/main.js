@@ -9,7 +9,7 @@ const projects = [
   { name: "PMM", img: "images/Result-Imgs/PMM/example.jpg", desc: "서버·디비 성능 모니터링 도구." },
   { name: "Samba", img: "images/Result-Imgs/Samba/example.png", desc: "윈도우와 유닉스 간 파일 및 프린터 공유 도구." },
   { name: "Snort", img: "images/Result-Imgs/Snort-IDS/example.png", desc: "네트워크 기반 침입 탐지/방지 시스템(NIDS/NIPS)." },
-  { name: "Zabbix", img: "images/Result-Imgs/Zabbix/example.jpg", desc: "엔터프라이즈 IT 인프라 모니터링 도구." },
+  { name: "Zabbix", img: "images/Result-Imgs/Zabbix/example.png", desc: "엔터프라이즈 IT 인프라 모니터링 도구." },
   { name: "보안 취약점", img: "images/Result-Imgs/DNS-Server/vuln.png", desc: "시스템 또는 소프트웨어의 보안상 허점." }
 ]
 
