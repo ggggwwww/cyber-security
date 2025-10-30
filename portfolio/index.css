@@ -1,0 +1,48 @@
+body {
+  font-family: 'Segoe UI', 'Malgun Gothic', Arial, sans-serif;
+  background: #f3f4f6;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  text-align: center;
+  color: #374151;
+  margin-top: 40px;
+  font-size: 2.2rem;
+}
+.container {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+}
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.project-card {
+  padding: 22px;
+  border-radius: 12px;
+  background: #e0e7ef;
+  box-shadow: 0 2px 10px rgba(55,65,81,0.06);
+  transition: transform 0.2s;
+}
+.project-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: #d1e7f5;
+}
+.project-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin: 0 0 6px 0;
+  text-decoration: none;
+}
+.project-desc {
+  font-size: 0.99rem;
+  color: #374151;
+  margin: 0;
+}
