@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Security Full Project - LogAnalyzer</title>
+  <link rel="stylesheet" href="../css/projects.css" />
+</head>
+<body>
+
+  <main class="project-detail">
+    <!-- 프로젝트 타이틀 -->
+    <section class="project-header">
+      <h1>LogAnalyzer를 활용한 로그 통합 분석</h1>
+      <p class="project-subtitle">
+        Syslog 기반 로그 수집과 시각화를 통해 보안 이벤트를 한 화면에서 모니터링할 수 있는 환경을 구축한 프로젝트입니다.
+      </p>
+    </section>
+
+    <!-- 대표 이미지 -->
+    <section class="project-hero">
+      <!-- 웹 로그 분석 화면 -->
+      <img src="../images/Result-Imgs/LogAnalyzer/[Web]LogAnalyzer.PNG"
+           alt="LogAnalyzer Web 로그 분석 화면"
+           class="project-hero-image" />
+    </section>
+
+    <!-- 프로젝트 개요 -->
+    <section class="project-section">
+      <h2>프로젝트 개요</h2>
+      <ul>
+        <li><strong>프로젝트명:</strong> Cyber Security Full Project – LogAnalyzer 로그 통합 분석 파트</li>
+        <li><strong>수행기간:</strong> 2025.09.01 ~ 2025.09.14</li>
+        <li><strong>역할:</strong> 로그 수집·필터 구성, 대시보드 설계, 보안 이벤트 시나리오 검증</li>
+      </ul>
+      <p>
+        OSSEC, Snort, Zabbix 등에서 발생하는 다양한 로그를 LogAnalyzer로 중앙 수집하여,
+        보안 이벤트와 시스템 이상 징후를 한 번에 파악할 수 있도록 하는 것이 목표였습니다.
+      </p>
+    </section>
+
+    <!-- 구현 상세 (웹 / DB 화면 나누어 소개) -->
+    <section class="project-section">
+      <h2>구현 상세</h2>
+
+      <article class="project-subsection">
+        <h3>1. 웹 로그 모니터링 화면</h3>
+        <div class="project-image-row">
+          <img src="../images/Result-Imgs/LogAnalyzer/[Web]LogAnalyzer.PNG"
+               alt="LogAnalyzer Web 대시보드"
+               class="project-image" />
+        </div>
+        <ul>
+          <li>웹 서버·WAF·IDS에서 전달되는 Syslog를 필터링하여, 로그인 실패·권한 오류·웹 공격 탐지 이벤트를 태그별로 구분했습니다.</li>
+          <li>시간 범위, 호스트, 심각도 기반 필터를 구성해 필요한 이벤트만 빠르게 조회할 수 있도록 했습니다.</li>
+        </ul>
+      </article>
+
+      <article class="project-subsection">
+        <h3>2. DB 및 시스템 로그 분석</h3>
+        <div class="project-image-row">
+          <img src="../images/Result-Imgs/LogAnalyzer/[DB]LogAnalyzer.PNG"
+               alt="LogAnalyzer DB 로그 분석 화면"
+               class="project-image" />
+        </div>
+        <ul>
+          <li>DB 서버의 인증 실패, 권한 오류, 중요 테이블 접근 로그를 별도 뷰로 구성해 데이터베이스 관련 이상 징후를 집중적으로 모니터링했습니다.</li>
+          <li>시스템 계정 생성·삭제, sudo 사용 내역 등 OSSEC 알림과 연계하여 계정 관련 보안 이벤트를 함께 확인할 수 있도록 했습니다.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- 시나리오 및 결과 -->
+    <section class="project-section">
+      <h2>테스트 시나리오 및 결과</h2>
+      <ul>
+        <li>의도적으로 포트 스캔, SSH 브루트포스, 웹 공격(예: SQLi 시도)을 발생시킨 후, 관련 이벤트가 LogAnalyzer 대시보드에 제대로 표시되는지 검증했습니다.</li>
+        <li>이상 징후가 여러 시스템에서 동시에 발생할 때, 하나의 화면에서 상관관계를 파악하고 대응 우선순위를 정할 수 있다는 점을 확인했습니다.</li>
+      </ul>
+    </section>
+
+    <!-- 느낀 점 / 활용 포인트 -->
+    <section class="project-section">
+      <h2>느낀 점 및 활용 포인트</h2>
+      <p>
+        단일 시스템의 로그만 보는 것보다, 다양한 보안 장비와 서버의 로그를 통합해 보는 것이 이상 징후를 훨씬 빠르게 파악하는 데 도움이 된다는 점을 체감했습니다.
+        이 경험을 바탕으로, 이후 모의해킹이나 취약점 진단 결과를 리포트로 정리할 때도 “어떤 로그로 검증할 수 있는지”를 함께 제시하는 습관을 갖게 되었습니다.
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>
