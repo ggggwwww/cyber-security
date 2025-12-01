@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Security Full Project - Snort IDS</title>
+  <link rel="stylesheet" href="../css/projects.css" />
+</head>
+<body>
+
+  <main class="project-detail">
+    <!-- 프로젝트 타이틀 -->
+    <section class="project-header">
+      <h1>Snort 기반 네트워크 침입 탐지 환경 구축</h1>
+      <p class="project-subtitle">
+        Snort IDS를 이용해 포트 스캔, DDoS, 중요 파일 접근 시도를 탐지하고,
+        룰 작성과 패킷 캡처를 통해 네트워크 보안 이벤트를 분석한 프로젝트입니다.
+      </p>
+    </section>
+
+    <!-- 대표 이미지 -->
+    <section class="project-hero">
+      <img src="../images/Result-Imgs/Snort-IDS/Snort-status.PNG"
+           alt="Snort 상태 및 동작 화면"
+           class="project-hero-image" />
+    </section>
+
+    <!-- 프로젝트 개요 -->
+    <section class="project-section">
+      <h2>프로젝트 개요</h2>
+      <ul>
+        <li><strong>프로젝트명:</strong> Cyber Security Full Project – Snort IDS 구축 파트</li>
+        <li><strong>수행기간:</strong> 2025.09.01 ~ 2025.09.14</li>
+        <li><strong>역할:</strong> Snort 설치·설정, 탐지 룰 작성, 공격 시나리오 설계 및 검증</li>
+      </ul>
+      <p>
+        네트워크 계층에서 발생하는 다양한 공격을 탐지하기 위해 Snort 기반 IDS 환경을 구축하고,
+        직접 정의한 룰로 DDoS와 중요 시스템 파일 접근 시도를 식별하는 것을 목표로 했습니다.
+      </p>
+    </section>
+
+    <!-- Snort 동작 상태 -->
+    <section class="project-section">
+      <h2>Snort 동작 환경</h2>
+      <div class="project-image-row">
+        <img src="../images/Result-Imgs/Snort-IDS/Snort-status.PNG"
+             alt="Snort 실행 상태 화면"
+             class="project-image" />
+      </div>
+      <ul>
+        <li>미러 포트를 통해 외부에서 내부로 들어오는 트래픽을 Snort가 수신하도록 구성하고, IDS 모드로 실행해 실시간 분석을 수행했습니다.</li>
+        <li>공식 규칙셋과 함께 자체 작성 룰을 추가하여, 테스트 시나리오에 맞는 경보가 발생하는지 확인했습니다.</li>
+      </ul>
+    </section>
+
+    <!-- 룰 및 탐지 시나리오 -->
+    <section class="project-section">
+      <h2>탐지 룰 및 시나리오</h2>
+
+      <article class="project-subsection">
+        <h3>1. /etc/passwd 접근 탐지</h3>
+        <div class="project-image-row">
+          <img src="../images/Result-Imgs/Snort-IDS/[Rule]Capture-Access-etc-passwd.PNG"
+               alt="/etc/passwd 접근 탐지 룰 캡처"
+               class="project-image" />
+          <img src="../images/Result-Imgs/Snort-IDS/[Situation]Capture-Access-etc-passwd.PNG"
+               alt="/etc/passwd 접근 탐지 상황 캡처"
+               class="project-image" />
+        </div>
+        <ul>
+          <li>중요 시스템 파일인 <code>/etc/passwd</code>에 대한 HTTP 요청 패턴을 탐지하는 커스텀 룰을 작성했습니다.</li>
+          <li>의도적으로 해당 경로를 요청하는 공격 시나리오를 실행했을 때, Snort 경보가 발생하고 로그에 관련 정보가 남는지 확인했습니다.</li>
+        </ul>
+      </article>
+
+      <article class="project-subsection">
+        <h3>2. DDoS 공격 탐지</h3>
+        <div class="project-image-row">
+          <img src="../images/Result-Imgs/Snort-IDS/[Rule]Capture-DDoS.PNG"
+               alt="DDoS 탐지 룰 캡처"
+               class="project-image" />
+          <img src="../images/Result-Imgs/Snort-IDS/[Situation]Capture-DDoS.PNG"
+               alt="DDoS 탐지 상황 캡처"
+               class="project-image" />
+        </div>
+        <ul>
+          <li>동일 출발지/다수 출발지에서 짧은 시간 안에 다량의 패킷이 특정 포트로 유입되는 패턴을 감지하는 룰을 구성했습니다.</li>
+          <li>부하 생성 도구를 활용해 DDoS 유사 트래픽을 발생시키고, Snort가 이를 탐지하여 경보를 출력하는지 검증했습니다.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- 테스트 결과 및 인사이트 -->
+    <section class="project-section">
+      <h2>테스트 결과 및 인사이트</h2>
+      <ul>
+        <li>일반 트래픽과 공격 트래픽을 구분하는 임계값과 조건을 조정하면서, 오탐/미탐을 줄이는 룰 설계의 중요성을 이해했습니다.</li>
+        <li>Snort 경보 로그를 LogAnalyzer와 연계해 시각화하면, 시간대별 공격 시
+        <li>Snort 경보 로그를 LogAnalyzer와 연계해 시각화하면, 시간대별 공격 시도와 목표 호스트를 한눈에 파악할 수 있어 대응 우선순위를 정하기 수월해진다는 점을 확인했습니다.</li>
+        <li>이번 실습을 통해 네트워크 침입 탐지는 단순히 룰을 많이 넣는 것이 아니라, 실제 환경에 맞는 시나리오와 임계값을 설계하는 작업이라는 것을 체감했습니다.</li>
+      </ul>
+    </section>
+
+    <!-- 느낀 점 / 활용 포인트 -->
+    <section class="project-section">
+      <h2>느낀 점 및 활용 포인트</h2>
+      <p>
+        Snort IDS를 구축하고 직접 룰을 작성해 보면서, 네트워크 보안 장비는 “설치했다”에서 끝나는 것이 아니라
+        실제 트래픽 패턴과 서비스 특성을 반영해 지속적으로 조정해야 효과를 발휘한다는 점을 배웠습니다.
+        이후 모의해킹이나 취약점 진단을 수행할 때, 네트워크 레벨에서 어떤 이벤트가 발생하는지 함께 확인하며
+        탐지 체계까지 고려하는 습관을 갖게 되었습니다.
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>
