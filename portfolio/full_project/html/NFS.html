@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Security Full Project - NFS</title>
+  <link rel="stylesheet" href="../css/projects.css" />
+</head>
+<body>
+
+  <main class="project-detail">
+    <!-- 프로젝트 타이틀 -->
+    <section class="project-header">
+      <h1>NFS 서버 구축 및 보안 설정</h1>
+      <p class="project-subtitle">
+        Linux 기반 NFS 서버와 클라이언트 환경을 구성하고, 접근 제어와 권한 관리로 안전한 파일 공유를 구현한 프로젝트입니다.
+      </p>
+    </section>
+
+    <!-- 대표 이미지 -->
+    <section class="project-hero">
+      <img src="../images/Result-Imgs/NFS/[Server]NFS-Server_Complete.PNG"
+           alt="NFS 서버 설정 완료 화면"
+           class="project-hero-image" />
+    </section>
+
+    <!-- 프로젝트 개요 -->
+    <section class="project-section">
+      <h2>프로젝트 개요</h2>
+      <ul>
+        <li><strong>프로젝트명:</strong> Cyber Security Full Project – NFS 서버 보안 구성 파트</li>
+        <li><strong>수행기간:</strong> 2025.09.01 ~ 2025.09.14</li>
+        <li><strong>역할:</strong> NFS 서버·클라이언트 설정, 접근 제어 정책 수립, 마운트 테스트 및 검증</li>
+      </ul>
+      <p>
+        서비스 간 파일 공유가 필요한 환경에서, 불필요한 권한 노출 없이 안전하게 스토리지를 공유하기 위해
+        NFS(Network File System)를 이용한 공유 디렉터리를 구성하고 보안 설정을 적용하는 것을 목표로 했습니다.
+      </p>
+    </section>
+
+    <!-- 구현 상세: 서버 / 클라이언트 -->
+    <section class="project-section">
+      <h2>구현 상세</h2>
+
+      <article class="project-subsection">
+        <h3>1. NFS 서버 구성</h3>
+        <div class="project-image-row">
+          <img src="../images/Result-Imgs/NFS/[Server]NFS-Server_Complete.PNG"
+               alt="NFS 서버 설정 화면"
+               class="project-image" />
+        </div>
+        <ul>
+          <li>NFS 패키지를 설치하고, 공유할 디렉터리를 생성한 뒤 <code>/etc/exports</code> 파일에 허용 클라이언트와 권한 옵션을 정의했습니다.</li>
+          <li>특정 IP/서브넷만 접근하도록 제한하고, 읽기/쓰기 권한과 root_squash 등 옵션을 적용해 불필요한 권한 상승을 방지했습니다.</li>
+        </ul>
+      </article>
+
+      <article class="project-subsection">
+        <h3>2. 클라이언트 마운트 및 자원 확인</h3>
+        <div class="project-image-row">
+          <img src="../images/Result-Imgs/NFS/[Client]NFS_Resource_get.PNG"
+               alt="NFS 클라이언트 리소스 확인 화면"
+               class="project-image" />
+        </div>
+        <ul>
+          <li>클라이언트 측에서 NFS 유틸리티를 설치하고, 서버에 정의된 공유 디렉터리를 지정 경로에 마운트하여 접근이 가능한지 확인했습니다.</li>
+          <li>마운트 후 파일 생성·수정·삭제 테스트를 통해 권한이 의도한 대로 동작하는지, 로그에 접근 내역이 남는지 검증했습니다.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- 보안 설정 및 테스트 결과 -->
+    <section class="project-section">
+      <h2>보안 설정 및 테스트 결과</h2>
+      <ul>
+        <li>허용된 IP가 아닌 다른 호스트에서 접근을 시도했을 때, 마운트가 차단되는지 확인하여 접근 제어가 정상적으로 작동함을 검증했습니다.</li>
+        <li>root_squash 옵션 적용 상태에서 root 계정으로 파일 작업을 시도해도 서버 측에서는 일반 사용자 권한으로 기록되는 것을 확인했습니다.</li>
+        <li>공유 디렉터리 권한을 과도하게 넓히는 경우, 다른 계정으로도 민감 파일에 접근 가능해지는 위험성을 테스트하며 적절한 권한 설계의 중요성을 체감했습니다.</li>
+      </ul>
+    </section>
+
+    <!-- 느낀 점 / 활용 포인트 -->
+    <section class="project-section">
+      <h2>느낀 점 및 활용 포인트</h2>
+      <p>
+        단순히 NFS를 “공유 디렉터리 도구”로 사용하는 것에서 그치지 않고,
+        IP 기반 접근 제어, 권한 옵션, 로그 확인까지 함께 설계해야 보안상 안전한 파일 공유 환경을 만들 수 있다는 점을 배웠습니다.
+        이후 서버를 설계할 때 공유 스토리지 사용이 필요한 경우, 초기 설계 단계에서부터 NFS 권한과 접근 정책을 함께 고려하는 습관을 갖게 되었습니다.
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>
