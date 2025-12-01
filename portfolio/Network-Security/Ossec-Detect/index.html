@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Network Security Project</title>
+        <link rel="stylesheet" href="../../general.css">
+    </head>
+
+    <body>
+        <fieldset>
+            <legend>HTTP Request 탐지</legend>
+            <p>아래 사진은 공격자(Windows 10) 측에서 피해자(Windows 10) 측으로 HTTP 요청을 보내는 모습입니다.</p>
+            <img src="images/[1]httpRequest-windows10-HID-OSSEC.png" alt="Ossec HIDS Implementation" class="project-image">
+        </fieldset>
+        <fieldset>
+            <legend>ICMP Ping 탐지</legend>
+            <p>아래 사진은 공격자 측에서 피해자 측으로 ICMP Ping 패킷을 보내는 모습입니다.</p>
+            <img src="images/[1]ping-windows10-HID-OSSEC.png" alt="Ossec HIDS Implementation" class="project-image">
+            <img src="images/[2]ping-Rocky-windows10.png" alt="Ossec HIDS Implementation" class="project-image">
+        </fieldset>
+        <fieldset>
+            <legend>부적절한 접근 탐지</legend>
+            <p>아래 사진은 공격자(Kali Linux) 측에서 피해자(Rocky Linux) 측으로 파라미터를 통한 /etc/passwd 정보에 접근하는 모습입니다.</p>
+            <img src="images/[3]etcPasswdRequest-OSSEC_HIDS-Rocky.PNG" alt="Ossec HIDS Implementation" class="project-image">
+        </fieldset>
+        <fieldset>
+            <legend>랜덤 소스 포트 탐지</legend>
+            <p>아래 사진은 공격자(Kali Linux) 측에서 피해자(Windows 10) 측으로 랜덤 소스 포트를 사용하여 접근하는 모습입니다.</p>
+            <img src="images/[4]randSource-Kali-Win10.PNG" alt="Ossec HIDS Implementation" class="project-image">
+        </fieldset>
+        <fieldset>
+            <legend>SYN Flooding 탐지</legend>
+            <p>아래 사진은 공격자(Kali Linux) 측에서 피해자(Rocky Linux) 측으로 SYN Flooding 공격을 수행하는 모습입니다.</p>
+            <img src="images/[5]Syn_Flooding-Kali-Rocky.png" alt="Ossec HIDS Implementation" class="project-image">
+        </fieldset>
+    </body>
+</html> 
