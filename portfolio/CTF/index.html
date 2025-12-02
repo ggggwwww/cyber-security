@@ -4,17 +4,60 @@
     <meta charset="utf-8" />
     <title>CTF Pyramid Walkthrough</title>
     <link rel="stylesheet" href="index.css" />
-    
   </head>
 
   <body>
-     <div class="tab-shell">
-    <button class="tab-button is-active" data-target="ctf-page">CTF Walkthrough</button>
-    <button class="tab-button" data-target="making-page">제작 과정</button>
-    <button class="tab-button" data-target="end-notes">후기</button>
-  </div>
+    <div class="tab-shell">
+      <button class="tab-button is-active" data-target="ctf-page">
+        CTF Walkthrough
+      </button>
+      <button class="tab-button" data-target="making-page">제작 과정</button>
+      <button class="tab-button" data-target="end-notes">후기</button>
+    </div>
     <main class="making-page">
-        
+      <header class="ctf-header"></header>
+      <section class="ctf-section">
+        <h2 class="heading-sub">Pyramid CTF 제작 개요</h2>
+        <p class="para">
+          Pyramid CTF는 SQL Injection, 웹 취약점, 암호화 해독 등 다양한 보안
+          기술을 활용하는 일련의 도전 과제로 구성되어 있습니다. 참가자는 각
+          단계를 차례로 해결하며 최종 목표에 도달하게 됩니다.
+        </p>
+        <p class="para">
+          본 CTF는 Kali Linux 환경에서 제공되는 다양한 도구와 기술을 활용하여
+          문제를 해결하도록 설계되었습니다. 참가자는 SQLi 공격 기법, 웹
+          애플리케이션 취약점 분석, 암호화 알고리즘 이해 및 복호화 방법 등을
+          실습할 수 있습니다.
+        </p>
+        <figure class="fig">
+          <img src="images/making/머신 구조.png" alt="머신 구조" />
+          <figcaption class="fig-caption">시스템 구조 구성도</figcaption>
+          <p class="para">
+            제가 담당한 파트인 시스템 부문의 구조에서는 매 1분마다 작동하는
+            crontab 작업이 있습니다. 이 작업은 /home/pyramid 디렉터리 내의 특정
+            스크립트를 실행하여, CTF 문제 풀이에 필요한 힌트와 파일들을
+            주기적으로 갱신합니다. 이를 통해 참가자들은 지속적으로 새로운 정보를
+            얻으며 도전 과제를 해결할 수 있습니다.
+          </p>
+          <p class="para">
+            일부러 일부 폴더와 파일에 필요 이상의 권한을 부여하여, 참가자들이
+            권한 상승(Privilege Escalation) 기법을 연습할 수 있도록
+            설계하였습니다. 이를 통해 참가자들은 실제 환경에서 발생할 수 있는
+            보안 취약점을 이해하고 대응하는 능력을 키울 수 있습니다.
+          </p>
+          <p class="para">
+            또한 gcc 컴파일러와 c 파일에 Stack Buffer Overflow 취약점을
+            포함시켜, 참가자들이 메모리 관리와 보안 취약점에 대한 이해를 높일 수
+            있도록 하였습니다.
+          </p>
+          <p class="para">
+            최종적으로 발견되는 이집트 상형문자(히에로글리프)와 같이 일반적으로
+            바로 해독할 수 없는 문자를 포함하여 CTF의 컨셉을 지킴과 동시에, Base
+            58과 같은 다양한 인코딩 방식을 활용하여 참가자들이 다양한 해독
+            기법을 연습할 수 있도록 하였습니다.
+          </p>
+        </figure>
+      </section>
     </main>
     <main class="ctf-page">
       <header class="ctf-header">
@@ -26,7 +69,7 @@
 
         <figure class="fig">
           <img
-            src="images/image001.jpg"
+            src="images/walkthrough/image001.jpg"
             alt="Pyramid 1 초기 접속 화면"
           />
           <figcaption class="fig-caption">초기 진입 페이지 화면</figcaption>
@@ -34,12 +77,13 @@
 
         <p class="para">
           검색 입력창에 <code class="code-inline">' OR '1'='1</code> 과 같은
-          가장 기본적인 SQLi 페이로드를 입력했을 때 전체 행이 반환되는지 확인한다.
+          가장 기본적인 SQLi 페이로드를 입력했을 때 전체 행이 반환되는지
+          확인한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image002.jpg"
+            src="images/walkthrough/image002.jpg"
             alt="기본 SQLi 페이로드 실행 결과"
           />
           <figcaption class="fig-caption">
@@ -50,28 +94,36 @@
         <h2 class="heading-sub">알 수 있는 사실</h2>
         <ul class="bullet-list">
           <li>입력값이 필터링 없이 DB 쿼리에 직접 사용된다.</li>
-          <li>URL 에서 파라미터 name 값이 그대로 노출되며 GET 방식으로 서버로 전송된다.</li>
-          <li>화면에는 3개의 칼럼만 표시되지만 실제 쿼리에는 더 많은 컬럼이 존재할 수 있다.</li>
-          <li>OR, SELECT 등 키워드가 차단되지 않아 SQL Injection 취약점이 존재한다.</li>
+          <li>
+            URL 에서 파라미터 name 값이 그대로 노출되며 GET 방식으로 서버로
+            전송된다.
+          </li>
+          <li>
+            화면에는 3개의 칼럼만 표시되지만 실제 쿼리에는 더 많은 컬럼이 존재할
+            수 있다.
+          </li>
+          <li>
+            OR, SELECT 등 키워드가 차단되지 않아 SQL Injection 취약점이
+            존재한다.
+          </li>
         </ul>
       </section>
 
       <section class="ctf-section">
         <h2 class="heading-sub">1. 테이블명 추출 SQLi</h2>
         <p class="para">
-          UNION 기반 SQL Injection을 이용해 현재 데이터베이스의 테이블 이름을 수집한다.
+          UNION 기반 SQL Injection을 이용해 현재 데이터베이스의 테이블 이름을
+          수집한다.
         </p>
 
         <pre class="code-block">
 ' UNION SELECT 1, group_concat(table_name), 3
   FROM information_schema.tables
- WHERE table_schema = database() --</pre>
+ WHERE table_schema = database() --</pre
+        >
 
         <figure class="fig">
-          <img
-            src="images/image003.jpg"
-            alt="테이블명 추출 결과"
-          />
+          <img src="images/walkthrough/image003.jpg" alt="테이블명 추출 결과" />
           <figcaption class="fig-caption">
             두 번째 컬럼 위치에 테이블 이름들이 출력된다.
           </figcaption>
@@ -81,18 +133,19 @@
       <section class="ctf-section">
         <h2 class="heading-sub">2. 칼럼명 추출 SQLi</h2>
         <p class="para">
-          식별한 테이블 <code class="code-inline">pharaohs</code> 에 대해 모든 컬럼명을
-          조회한다.
+          식별한 테이블 <code class="code-inline">pharaohs</code> 에 대해 모든
+          컬럼명을 조회한다.
         </p>
 
         <pre class="code-block">
 ' UNION SELECT 1, group_concat(column_name), 3
   FROM information_schema.columns
- WHERE table_name = 'pharaohs' --</pre>
+ WHERE table_name = 'pharaohs' --</pre
+        >
 
         <figure class="fig">
           <img
-            src="images/image004.jpg"
+            src="images/walkthrough/image004.jpg"
             alt="pharaohs 테이블 컬럼명 추출 결과"
           />
           <figcaption class="fig-caption">
@@ -105,18 +158,19 @@
         <h2 class="heading-sub">3. secret_info 컬럼에서 최종 힌트 획득</h2>
         <p class="para">
           <code class="code-inline">pharaohs</code> 테이블의
-          <code class="code-inline">secret_info</code> 컬럼을 대상으로 조건부 조회를 수행해
-          최종 힌트를 얻는다.
+          <code class="code-inline">secret_info</code> 컬럼을 대상으로 조건부
+          조회를 수행해 최종 힌트를 얻는다.
         </p>
 
         <pre class="code-block">
 ' UNION SELECT 1, 2, secret_info
   FROM pharaohs
- WHERE id = 6 --</pre>
+ WHERE id = 6 --</pre
+        >
 
         <figure class="fig">
           <img
-            src="images/image005.jpg"
+            src="images/walkthrough/image005.jpg"
             alt="secret_info 컬럼 조회 결과"
           />
           <figcaption class="fig-caption">
@@ -130,7 +184,7 @@
 
         <figure class="fig">
           <img
-            src="images/image006.jpg"
+            src="images/walkthrough/image006.jpg"
             alt="소스 코드 주석에 포함된 긴 문자열"
           />
           <figcaption class="fig-caption">
@@ -140,7 +194,7 @@
 
         <figure class="fig">
           <img
-            src="images/image007.jpg"
+            src="images/walkthrough/image007.jpg"
             alt="ROT13.com 에서 문자열 디코딩"
           />
           <figcaption class="fig-caption">
@@ -149,17 +203,18 @@
         </figure>
 
         <p class="para">
-          ROT13 디코딩 결과는 “파라오의 암호는 문지기의 열쇠를 위한 것이 아니라, 펼쳐지는 나일강
-          지도의 논리를 위해 존재한다. 흐름을 따라 다음 방으로 나아가라.” 와 같은 의미의 문장이다.
+          ROT13 디코딩 결과는 “파라오의 암호는 문지기의 열쇠를 위한 것이 아니라,
+          펼쳐지는 나일강 지도의 논리를 위해 존재한다. 흐름을 따라 다음 방으로
+          나아가라.” 와 같은 의미의 문장이다.
         </p>
         <p class="para">
-          이 문구는 SSH 접속 정보가 아니라는 점을 암시하며, 흐름(flow)을 따라 웹 디렉터리를
-          이동해야 한다는 메시지를 비유적으로 전달한다.
+          이 문구는 SSH 접속 정보가 아니라는 점을 암시하며, 흐름(flow)을 따라 웹
+          디렉터리를 이동해야 한다는 메시지를 비유적으로 전달한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image008.png"
+            src="images/walkthrough/image008.png"
             alt="디렉터리 경로를 암시하는 힌트"
           />
           <figcaption class="fig-caption">
@@ -168,42 +223,48 @@
         </figure>
 
         <p class="para">
-          최종 힌트에 슬래시(<code class="code-inline">/</code>)가 포함되어 있어 디렉터리
-          경로임을 유추할 수 있고,
-          <code class="code-inline">http://pyramidIP/the_architect_of_the_Great_Pyramid</code>
+          최종 힌트에 슬래시(<code class="code-inline">/</code>)가 포함되어 있어
+          디렉터리 경로임을 유추할 수 있고,
+          <code class="code-inline"
+            >http://pyramidIP/the_architect_of_the_Great_Pyramid</code
+          >
           와 같은 URL 로 이동하면 다음 단계로 넘어갈 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image009.jpg"
+            src="images/walkthrough/image009.jpg"
             alt="trivia 칼럼 조회 결과"
           />
           <figcaption class="fig-caption">
-            trivia 칼럼에는 3000자 분량의 반복 문자열과 수동 SQLi 를 유도하는 메시지가 포함된다.
+            trivia 칼럼에는 3000자 분량의 반복 문자열과 수동 SQLi 를 유도하는
+            메시지가 포함된다.
           </figcaption>
         </figure>
 
         <p class="para">
-          trivia 칼럼의 내용을 읽어 보면 자동화 도구(sqlmap) 대신 수동 SQL Injection 과정을
-          경험해 보라는 의도가 담겨 있음을 알 수 있다.
+          trivia 칼럼의 내용을 읽어 보면 자동화 도구(sqlmap) 대신 수동 SQL
+          Injection 과정을 경험해 보라는 의도가 담겨 있음을 알 수 있다.
         </p>
 
         <p class="para">
-          더 자세한 풀이 과정은 외부 블로그에 정리되어 있으며,
-          비밀번호는 <code class="code-inline">cmd</code> 로 안내된다.
+          더 자세한 풀이 과정은 외부 블로그에 정리되어 있으며, 비밀번호는
+          <code class="code-inline">cmd</code> 로 안내된다.
         </p>
       </section>
 
       <header class="ctf-header">
-        <h1 class="heading-main">Pyramid (2) – Find Split Fragment and Decryption</h1>
+        <h1 class="heading-main">
+          Pyramid (2) – Find Split Fragment and Decryption
+        </h1>
       </header>
 
       <section class="ctf-section">
         <h2 class="heading-sub">0. 시나리오 개요</h2>
         <p class="para">
-          <code class="code-inline">/the_architect_of_the_Great_Pyramid/</code> 페이지에 접속하면
-          세 개의 fragment를 찾아 조합하고, 제공된 스크립트에 따라 암호를 복호화해야 한다는 힌트가 나온다.
+          <code class="code-inline">/the_architect_of_the_Great_Pyramid/</code>
+          페이지에 접속하면 세 개의 fragment를 찾아 조합하고, 제공된 스크립트에
+          따라 암호를 복호화해야 한다는 힌트가 나온다.
         </p>
 
         <p class="para">
@@ -215,7 +276,7 @@
 
         <figure class="fig">
           <img
-            src="images/image010.jpg"
+            src="images/walkthrough/image010.jpg"
             alt="the_architect_of_the_Great_Pyramid 초기 화면"
           />
           <figcaption class="fig-caption">
@@ -228,16 +289,18 @@
         <h2 class="heading-sub">1. Fragment 1 – HTML 소스에서 Xv9A 찾기</h2>
 
         <p class="para">
-          Fragment1 을 찾기 위해 브라우저에서 <strong>View page source</strong> 로 HTML 소스를 확인한다.
+          Fragment1 을 찾기 위해 브라우저에서
+          <strong>View page source</strong> 로 HTML 소스를 확인한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image011.png"
+            src="images/walkthrough/image011.png"
             alt="페이지 소스 내 Fragment1"
           />
           <figcaption class="fig-caption">
-            페이지 소스의 주석 영역에서 <code class="code-inline">Xv9A</code> 문자열을 확인
+            페이지 소스의 주석 영역에서
+            <code class="code-inline">Xv9A</code> 문자열을 확인
           </figcaption>
         </figure>
 
@@ -256,18 +319,21 @@
 
         <p class="para">
           URL:
-          <a href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js">
+          <a
+            href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js"
+          >
             http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js
           </a>
         </p>
 
         <figure class="fig">
           <img
-            src="images/image012.png"
+            src="images/walkthrough/image012.png"
             alt="script.js 내부의 Fragment2"
           />
           <figcaption class="fig-caption">
-            스크립트 내부에 <code class="code-inline">MuS7</code> 라는 hex 관련 힌트가 포함되어 있다.
+            스크립트 내부에 <code class="code-inline">MuS7</code> 라는 hex 관련
+            힌트가 포함되어 있다.
           </figcaption>
         </figure>
 
@@ -278,7 +344,9 @@
       </section>
 
       <section class="ctf-section">
-        <h2 class="heading-sub">3. Fragment 3 – hint.png 메타데이터에서 z9Qp 추출</h2>
+        <h2 class="heading-sub">
+          3. Fragment 3 – hint.png 메타데이터에서 z9Qp 추출
+        </h2>
 
         <p class="para">
           Fragment3 을 찾기 위해 이미지 리소스
@@ -287,14 +355,16 @@
 
         <p class="para">
           URL:
-          <a href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png">
+          <a
+            href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png"
+          >
             http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png
           </a>
         </p>
 
         <figure class="fig">
           <img
-            src="images/image013.jpg"
+            src="images/walkthrough/image013.jpg"
             alt="hint.png 이미지 자체는 비어 있는 것처럼 보임"
           />
           <figcaption class="fig-caption">
@@ -304,21 +374,24 @@
 
         <p class="para">
           이미지를 <code class="code-inline">kali</code> 로 다운로드한 뒤,
-          <code class="code-inline">exiftool</code> 과 같은 메타데이터 분석 도구를 사용해 숨겨진 정보를 확인한다.
+          <code class="code-inline">exiftool</code> 과 같은 메타데이터 분석
+          도구를 사용해 숨겨진 정보를 확인한다.
         </p>
 
         <p class="para">
-          첫 페이지에서 이미 "metadata 를 확인하라" 는 힌트를 받았으며, 대표적인 툴로
+          첫 페이지에서 이미 "metadata 를 확인하라" 는 힌트를 받았으며, 대표적인
+          툴로
           <code class="code-inline">exiftool</code> 을 사용할 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image014.jpg"
+            src="images/walkthrough/image014.jpg"
             alt="exiftool 로 확인한 hint.png 메타데이터"
           />
           <figcaption class="fig-caption">
-            Comment 필드에 의심스러운 문자열 <code class="code-inline">z9Qp</code> 가 저장되어 있다.
+            Comment 필드에 의심스러운 문자열
+            <code class="code-inline">z9Qp</code> 가 저장되어 있다.
           </figcaption>
         </figure>
 
@@ -341,7 +414,7 @@
 
         <figure class="fig">
           <img
-            src="images/image015.png"
+            src="images/walkthrough/image015.png"
             alt="세 fragment 를 결합한 concat 예시"
           />
           <figcaption class="fig-caption">
@@ -360,17 +433,18 @@
         <h2 class="heading-sub">5. 페이지 하단 스크립트 – 키 파생 로직</h2>
 
         <p class="para">
-          <code class="code-inline">the_architect_of_the_Great_Pyramid</code> 페이지 하단에는
-          암호화/복호화와 관련된 쉘 스크립트 조각이 적혀 있다.
+          <code class="code-inline">the_architect_of_the_Great_Pyramid</code>
+          페이지 하단에는 암호화/복호화와 관련된 쉘 스크립트 조각이 적혀 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image016.jpg"
+            src="images/walkthrough/image016.jpg"
             alt="페이지 하단에 노출된 key 파생 스크립트"
           />
           <figcaption class="fig-caption">
-            concat 값을 기반으로 SHA-256 해시를 계산하고 앞 16바이트를 key 로 사용하는 스크립트
+            concat 값을 기반으로 SHA-256 해시를 계산하고 앞 16바이트를 key 로
+            사용하는 스크립트
           </figcaption>
         </figure>
 
@@ -380,11 +454,12 @@ keyhex=$(echo -n "$concat" \
   | xxd -p -c 256 \
   | cut -c1-32)
 
-echo "Derived key (hex,16 bytes): $keyhex"</pre>
+echo "Derived key (hex,16 bytes): $keyhex"</pre
+        >
 
         <p class="para">
-          이 스크립트는 <code class="code-inline">concat</code> 문자열에 대해 SHA-256 해시를 계산하고,
-          그 결과에서 앞 16바이트(32 hex 문자)를 잘라
+          이 스크립트는 <code class="code-inline">concat</code> 문자열에 대해
+          SHA-256 해시를 계산하고, 그 결과에서 앞 16바이트(32 hex 문자)를 잘라
           <code class="code-inline">keyhex</code> 라는 AES 키로 사용한다.
         </p>
 
@@ -397,13 +472,13 @@ echo "Derived key (hex,16 bytes): $keyhex"</pre>
         <h2 class="heading-sub">6. 암호문 base64 값 확보</h2>
 
         <p class="para">
-          페이지에는 별도로 base64 인코딩된 암호문 문자열이 주어지며,
-          이를 <code class="code-inline">b64</code> 변수로 사용한다.
+          페이지에는 별도로 base64 인코딩된 암호문 문자열이 주어지며, 이를
+          <code class="code-inline">b64</code> 변수로 사용한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image017.png"
+            src="images/walkthrough/image017.png"
             alt="페이지에서 제공되는 base64 암호문"
           />
           <figcaption class="fig-caption">
@@ -419,13 +494,15 @@ echo "Derived key (hex,16 bytes): $keyhex"</pre>
       </section>
 
       <section class="ctf-section">
-        <h2 class="heading-sub">7. 복호화 절차 – payload 분석과 AES-128-CBC 복호화</h2>
+        <h2 class="heading-sub">
+          7. 복호화 절차 – payload 분석과 AES-128-CBC 복호화
+        </h2>
 
         <h3 class="heading-sub">7‑1. base64 디코딩</h3>
 
         <figure class="fig">
           <img
-            src="images/image018.jpg"
+            src="images/walkthrough/image018.jpg"
             alt="base64 디코딩 스크립트 일부"
           />
           <figcaption class="fig-caption">
@@ -435,11 +512,13 @@ echo "Derived key (hex,16 bytes): $keyhex"</pre>
 
         <pre class="code-block">
 echo -n "$b64" | base64 -d > /tmp/payload.bin
-ls -l /tmp/payload.bin</pre>
+ls -l /tmp/payload.bin</pre
+        >
 
         <p class="para">
-          <code class="code-inline">$b64</code> 에 저장된 헤더 없는 base64 문자열을 디코드해
-          바이너리 파일 <code class="code-inline">/tmp/payload.bin</code> 으로 저장하고,
+          <code class="code-inline">$b64</code> 에 저장된 헤더 없는 base64
+          문자열을 디코드해 바이너리 파일
+          <code class="code-inline">/tmp/payload.bin</code> 으로 저장하고,
           파일이 제대로 생성되었는지 크기와 권한을 확인한다.
         </p>
 
@@ -447,7 +526,7 @@ ls -l /tmp/payload.bin</pre>
 
         <figure class="fig">
           <img
-            src="images/image019.jpg"
+            src="images/walkthrough/image019.jpg"
             alt="payload 앞부분 헥스 덤프 예시"
           />
           <figcaption class="fig-caption">
@@ -457,17 +536,19 @@ ls -l /tmp/payload.bin</pre>
 
         <pre class="code-block">
 xxd -g 1 -l 32 /tmp/payload.bin | sed -n '1,3p'
-ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')</pre>
+ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')</pre
+        >
 
         <p class="para">
-          <code class="code-inline">xxd</code> 로 payload 앞 32바이트를 헥스+ASCII 형식으로 확인한 뒤,
-          처음 16바이트를 IV 로 사용하기 위해
-          <code class="code-inline">ivhex</code> 변수에 연속된 hex 문자열 형태로 저장한다.
+          <code class="code-inline">xxd</code> 로 payload 앞 32바이트를
+          헥스+ASCII 형식으로 확인한 뒤, 처음 16바이트를 IV 로 사용하기 위해
+          <code class="code-inline">ivhex</code> 변수에 연속된 hex 문자열 형태로
+          저장한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image020.png"
+            src="images/walkthrough/image020.png"
             alt="ivhex 추출 결과 예시"
           />
           <figcaption class="fig-caption">
@@ -479,7 +560,7 @@ ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')</pre>
 
         <figure class="fig">
           <img
-            src="images/image021.jpg"
+            src="images/walkthrough/image021.jpg"
             alt="cipher.bin 추출 및 크기 확인"
           />
           <figcaption class="fig-caption">
@@ -489,19 +570,21 @@ ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')</pre>
 
         <pre class="code-block">
 dd if=/tmp/payload.bin of=/tmp/cipher.bin bs=1 skip=16 status=none
-stat -c "cipher.bin size: %s bytes" /tmp/cipher.bin</pre>
+stat -c "cipher.bin size: %s bytes" /tmp/cipher.bin</pre
+        >
 
         <p class="para">
           payload 의 앞 16바이트(IV)를 건너뛰고 나머지 내용을
-          <code class="code-inline">/tmp/cipher.bin</code> 으로 복사해 순수 암호문을 분리하고,
-          <code class="code-inline">stat</code> 명령으로 크기가 기대값과 일치하는지 확인한다.
+          <code class="code-inline">/tmp/cipher.bin</code> 으로 복사해 순수
+          암호문을 분리하고, <code class="code-inline">stat</code> 명령으로
+          크기가 기대값과 일치하는지 확인한다.
         </p>
 
         <h3 class="heading-sub">7‑4. AES‑128‑CBC 복호화</h3>
 
         <figure class="fig">
           <img
-            src="images/image022.jpg"
+            src="images/walkthrough/image022.jpg"
             alt="openssl enc 복호화 명령"
           />
           <figcaption class="fig-caption">
@@ -514,27 +597,29 @@ openssl enc -d -aes-128-cbc \
   -in /tmp/cipher.bin \
   -K "$keyhex" \
   -iv "$ivhex" \
-  -out /tmp/plain.txt 2>/tmp/openssl.err || true</pre>
+  -out /tmp/plain.txt 2>/tmp/openssl.err || true</pre
+        >
 
         <p class="para">
           앞에서 얻은 <code class="code-inline">keyhex</code> 와
           <code class="code-inline">ivhex</code> 를 사용해
           <code class="code-inline">openssl enc -d -aes-128-cbc</code> 로
           <code class="code-inline">cipher.bin</code> 을 복호화하고 결과를
-          <code class="code-inline">/tmp/plain.txt</code> 에 저장한다.
-          오류 메시지는 <code class="code-inline">/tmp/openssl.err</code> 로 리다이렉트한다.
+          <code class="code-inline">/tmp/plain.txt</code> 에 저장한다. 오류
+          메시지는 <code class="code-inline">/tmp/openssl.err</code> 로
+          리다이렉트한다.
         </p>
 
         <p class="para">
-          <code class="code-inline">|| true</code> 를 붙여, openssl 명령이 실패하더라도
-          전체 스크립트가 중단되지 않고 계속 진행되도록 처리한다.
+          <code class="code-inline">|| true</code> 를 붙여, openssl 명령이
+          실패하더라도 전체 스크립트가 중단되지 않고 계속 진행되도록 처리한다.
         </p>
 
         <h3 class="heading-sub">7‑5. 평문(PW) 확인</h3>
 
         <figure class="fig">
           <img
-            src="images/image023.png"
+            src="images/walkthrough/image023.png"
             alt="복호화된 평문 출력 스크립트"
           />
           <figcaption class="fig-caption">
@@ -544,22 +629,25 @@ openssl enc -d -aes-128-cbc \
 
         <pre class="code-block">
 echo "Decrypted (text):"
-cat /tmp/plain.txt || true</pre>
+cat /tmp/plain.txt || true</pre
+        >
 
         <figure class="fig">
           <img
-            src="images/image024.png"
+            src="images/walkthrough/image024.png"
             alt="luckforyournext_!21! 결과"
           />
           <figcaption class="fig-caption">
-            최종 평문에서 <code class="code-inline">luckforyournext_!21!</code> 문자열을 확인
+            최종 평문에서
+            <code class="code-inline">luckforyournext_!21!</code> 문자열을 확인
           </figcaption>
         </figure>
 
         <p class="para">
           복호화 결과 평문에서
           <code class="code-inline">luckforyournext_!21!</code>
-          라는 문자열을 얻을 수 있으며, 이는 다음 단계로 진입할 때 사용하는 패스워드이다.
+          라는 문자열을 얻을 수 있으며, 이는 다음 단계로 진입할 때 사용하는
+          패스워드이다.
         </p>
       </section>
 
@@ -568,21 +656,25 @@ cat /tmp/plain.txt || true</pre>
 
         <figure class="fig">
           <img
-            src="images/image025.jpg"
+            src="images/walkthrough/image025.jpg"
             alt="다음 페이지에 대한 UI 힌트"
           />
           <figcaption class="fig-caption">
-            페이지 우측 하단 특정 영역에 마우스를 올리면 커서 모양이 바뀌며, 클릭 시 다음 단계 힌트가 나타난다.
+            페이지 우측 하단 특정 영역에 마우스를 올리면 커서 모양이 바뀌며,
+            클릭 시 다음 단계 힌트가 나타난다.
           </figcaption>
         </figure>
 
         <ul class="bullet-list">
           <li>우측 하단을 잘 살펴보면 커서 모양이 바뀌는 작은 영역이 있다.</li>
-          <li>그 지점을 클릭하면 다음 페이지로 이동하기 위한 추가 힌트가 표시된다.</li>
+          <li>
+            그 지점을 클릭하면 다음 페이지로 이동하기 위한 추가 힌트가 표시된다.
+          </li>
         </ul>
 
         <p class="para">
-          이렇게 얻은 비밀번호와 UI 상의 힌트를 조합해, 이후 웹 게임 및 파일 업로드 단계로 진입할 수 있다.
+          이렇게 얻은 비밀번호와 UI 상의 힌트를 조합해, 이후 웹 게임 및 파일
+          업로드 단계로 진입할 수 있다.
         </p>
       </section>
 
@@ -597,15 +689,16 @@ cat /tmp/plain.txt || true</pre>
 
         <p class="para">
           이전 단계에서 모달 창을 통해 다음 페이지가
-          <code class="code-inline">game.php</code> 라는 힌트를 얻었고,
-          복호화 과정을 완료하면 비밀번호
-          <code class="code-inline">luckforyournext_!21!</code> 가 나온다. 이 값을
-          <code class="code-inline">game.php</code> 페이지 진입 시 비밀번호로 입력하면 된다.
+          <code class="code-inline">game.php</code> 라는 힌트를 얻었고, 복호화
+          과정을 완료하면 비밀번호
+          <code class="code-inline">luckforyournext_!21!</code> 가 나온다. 이
+          값을 <code class="code-inline">game.php</code> 페이지 진입 시
+          비밀번호로 입력하면 된다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image026.jpg"
+            src="images/walkthrough/image026.jpg"
             alt="game.php 진입 비밀번호 입력 화면"
           />
           <figcaption class="fig-caption">
@@ -614,10 +707,7 @@ cat /tmp/plain.txt || true</pre>
         </figure>
 
         <figure class="fig">
-          <img
-            src="images/image027.jpg"
-            alt="game.php 메인 화면"
-          />
+          <img src="images/walkthrough/image027.jpg" alt="game.php 메인 화면" />
           <figcaption class="fig-caption">
             비밀번호 인증 후 표시되는 game.php 메인 페이지
           </figcaption>
@@ -634,21 +724,21 @@ cat /tmp/plain.txt || true</pre>
 
         <p class="para">
           game.php 첫 번째 이미지를 클릭하면
-          <code class="code-inline">mirro.php</code> 페이지가 열린다. 이 페이지에서
-          미로를 탈출하면 플래그 형태의 문자열
+          <code class="code-inline">mirro.php</code> 페이지가 열린다. 이
+          페이지에서 미로를 탈출하면 플래그 형태의 문자열
           <code class="code-inline">uvrebtylcuvp</code> 를 획득할 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image028.jpg"
+            src="images/walkthrough/image028.jpg"
             alt="mirro.php 미로 화면 1"
           />
         </figure>
 
         <figure class="fig">
           <img
-            src="images/image029.jpg"
+            src="images/walkthrough/image029.jpg"
             alt="mirro.php 미로 화면 2"
           />
           <figcaption class="fig-caption">
@@ -657,15 +747,18 @@ cat /tmp/plain.txt || true</pre>
         </figure>
 
         <p class="para">
-          문자열 <code class="code-inline">uvrebtylcuvp</code> 에 ROT13 을 적용하면
-          <code class="code-inline">hieroglyphic</code> 이라는 단어가 나오며,
-          “이집트 상형문자”를 의미하는 동시에
-          <code class="code-inline">chamber.php</code> 페이지 비밀번호 힌트 역할을 한다.
+          문자열 <code class="code-inline">uvrebtylcuvp</code> 에 ROT13 을
+          적용하면 <code class="code-inline">hieroglyphic</code> 이라는 단어가
+          나오며, “이집트 상형문자”를 의미하는 동시에
+          <code class="code-inline">chamber.php</code> 페이지 비밀번호 힌트
+          역할을 한다.
         </p>
       </section>
 
       <section class="ctf-section">
-        <h2 class="heading-sub">3. image.php – chamber.php 로 이어지는 모달 힌트</h2>
+        <h2 class="heading-sub">
+          3. image.php – chamber.php 로 이어지는 모달 힌트
+        </h2>
 
         <p class="para">
           game.php 에서 두 번째 이미지를 클릭하면
@@ -674,12 +767,13 @@ cat /tmp/plain.txt || true</pre>
 
         <p class="para">
           화면 곳곳을 클릭해 보면 특정 영역에서 모달 창이 뜨는데, 이 모달 안에
-          다음 페이지 이름이 <code class="code-inline">chamber</code> 라는 힌트가 포함되어 있다.
+          다음 페이지 이름이 <code class="code-inline">chamber</code> 라는
+          힌트가 포함되어 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image030.jpg"
+            src="images/walkthrough/image030.jpg"
             alt="image.php 전체 화면"
           />
           <figcaption class="fig-caption">
@@ -688,10 +782,7 @@ cat /tmp/plain.txt || true</pre>
         </figure>
 
         <figure class="fig">
-          <img
-            src="images/image031.png"
-            alt="모달 트리거 영역"
-          />
+          <img src="images/walkthrough/image031.png" alt="모달 트리거 영역" />
           <figcaption class="fig-caption">
             이 영역을 클릭하면 다음 페이지 이름 chamber 에 대한 힌트가 나타난다.
           </figcaption>
@@ -699,7 +790,7 @@ cat /tmp/plain.txt || true</pre>
 
         <figure class="fig">
           <img
-            src="images/image032.jpg"
+            src="images/walkthrough/image032.jpg"
             alt="chamber 페이지 이름 힌트 모달"
           />
           <figcaption class="fig-caption">
@@ -708,15 +799,19 @@ cat /tmp/plain.txt || true</pre>
         </figure>
 
         <p class="para">
-          이전 단계에서 페이지들이 모두 <code class="code-inline">.php</code> 확장자를 사용했던
-          점을 고려하면, 자연스럽게
-          <code class="code-inline">chamber.php</code> 로 이동할 수 있다. 이때 앞에서
-          얻은 비밀번호 <code class="code-inline">hieroglyphic</code> 을 입력해 인증을 통과한다.
+          이전 단계에서 페이지들이 모두
+          <code class="code-inline">.php</code> 확장자를 사용했던 점을 고려하면,
+          자연스럽게 <code class="code-inline">chamber.php</code> 로 이동할 수
+          있다. 이때 앞에서 얻은 비밀번호
+          <code class="code-inline">hieroglyphic</code> 을 입력해 인증을
+          통과한다.
         </p>
       </section>
 
       <section class="ctf-section">
-        <h2 class="heading-sub">4. chamber.php – 이집트 상형문자 해독과 Tomb.php</h2>
+        <h2 class="heading-sub">
+          4. chamber.php – 이집트 상형문자 해독과 Tomb.php
+        </h2>
 
         <p class="para">
           <code class="code-inline">chamber.php</code> 에 접속하여 비밀번호
@@ -726,7 +821,7 @@ cat /tmp/plain.txt || true</pre>
 
         <figure class="fig">
           <img
-            src="images/image033.jpg"
+            src="images/walkthrough/image033.jpg"
             alt="chamber.php 상형문자 화면"
           />
           <figcaption class="fig-caption">
@@ -741,21 +836,22 @@ cat /tmp/plain.txt || true</pre>
         </p>
 
         <p class="para">
-          또한 화면 오른쪽 아래 특정 부분을 클릭하면 모달 창이 나타나며,
-          다음 방 이름이 <code class="code-inline">Tomb</code> 라는 힌트를 제공한다. 이를 통해
-          다음 페이지가 <code class="code-inline">Tomb.php</code> 임을 유추할 수 있다.
+          또한 화면 오른쪽 아래 특정 부분을 클릭하면 모달 창이 나타나며, 다음 방
+          이름이 <code class="code-inline">Tomb</code> 라는 힌트를 제공한다.
+          이를 통해 다음 페이지가 <code class="code-inline">Tomb.php</code> 임을
+          유추할 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image034.png"
+            src="images/walkthrough/image034.png"
             alt="Tomb 힌트가 열리는 클릭 영역"
           />
         </figure>
 
         <figure class="fig">
           <img
-            src="images/image035.jpg"
+            src="images/walkthrough/image035.jpg"
             alt="다음 페이지 이름 Tomb 를 알려주는 모달"
           />
           <figcaption class="fig-caption">
@@ -774,19 +870,21 @@ cat /tmp/plain.txt || true</pre>
         </p>
 
         <p class="para">
-          그러나 일반 사용자가 이 페이지에서 직접 업로드를 시도하면 권한 부족으로 인해
-          업로드에 실패한다. 대신, 서버 측의
-          <code class="code-inline">upload.php</code> 는 세션·권한 체크를 하지 않기 때문에
-          누구나 직접 <strong>POST 요청</strong> 을 보내 파일을 업로드할 수 있는 취약점이 존재한다.
+          그러나 일반 사용자가 이 페이지에서 직접 업로드를 시도하면 권한
+          부족으로 인해 업로드에 실패한다. 대신, 서버 측의
+          <code class="code-inline">upload.php</code> 는 세션·권한 체크를 하지
+          않기 때문에 누구나 직접 <strong>POST 요청</strong> 을 보내 파일을
+          업로드할 수 있는 취약점이 존재한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image036.jpg"
+            src="images/walkthrough/image036.jpg"
             alt="Tomb.php 파일 업로드 페이지"
           />
           <figcaption class="fig-caption">
-            UI 상에서는 업로드가 차단되어 있지만, upload.php 는 별도 검증 없이 파일을 처리한다.
+            UI 상에서는 업로드가 차단되어 있지만, upload.php 는 별도 검증 없이
+            파일을 처리한다.
           </figcaption>
         </figure>
       </section>
@@ -795,21 +893,23 @@ cat /tmp/plain.txt || true</pre>
         <h2 class="heading-sub">6. /uploads 디렉터리와 shell 업로드</h2>
 
         <p class="para">
-          공격자는 로컬에서 임의의 <code class="code-inline">test.php</code> 파일을 만든 뒤,
+          공격자는 로컬에서 임의의
+          <code class="code-inline">test.php</code> 파일을 만든 뒤,
           <code class="code-inline">curl</code> 을 사용해
-          <code class="code-inline">upload.php</code> 로 직접 파일을 전송한다. 업로드된
-          파일은 웹 서버의 <code class="code-inline">/uploads</code> 디렉터리에 저장된다.
+          <code class="code-inline">upload.php</code> 로 직접 파일을 전송한다.
+          업로드된 파일은 웹 서버의
+          <code class="code-inline">/uploads</code> 디렉터리에 저장된다.
         </p>
 
         <p class="para">
           <code class="code-inline">/uploads</code> 경로는
-          <code class="code-inline">dirb http://192.168.16.54</code> 와 같은 디렉터리
-          브루트포싱 도구를 사용해 찾을 수 있다.
+          <code class="code-inline">dirb http://192.168.16.54</code> 와 같은
+          디렉터리 브루트포싱 도구를 사용해 찾을 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image037.png"
+            src="images/walkthrough/image037.png"
             alt="/uploads 디렉터리를 찾는 예시"
           />
           <figcaption class="fig-caption">
@@ -821,7 +921,7 @@ cat /tmp/plain.txt || true</pre>
 
         <figure class="fig">
           <img
-            src="images/image038.jpg"
+            src="images/walkthrough/image038.jpg"
             alt="test.php 예시 파일 작성 화면"
           />
           <figcaption class="fig-caption">
@@ -829,22 +929,27 @@ cat /tmp/plain.txt || true</pre>
           </figcaption>
         </figure>
 
-        <p class="para"><strong>2) curl 을 이용해 upload.php 로 업로드</strong></p>
+        <p class="para">
+          <strong>2) curl 을 이용해 upload.php 로 업로드</strong>
+        </p>
 
         <pre class="code-block">
 curl -v -F "file=@./test.php;filename=shell.php" \
-  http://192.168.16.15/upload.php</pre>
+  http://192.168.16.15/upload.php</pre
+        >
 
         <p class="para"><strong>3) /uploads 경로 접속</strong></p>
 
         <p class="para">
-          브라우저에서 <code class="code-inline">/uploads</code> 디렉터리에 접근하면,
-          방금 업로드한 <code class="code-inline">shell.php</code> 파일이 생성된 것을 확인할 수 있다.
+          브라우저에서 <code class="code-inline">/uploads</code> 디렉터리에
+          접근하면, 방금 업로드한
+          <code class="code-inline">shell.php</code> 파일이 생성된 것을 확인할
+          수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image039.jpg"
+            src="images/walkthrough/image039.jpg"
             alt="/uploads 디렉터리 내 shell.php 확인"
           />
           <figcaption class="fig-caption">
@@ -853,13 +958,14 @@ curl -v -F "file=@./test.php;filename=shell.php" \
         </figure>
 
         <p class="para">
-          이후 <code class="code-inline">shell.php</code> 에 접속하면 서버 측에서
-          플래그가 출력되며, 이 플래그는 다음 단계에서 SSH 사용자 비밀번호로 사용된다.
+          이후 <code class="code-inline">shell.php</code> 에 접속하면 서버
+          측에서 플래그가 출력되며, 이 플래그는 다음 단계에서 SSH 사용자
+          비밀번호로 사용된다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image040.png"
+            src="images/walkthrough/image040.png"
             alt="shell.php 에서 플래그 출력 화면"
           />
           <figcaption class="fig-caption">
@@ -882,11 +988,12 @@ curl -v -F "file=@./test.php;filename=shell.php" \
 
         <figure class="fig">
           <img
-            src="images/image041.png"
+            src="images/walkthrough/image041.png"
             alt="khufu 계정으로 SSH 접속 화면"
           />
           <figcaption class="fig-caption">
-            SSH 접속에 사용된 계정 정보: Username <code class="code-inline">khufu</code>, Password
+            SSH 접속에 사용된 계정 정보: Username
+            <code class="code-inline">khufu</code>, Password
             <code class="code-inline">747574616e6b68616d756e</code>
           </figcaption>
         </figure>
@@ -902,61 +1009,72 @@ curl -v -F "file=@./test.php;filename=shell.php" \
 
         <figure class="fig">
           <img
-            src="images/image042.png"
+            src="images/walkthrough/image042.png"
             alt="/home/khufu 디렉터리 구조"
           />
           <figcaption class="fig-caption">
-            <code class="code-inline">papyrus</code>, <code class="code-inline">room</code>,
-            <code class="code-inline">rosetta_stone</code> 파일·디렉터리가 존재한다.
+            <code class="code-inline">papyrus</code>,
+            <code class="code-inline">room</code>,
+            <code class="code-inline">rosetta_stone</code> 파일·디렉터리가
+            존재한다.
           </figcaption>
         </figure>
 
         <p class="para">
-          먼저 <code class="code-inline">papyrus</code> 파일 내용을 확인하면 피라미드와 마법에 대한
-          서술이 등장하며, 이후 퍼즐 풀이 방향을 암시한다.
+          먼저 <code class="code-inline">papyrus</code> 파일 내용을 확인하면
+          피라미드와 마법에 대한 서술이 등장하며, 이후 퍼즐 풀이 방향을
+          암시한다.
         </p>
       </section>
 
       <section class="ctf-section">
-        <h2 class="heading-sub">3. /home/khufu/room – 네 개의 제물(offering)</h2>
+        <h2 class="heading-sub">
+          3. /home/khufu/room – 네 개의 제물(offering)
+        </h2>
 
         <p class="para">
-          <code class="code-inline">/home/khufu/room</code> 하위 구조를 살펴보면 여러 디렉터리와 파일이
-          존재한다. 특히 <code class="code-inline">1</code>, <code class="code-inline">2</code>,
-          <code class="code-inline">3</code>, <code class="code-inline">4</code> 디렉터리가 중요하다.
+          <code class="code-inline">/home/khufu/room</code> 하위 구조를 살펴보면
+          여러 디렉터리와 파일이 존재한다. 특히
+          <code class="code-inline">1</code>,
+          <code class="code-inline">2</code>,
+          <code class="code-inline">3</code>,
+          <code class="code-inline">4</code> 디렉터리가 중요하다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image043.png"
+            src="images/walkthrough/image043.png"
             alt="/home/khufu/room 디렉터리 구조"
           />
           <figcaption class="fig-caption">
-            room 디렉터리 내에 1~4 디렉터리와 여러 파일(book_pen, dedicate, pray, papyrus 등)이 있다.
+            room 디렉터리 내에 1~4 디렉터리와 여러 파일(book_pen, dedicate,
+            pray, papyrus 등)이 있다.
           </figcaption>
         </figure>
 
         <figure class="fig">
           <img
-            src="images/image044.png"
+            src="images/walkthrough/image044.png"
             alt="room/1 디렉터리 내용"
           />
         </figure>
 
         <figure class="fig">
           <img
-            src="images/image045.png"
+            src="images/walkthrough/image045.png"
             alt="room/2, room/4 디렉터리 내용"
           />
           <figcaption class="fig-caption">
             /1, /2, /4 디렉터리에는 공통 이름의 파일
-            <code class="code-inline">offering</code> 이 존재하며, 잘려 있는 C 코드 조각처럼 보인다.
+            <code class="code-inline">offering</code> 이 존재하며, 잘려 있는 C
+            코드 조각처럼 보인다.
           </figcaption>
         </figure>
 
         <p class="para">
-          /3 디렉터리에는 <code class="code-inline">offering</code> 파일이 존재하지 않으며,
-          이후 퍼즐에서 이 누락된 제물을 생성하는 것이 목표가 된다.
+          /3 디렉터리에는 <code class="code-inline">offering</code> 파일이
+          존재하지 않으며, 이후 퍼즐에서 이 누락된 제물을 생성하는 것이 목표가
+          된다.
         </p>
       </section>
 
@@ -965,27 +1083,29 @@ curl -v -F "file=@./test.php;filename=shell.php" \
 
         <figure class="fig">
           <img
-            src="images/image046.png"
+            src="images/walkthrough/image046.png"
             alt="room/papyrus 파일 내용"
           />
           <figcaption class="fig-caption">
-            room/papyrus 파일은 네 개의 제물(offering)과 봉헌(dedicating), prayer 에 대한 힌트를 준다.
+            room/papyrus 파일은 네 개의 제물(offering)과 봉헌(dedicating),
+            prayer 에 대한 힌트를 준다.
           </figcaption>
         </figure>
 
         <p class="para">
           room/papyrus 에 따르면, 네 개의 제물이 모두 모이면
           <code class="code-inline">pray</code> 를 통해 소원을 빌 수 있다. 또한
-          봉헌(dedicating)은 신에게 기도하는 가장 좋은 방법이며, offering 을 작성하기 위해서는
-          <code class="code-inline">book</code> 과 <code class="code-inline">pen</code> 이 필요하다는
-          내용을 포함한다.
+          봉헌(dedicating)은 신에게 기도하는 가장 좋은 방법이며, offering 을
+          작성하기 위해서는 <code class="code-inline">book</code> 과
+          <code class="code-inline">pen</code> 이 필요하다는 내용을 포함한다.
         </p>
 
         <p class="para">
-          이를 통해 <code class="code-inline">room/book_pen</code> 파일이 사용자의 입력을 받아
-          <code class="code-inline">offering</code> 내용을 구성하고,
-          <code class="code-inline">dedicate</code> 와 <code class="code-inline">pray</code> 가 그
-          흐름을 이어가는 구조일 것이라 추론할 수 있다.
+          이를 통해 <code class="code-inline">room/book_pen</code> 파일이
+          사용자의 입력을 받아 <code class="code-inline">offering</code> 내용을
+          구성하고, <code class="code-inline">dedicate</code> 와
+          <code class="code-inline">pray</code> 가 그 흐름을 이어가는 구조일
+          것이라 추론할 수 있다.
         </p>
       </section>
 
@@ -993,8 +1113,9 @@ curl -v -F "file=@./test.php;filename=shell.php" \
         <h2 class="heading-sub">5. offering C 코드 조합과 BoF 취약점</h2>
 
         <p class="para">
-          room/1, room/2, room/4 의 <code class="code-inline">offering</code> 파일을 하나로
-          합쳐보면 아래와 같은 C 코드가 된다.
+          room/1, room/2, room/4 의
+          <code class="code-inline">offering</code> 파일을 하나로 합쳐보면
+          아래와 같은 C 코드가 된다.
         </p>
 
         <pre class="code-block">
@@ -1011,28 +1132,33 @@ int main() {
   strcpy(altar, offering);
 
   return 0;
-}</pre>
+}</pre
+        >
 
         <p class="para">
-          코드 상에서 <code class="code-inline">altar</code> 배열은 크기가 7로 고정되어 있지만,
-          <code class="code-inline">strcpy(altar, offering);</code> 호출에는 길이 검증이 없으므로
-          입력 값이 크면 버퍼 오버플로우가 발생할 수 있다.
+          코드 상에서 <code class="code-inline">altar</code> 배열은 크기가 7로
+          고정되어 있지만,
+          <code class="code-inline">strcpy(altar, offering);</code> 호출에는
+          길이 검증이 없으므로 입력 값이 크면 버퍼 오버플로우가 발생할 수 있다.
         </p>
 
         <p class="para">
-          이 취약점을 이용해 <code class="code-inline">offering</code> 변수에 충분히 긴 문자열을
-          집어넣고, 이후 흐름에서 이를 실행시키는 방식으로 익스플로잇을 진행한다.
+          이 취약점을 이용해 <code class="code-inline">offering</code> 변수에
+          충분히 긴 문자열을 집어넣고, 이후 흐름에서 이를 실행시키는 방식으로
+          익스플로잇을 진행한다.
         </p>
       </section>
 
       <section class="ctf-section">
-        <h2 class="heading-sub">6. book_pen, dedicate – 누락된 3번째 제물 생성</h2>
+        <h2 class="heading-sub">
+          6. book_pen, dedicate – 누락된 3번째 제물 생성
+        </h2>
 
         <h3 class="heading-sub">6‑1. book_pen 에 공격용 입력 작성</h3>
 
         <figure class="fig">
           <img
-            src="images/image047.png"
+            src="images/walkthrough/image047.png"
             alt="book_pen 파일에 긴 offering 값 작성"
           />
           <figcaption class="fig-caption">
@@ -1042,16 +1168,16 @@ int main() {
 
         <p class="para">
           <code class="code-inline">/home/khufu/room/book_pen</code> 파일에
-          <code class="code-inline">offering</code> 변수로 쓰일 긴 문자열을 기입해, 주변 메모리
-          영역까지 침범할 수 있도록 구성한다. 스크린샷에 보이는 값은 예시이며, 실제 공격에 맞게 조정할
-          수 있다.
+          <code class="code-inline">offering</code> 변수로 쓰일 긴 문자열을
+          기입해, 주변 메모리 영역까지 침범할 수 있도록 구성한다. 스크린샷에
+          보이는 값은 예시이며, 실제 공격에 맞게 조정할 수 있다.
         </p>
 
         <h3 class="heading-sub">6‑2. dedicate 실행 후 room/3/offering 생성</h3>
 
         <figure class="fig">
           <img
-            src="images/image048.png"
+            src="images/walkthrough/image048.png"
             alt="dedicate 실행 및 room/3/offering 생성 확인"
           />
           <figcaption class="fig-caption">
@@ -1060,16 +1186,18 @@ int main() {
         </figure>
 
         <p class="para">
-          <code class="code-inline">/home/khufu/room/dedicate</code> 파일을 실행하면, 이전에 없던
+          <code class="code-inline">/home/khufu/room/dedicate</code> 파일을
+          실행하면, 이전에 없던
           <code class="code-inline">room/3/offering</code> 이 생성되고, 내용에는
-          <code class="code-inline">book_pen</code> 에 입력했던 문자열이 그대로 들어간 것을
-          확인할 수 있다.
+          <code class="code-inline">book_pen</code> 에 입력했던 문자열이 그대로
+          들어간 것을 확인할 수 있다.
         </p>
 
         <p class="para">
           이제 room/1~4 의 네 개 offering 이 모두 준비되었으므로,
           <code class="code-inline">papyrus</code> 힌트에 따라
-          <code class="code-inline">pray</code> 를 실행해 제물이 모두 모이도록 한다.
+          <code class="code-inline">pray</code> 를 실행해 제물이 모두 모이도록
+          한다.
         </p>
       </section>
 
@@ -1077,36 +1205,41 @@ int main() {
         <h2 class="heading-sub">7. pray – offering 결합과 magi.c 생성</h2>
 
         <p class="para">
-          <code class="code-inline">/home/khufu/room/pray</code> 파일을 실행하면 분할된 네 개의
-          offering 파일을 하나로 합쳐 새로운 C 소스 파일을 생성하려는 동작이 수행된다.
+          <code class="code-inline">/home/khufu/room/pray</code> 파일을 실행하면
+          분할된 네 개의 offering 파일을 하나로 합쳐 새로운 C 소스 파일을
+          생성하려는 동작이 수행된다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image049.png"
+            src="images/walkthrough/image049.png"
             alt="pray 실행 결과 로그"
           />
           <figcaption class="fig-caption">
-            pray 실행 시 5번째 인자 관련 메시지를 통해 최소 5개의 인자가 사용됨을 유추할 수 있다.
+            pray 실행 시 5번째 인자 관련 메시지를 통해 최소 5개의 인자가
+            사용됨을 유추할 수 있다.
           </figcaption>
         </figure>
 
         <p class="para">
-          Linux 에서는 <code class="code-inline">cat file1 file2 &gt;&gt; file3</code> 처럼 여러
-          파일을 이어붙여 하나의 파일을 만드는 것이 가능하다. pray 는 네 개의 offering 파일을 하나의
-          C 코드로 묶는 역할을 하는 것으로 보이며, 결과 파일 이름은
-          <code class="code-inline">.c</code> 확장자를 가져야 한다.
+          Linux 에서는
+          <code class="code-inline">cat file1 file2 &gt;&gt; file3</code> 처럼
+          여러 파일을 이어붙여 하나의 파일을 만드는 것이 가능하다. pray 는 네
+          개의 offering 파일을 하나의 C 코드로 묶는 역할을 하는 것으로 보이며,
+          결과 파일 이름은 <code class="code-inline">.c</code> 확장자를 가져야
+          한다.
         </p>
 
         <p class="para">
-          <code class="code-inline">/home/khufu/papyrus</code> 내용을 다시 보면 “magi…c 가 필요하다”
-          라는 문장이 등장하므로, <code class="code-inline">magi.c</code> 라는 이름으로 코드를
-          생성하는 흐름을 추측할 수 있다.
+          <code class="code-inline">/home/khufu/papyrus</code> 내용을 다시 보면
+          “magi…c 가 필요하다” 라는 문장이 등장하므로,
+          <code class="code-inline">magi.c</code> 라는 이름으로 코드를 생성하는
+          흐름을 추측할 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image050.png"
+            src="images/walkthrough/image050.png"
             alt="papyrus 의 magi 관련 구문"
           />
           <figcaption class="fig-caption">
@@ -1116,12 +1249,12 @@ int main() {
 
         <figure class="fig">
           <img
-            src="images/image051.jpg"
+            src="images/walkthrough/image051.jpg"
             alt="pray 실행 후 magi.c 생성"
           />
           <figcaption class="fig-caption">
-            pray 실행이 성공적으로 끝나면 magi.c 가 생성되고, 네 개의 offering 코드가 합쳐진 완전한 C
-            코드가 된다.
+            pray 실행이 성공적으로 끝나면 magi.c 가 생성되고, 네 개의 offering
+            코드가 합쳐진 완전한 C 코드가 된다.
           </figcaption>
         </figure>
       </section>
@@ -1130,36 +1263,35 @@ int main() {
         <h2 class="heading-sub">8. magic – 주기적 실행과 숨겨진 파일</h2>
 
         <p class="para">
-          <code class="code-inline">/home/khufu/magic</code> 파일을 다시 열어 보면 마지막 줄에
-          “magic 은 1분마다 일어난다” 는 설명이 있다.
+          <code class="code-inline">/home/khufu/magic</code> 파일을 다시 열어
+          보면 마지막 줄에 “magic 은 1분마다 일어난다” 는 설명이 있다.
         </p>
 
         <figure class="fig">
-          <img
-            src="images/image052.png"
-            alt="magic 파일 내용"
-          />
+          <img src="images/walkthrough/image052.png" alt="magic 파일 내용" />
           <figcaption class="fig-caption">
-            magi.c 가 존재할 경우 1분마다 magic 이라는 실행 파일이 생성되는 구조를 암시한다.
+            magi.c 가 존재할 경우 1분마다 magic 이라는 실행 파일이 생성되는
+            구조를 암시한다.
           </figcaption>
         </figure>
 
         <p class="para">
-          실제로 <code class="code-inline">/home/khufu</code> 디렉터리를 다시 확인해 보면, 이전에
-          없던 <code class="code-inline">magic</code> 파일이 새로 생긴 것을 볼 수 있고, magi.c 가
-          존재할 때마다 일정 주기로 해당 바이너리가 생성된다.
+          실제로 <code class="code-inline">/home/khufu</code> 디렉터리를 다시
+          확인해 보면, 이전에 없던 <code class="code-inline">magic</code> 파일이
+          새로 생긴 것을 볼 수 있고, magi.c 가 존재할 때마다 일정 주기로 해당
+          바이너리가 생성된다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image053.png"
+            src="images/walkthrough/image053.png"
             alt="/home/khufu 에 magic 파일 생성"
           />
         </figure>
 
         <figure class="fig">
           <img
-            src="images/image054.png"
+            src="images/walkthrough/image054.png"
             alt="magic 실행 후 숨겨진 파일 생성"
           />
           <figcaption class="fig-caption">
@@ -1168,18 +1300,20 @@ int main() {
         </figure>
 
         <p class="para">
-          <code class="code-inline">./magic</code> 을 실행하면 특수 문자로 구성된 파일 이름이 출력되며,
-          해당 파일을 읽을 수 있는 권한이 있으므로 내용을 확인해 본다. 파일 이름은 직접 타이핑하기
-          어렵기 때문에, 터미널에서 복사·붙여넣기를 사용하는 것이 편리하다.
+          <code class="code-inline">./magic</code> 을 실행하면 특수 문자로
+          구성된 파일 이름이 출력되며, 해당 파일을 읽을 수 있는 권한이 있으므로
+          내용을 확인해 본다. 파일 이름은 직접 타이핑하기 어렵기 때문에,
+          터미널에서 복사·붙여넣기를 사용하는 것이 편리하다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image055.png"
+            src="images/walkthrough/image055.png"
             alt="숨겨진 파일 내용 일부"
           />
           <figcaption class="fig-caption">
-            특수 문자로 구성된 힌트 문자열과 “=&gt; (...) =&gt; 58” 이라는 추가 힌트가 포함되어 있다.
+            특수 문자로 구성된 힌트 문자열과 “=&gt; (...) =&gt; 58” 이라는 추가
+            힌트가 포함되어 있다.
           </figcaption>
         </figure>
       </section>
@@ -1188,13 +1322,13 @@ int main() {
         <h2 class="heading-sub">9. Hieroglyphs 디코딩과 Base58 인코딩</h2>
 
         <p class="para">
-          숨겨진 파일과 이전 단계에서 계속 등장하던 상형문자는 ‘Hieroglyphs’ 라고 부르며, 온라인
-          도구를 활용해 영문 문자열로 디코딩할 수 있다.
+          숨겨진 파일과 이전 단계에서 계속 등장하던 상형문자는 ‘Hieroglyphs’
+          라고 부르며, 온라인 도구를 활용해 영문 문자열로 디코딩할 수 있다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image056.jpg"
+            src="images/walkthrough/image056.jpg"
             alt="Hieroglyphs 디코딩 도구 사용"
           />
           <figcaption class="fig-caption">
@@ -1203,14 +1337,14 @@ int main() {
         </figure>
 
         <p class="para">
-          디코딩 결과 <code class="code-inline">xgdmklzbthnqfpryAswi</code> 라는 문자열을 얻을 수
-          있다. 하지만 힌트에는 “(...) =&gt; 58” 이라고 되어 있으므로, 추가로 Base58 인코딩을 적용해야
-          한다.
+          디코딩 결과 <code class="code-inline">xgdmklzbthnqfpryAswi</code> 라는
+          문자열을 얻을 수 있다. 하지만 힌트에는 “(...) =&gt; 58” 이라고 되어
+          있으므로, 추가로 Base58 인코딩을 적용해야 한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image057.jpg"
+            src="images/walkthrough/image057.jpg"
             alt="디코딩 결과 xgdmklzbthnqfpryAswi"
           />
           <figcaption class="fig-caption">
@@ -1220,17 +1354,15 @@ int main() {
 
         <p class="para">
           CyberChef 등 도구에서 Base58 인코딩을 수행하면
-          <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code> 라는 값을 얻을 수 있다. 이
-          값이 다음 SSH 계정 비밀번호로 사용된다.
+          <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code> 라는
+          값을 얻을 수 있다. 이 값이 다음 SSH 계정 비밀번호로 사용된다.
         </p>
 
         <figure class="fig">
-          <img
-            src="images/image058.jpg"
-            alt="Base58 인코딩 결과"
-          />
+          <img src="images/walkthrough/image058.jpg" alt="Base58 인코딩 결과" />
           <figcaption class="fig-caption">
-            Base58 인코딩 결과: <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code>
+            Base58 인코딩 결과:
+            <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code>
           </figcaption>
         </figure>
       </section>
@@ -1239,14 +1371,15 @@ int main() {
         <h2 class="heading-sub">10. 최종 플래그 – tutankhamun 계정</h2>
 
         <p class="para">
-          최종적으로 <code class="code-inline">tutankhamun</code> 계정에 SSH 접속을 시도한다.
-          비밀번호로는 방금 구한 Base58 인코딩 문자열
-          <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code> 를 사용한다.
+          최종적으로 <code class="code-inline">tutankhamun</code> 계정에 SSH
+          접속을 시도한다. 비밀번호로는 방금 구한 Base58 인코딩 문자열
+          <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code> 를
+          사용한다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image059.png"
+            src="images/walkthrough/image059.png"
             alt="tutankhamun 계정 SSH 접속 성공"
           />
           <figcaption class="fig-caption">
@@ -1255,13 +1388,14 @@ int main() {
         </figure>
 
         <p class="para">
-          접속 후 루트 디렉터리로 이동하면 <code class="code-inline">flag</code> 파일을 발견할 수
-          있고, 이 파일 내용을 출력하면 Pyramid CTF 의 최종 플래그를 획득하게 된다.
+          접속 후 루트 디렉터리로 이동하면
+          <code class="code-inline">flag</code> 파일을 발견할 수 있고, 이 파일
+          내용을 출력하면 Pyramid CTF 의 최종 플래그를 획득하게 된다.
         </p>
 
         <figure class="fig">
           <img
-            src="images/image060.png"
+            src="images/walkthrough/image060.png"
             alt="root 디렉터리의 flag 파일"
           />
           <figcaption class="fig-caption">
@@ -1269,21 +1403,15 @@ int main() {
           </figcaption>
         </figure>
 
-          <figure class="fig">
-          <img
-            src="images/image061.png"
-            alt="flag 출력"
-          />
+        <figure class="fig">
+          <img src="images/walkthrough/image061.png" alt="flag 출력" />
           <figcaption class="fig-caption">
             최종 flag를 찾으며 CTF 풀이가 끝나게 된다.
           </figcaption>
         </figure>
       </section>
-
     </main>
-    <main class="end-notes">
-
-    </main>
+    <main class="end-notes"></main>
     <script src="tabs.js"></script>
   </body>
 </html>
