@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>Pyramid 1 – SQLi Walkthrough</title>
+    <title>CTF Pyramid Walkthrough</title>
     <link rel="stylesheet" href="index.css" />
   </head>
 
@@ -185,6 +185,398 @@
           비밀번호는 <code class="code-inline">cmd</code> 로 안내된다.
         </p>
       </section>
+
+      <header class="ctf-header">
+        <h1 class="heading-main">Pyramid (2) – Find Split Fragment and Decryption</h1>
+      </header>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">0. 시나리오 개요</h2>
+        <p class="para">
+          <code class="code-inline">/the_architect_of_the_Great_Pyramid/</code> 페이지에 접속하면
+          세 개의 fragment를 찾아 조합하고, 제공된 스크립트에 따라 암호를 복호화해야 한다는 힌트가 나온다.
+        </p>
+
+        <p class="para">
+          접속 URL:
+          <a href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/">
+            http://192.168.16.36/the_architect_of_the_Great_Pyramid/
+          </a>
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image001.jpg"
+            alt="the_architect_of_the_Great_Pyramid 초기 화면"
+          />
+          <figcaption class="fig-caption">
+            세 개의 fragment 위치와 조합 방법에 대한 안내가 포함된 초기 페이지
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">1. Fragment 1 – HTML 소스에서 Xv9A 찾기</h2>
+
+        <p class="para">
+          Fragment1 을 찾기 위해 브라우저에서 <strong>View page source</strong> 로 HTML 소스를 확인한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image002.png"
+            alt="페이지 소스 내 Fragment1"
+          />
+          <figcaption class="fig-caption">
+            페이지 소스의 주석 영역에서 <code class="code-inline">Xv9A</code> 문자열을 확인
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          HTML 주석을 통해 Fragment1 값인
+          <code class="code-inline">Xv9A</code> 를 획득한다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">2. Fragment 2 – script.js 에서 MuS7 확인</h2>
+
+        <p class="para">
+          다음으로 Fragment2 를 찾기 위해 자바스크립트 파일에 접근한다.
+        </p>
+
+        <p class="para">
+          URL:
+          <a href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js">
+            http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js
+          </a>
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image003.png"
+            alt="script.js 내부의 Fragment2"
+          />
+          <figcaption class="fig-caption">
+            스크립트 내부에 <code class="code-inline">MuS7</code> 라는 hex 관련 힌트가 포함되어 있다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          스크립트 내용에서 Fragment2 값인
+          <code class="code-inline">MuS7</code> 을 확인한다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">3. Fragment 3 – hint.png 메타데이터에서 z9Qp 추출</h2>
+
+        <p class="para">
+          Fragment3 을 찾기 위해 이미지 리소스
+          <code class="code-inline">hint.png</code> 를 직접 요청한다.
+        </p>
+
+        <p class="para">
+          URL:
+          <a href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png">
+            http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png
+          </a>
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image004.jpg"
+            alt="hint.png 이미지 자체는 비어 있는 것처럼 보임"
+          />
+          <figcaption class="fig-caption">
+            이미지를 보면 아무 내용이 없어 보이므로 메타데이터를 확인해야 한다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          이미지를 <code class="code-inline">kali</code> 로 다운로드한 뒤,
+          <code class="code-inline">exiftool</code> 과 같은 메타데이터 분석 도구를 사용해 숨겨진 정보를 확인한다.
+        </p>
+
+        <p class="para">
+          첫 페이지에서 이미 "metadata 를 확인하라" 는 힌트를 받았으며, 대표적인 툴로
+          <code class="code-inline">exiftool</code> 을 사용할 수 있다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image005.jpg"
+            alt="exiftool 로 확인한 hint.png 메타데이터"
+          />
+          <figcaption class="fig-caption">
+            Comment 필드에 의심스러운 문자열 <code class="code-inline">z9Qp</code> 가 저장되어 있다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          Comment 항목에서 Fragment3 값인
+          <code class="code-inline">z9Qp</code> 를 획득한다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">4. Fragment 결합 및 concat 값 구성</h2>
+
+        <p class="para">
+          이제 얻어 둔 세 개의 fragment
+          <code class="code-inline">Xv9A</code>,
+          <code class="code-inline">MuS7</code>,
+          <code class="code-inline">z9Qp</code> 를 지정된 순서대로 이어붙여
+          <code class="code-inline">concat</code> 값을 만든다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image006.png"
+            alt="세 fragment 를 결합한 concat 예시"
+          />
+          <figcaption class="fig-caption">
+            세 fragment 를 합쳐 하나의 문자열로 구성하는 모습
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          최종적으로
+          <code class="code-inline">concat="Xv9AMuS7z9Qp"</code>
+          형태의 값을 사용하게 된다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">5. 페이지 하단 스크립트 – 키 파생 로직</h2>
+
+        <p class="para">
+          <code class="code-inline">the_architect_of_the_Great_Pyramid</code> 페이지 하단에는
+          암호화/복호화와 관련된 쉘 스크립트 조각이 적혀 있다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image007.jpg"
+            alt="페이지 하단에 노출된 key 파생 스크립트"
+          />
+          <figcaption class="fig-caption">
+            concat 값을 기반으로 SHA-256 해시를 계산하고 앞 16바이트를 key 로 사용하는 스크립트
+          </figcaption>
+        </figure>
+
+        <pre class="code-block">
+keyhex=$(echo -n "$concat" \
+  | openssl dgst -sha256 -binary \
+  | xxd -p -c 256 \
+  | cut -c1-32)
+
+echo "Derived key (hex,16 bytes): $keyhex"</pre>
+
+        <p class="para">
+          이 스크립트는 <code class="code-inline">concat</code> 문자열에 대해 SHA-256 해시를 계산하고,
+          그 결과에서 앞 16바이트(32 hex 문자)를 잘라
+          <code class="code-inline">keyhex</code> 라는 AES 키로 사용한다.
+        </p>
+
+        <p class="para">
+          스크립트를 실행하면 파생된 hex 형태의 키를 확인할 수 있다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">6. 암호문 base64 값 확보</h2>
+
+        <p class="para">
+          페이지에는 별도로 base64 인코딩된 암호문 문자열이 주어지며,
+          이를 <code class="code-inline">b64</code> 변수로 사용한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image008.png"
+            alt="페이지에서 제공되는 base64 암호문"
+          />
+          <figcaption class="fig-caption">
+            암호문을 base64 형태로 제공하는 부분
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          이 값은 이후 복호화 절차에서
+          <code class="code-inline">echo -n "$b64" | base64 -d</code>
+          형태로 디코딩에 사용된다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">7. 복호화 절차 – payload 분석과 AES-128-CBC 복호화</h2>
+
+        <h3 class="heading-sub">7‑1. base64 디코딩</h3>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image009.jpg"
+            alt="base64 디코딩 스크립트 일부"
+          />
+          <figcaption class="fig-caption">
+            base64 를 디코드하여 /tmp/payload.bin 으로 저장하는 부분
+          </figcaption>
+        </figure>
+
+        <pre class="code-block">
+echo -n "$b64" | base64 -d > /tmp/payload.bin
+ls -l /tmp/payload.bin</pre>
+
+        <p class="para">
+          <code class="code-inline">$b64</code> 에 저장된 헤더 없는 base64 문자열을 디코드해
+          바이너리 파일 <code class="code-inline">/tmp/payload.bin</code> 으로 저장하고,
+          파일이 제대로 생성되었는지 크기와 권한을 확인한다.
+        </p>
+
+        <h3 class="heading-sub">7‑2. IV 값 추출</h3>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image010.jpg"
+            alt="payload 앞부분 헥스 덤프 예시"
+          />
+          <figcaption class="fig-caption">
+            payload 앞부분을 xxd 로 확인하여 IV 위치를 파악
+          </figcaption>
+        </figure>
+
+        <pre class="code-block">
+xxd -g 1 -l 32 /tmp/payload.bin | sed -n '1,3p'
+ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')</pre>
+
+        <p class="para">
+          <code class="code-inline">xxd</code> 로 payload 앞 32바이트를 헥스+ASCII 형식으로 확인한 뒤,
+          처음 16바이트를 IV 로 사용하기 위해
+          <code class="code-inline">ivhex</code> 변수에 연속된 hex 문자열 형태로 저장한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image011.png"
+            alt="ivhex 추출 결과 예시"
+          />
+          <figcaption class="fig-caption">
+            ivhex 변수에 저장된 16바이트 길이의 IV 값
+          </figcaption>
+        </figure>
+
+        <h3 class="heading-sub">7‑3. 암호문(cipher) 추출 및 크기 확인</h3>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image012.jpg"
+            alt="cipher.bin 추출 및 크기 확인"
+          />
+          <figcaption class="fig-caption">
+            IV 이후 영역을 잘라 cipher.bin 으로 저장하는 과정
+          </figcaption>
+        </figure>
+
+        <pre class="code-block">
+dd if=/tmp/payload.bin of=/tmp/cipher.bin bs=1 skip=16 status=none
+stat -c "cipher.bin size: %s bytes" /tmp/cipher.bin</pre>
+
+        <p class="para">
+          payload 의 앞 16바이트(IV)를 건너뛰고 나머지 내용을
+          <code class="code-inline">/tmp/cipher.bin</code> 으로 복사해 순수 암호문을 분리하고,
+          <code class="code-inline">stat</code> 명령으로 크기가 기대값과 일치하는지 확인한다.
+        </p>
+
+        <h3 class="heading-sub">7‑4. AES‑128‑CBC 복호화</h3>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image013.jpg"
+            alt="openssl enc 복호화 명령"
+          />
+          <figcaption class="fig-caption">
+            openssl enc 를 사용한 AES‑128‑CBC 복호화 명령
+          </figcaption>
+        </figure>
+
+        <pre class="code-block">
+openssl enc -d -aes-128-cbc \
+  -in /tmp/cipher.bin \
+  -K "$keyhex" \
+  -iv "$ivhex" \
+  -out /tmp/plain.txt 2>/tmp/openssl.err || true</pre>
+
+        <p class="para">
+          앞에서 얻은 <code class="code-inline">keyhex</code> 와
+          <code class="code-inline">ivhex</code> 를 사용해
+          <code class="code-inline">openssl enc -d -aes-128-cbc</code> 로
+          <code class="code-inline">cipher.bin</code> 을 복호화하고 결과를
+          <code class="code-inline">/tmp/plain.txt</code> 에 저장한다.
+          오류 메시지는 <code class="code-inline">/tmp/openssl.err</code> 로 리다이렉트한다.
+        </p>
+
+        <p class="para">
+          <code class="code-inline">|| true</code> 를 붙여, openssl 명령이 실패하더라도
+          전체 스크립트가 중단되지 않고 계속 진행되도록 처리한다.
+        </p>
+
+        <h3 class="heading-sub">7‑5. 평문(PW) 확인</h3>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image014.png"
+            alt="복호화된 평문 출력 스크립트"
+          />
+          <figcaption class="fig-caption">
+            복호화된 평문을 출력하는 부분
+          </figcaption>
+        </figure>
+
+        <pre class="code-block">
+echo "Decrypted (text):"
+cat /tmp/plain.txt || true</pre>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image015.png"
+            alt="luckforyournext_!21! 결과"
+          />
+          <figcaption class="fig-caption">
+            최종 평문에서 <code class="code-inline">luckforyournext_!21!</code> 문자열을 확인
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          복호화 결과 평문에서
+          <code class="code-inline">luckforyournext_!21!</code>
+          라는 문자열을 얻을 수 있으며, 이는 다음 단계로 진입할 때 사용하는 패스워드이다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">8. 다음 단계로 이동하는 힌트</h2>
+
+        <figure class="fig">
+          <img
+            src="2.배주형_ctf_문제풀이_files/image016.jpg"
+            alt="다음 페이지에 대한 UI 힌트"
+          />
+          <figcaption class="fig-caption">
+            페이지 우측 하단 특정 영역에 마우스를 올리면 커서 모양이 바뀌며, 클릭 시 다음 단계 힌트가 나타난다.
+          </figcaption>
+        </figure>
+
+        <ul class="bullet-list">
+          <li>우측 하단을 잘 살펴보면 커서 모양이 바뀌는 작은 영역이 있다.</li>
+          <li>그 지점을 클릭하면 다음 페이지로 이동하기 위한 추가 힌트가 표시된다.</li>
+        </ul>
+
+        <p class="para">
+          이렇게 얻은 비밀번호와 UI 상의 힌트를 조합해, 이후 웹 게임 및 파일 업로드 단계로 진입할 수 있다.
+        </p>
+      </section>
+
     </main>
   </body>
 </html>
