@@ -1,0 +1,618 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+@font-face
+	{font-family:"Noto Sans KR";}
+@font-face
+	{font-family:"Segoe UI Historic";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"\@Malgun Gothic";}
+@font-face
+	{font-family:"\@Noto Sans KR";}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:107%;
+	text-autospace:none;
+	word-break:break-all;
+	font-size:10.0pt;
+	font-family:"Malgun Gothic",sans-serif;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:40.0pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:107%;
+	text-autospace:none;
+	word-break:break-all;
+	font-size:10.0pt;
+	font-family:"Malgun Gothic",sans-serif;}
+.MsoChpDefault
+	{font-size:10.0pt;
+	font-family:"Malgun Gothic",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:107%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:85.05pt 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link="#0563C1" vlink="#954F72" style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:14.0pt;line-height:107%;font-family:"Noto Sans KR"'>Pyramid 4<span
+lang=KO>단계 </span>Walk-Through</span></b></p>
+
+<p class=MsoNormal style='margin-left:38.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>3<span
+lang=KO>단계에서 마지막 과정을 통해 비밀번호를 얻었다면 </span>SSH <span lang=KO>접속을 시도합니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt'><span style='line-height:
+107%;font-family:"Noto Sans KR"'><img width=448 height=136 id="그림 1"
+src="4.김관웅_ctf_문제풀이_files/image001.png"></span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>SSH <span
+lang=KO>접속에 사용된 계정 정보</span></span></p>
+
+<p class=MsoListParagraph style='margin-left:96.0pt;text-indent:-20.0pt'><span
+style='line-height:107%;font-family:Wingdings'>n<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>Username:
+khufu</span></p>
+
+<p class=MsoListParagraph style='margin-left:96.0pt;text-indent:-20.0pt'><span
+style='line-height:107%;font-family:Wingdings'>n<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>Password:
+747574616e6b68616d756e</span></p>
+
+<p class=MsoNormal style='margin-left:76.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><i><span style='line-height:107%;font-family:"Noto Sans KR"'>“ls
+-la”</span></i><span lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>를
+통하여 디렉터리 구조를 살핍니다</span><span style='line-height:107%;font-family:"Noto Sans KR"'>.</span></p>
+
+<p class=MsoNormal style='margin-left:56.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'><img width=492 height=207 id="그림 13"
+src="4.김관웅_ctf_문제풀이_files/image002.png"></span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>‘papyrus’,
+‘/room’, ‘rosetta_stone’ <span lang=KO>이라는 파일과 디렉터리가 각각 보입니다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>Cat <span
+lang=KO>명령어를 통하여 </span>papyrus<span lang=KO>의 내용을 살펴봅니다</span>.</span></p>
+
+<p class=MsoNormal style='margin-left:56.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'><img width=312 height=76 id="그림 15"
+src="4.김관웅_ctf_문제풀이_files/image003.png"></span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>“<span
+lang=KO>우리는 마침내 피라미드를 찾았다</span>”, “<span lang=KO>우리는 여기에 마법이 필요하다</span>”<span
+lang=KO>랍니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt'><span style='line-height:
+107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/room
+directory<span lang=KO>의 구조를 살핍니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt'><span style='line-height:
+107%;font-family:"Noto Sans KR"'><img width=429 height=217 id="그림 17"
+src="4.김관웅_ctf_문제풀이_files/image004.png"></span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>여러
+파일과 하위 디렉터리가 확인됩니다</span><span style='line-height:107%;font-family:"Noto Sans KR"'>,
+<span lang=KO>하나씩 구조를 살펴봅시다</span>.<br clear=all style='page-break-before:always'>
+</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>Directory
+/1, /2, /3, 4</span></p>
+
+<p class=MsoNormal style='margin-left:56.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'><img width=491 height=185 id="그림 5"
+src="4.김관웅_ctf_문제풀이_files/image005.png"></span></p>
+
+<p class=MsoNormal style='margin-left:56.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'><img width=321 height=183 id="그림 19"
+src="4.김관웅_ctf_문제풀이_files/image006.png"></span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>각
+</span><span style='line-height:107%;font-family:"Noto Sans KR"'>directory<span
+lang=KO>에는 </span>‘offering’<span lang=KO>이라는 공통된 이름의 파일이 있었고 그 안에는 여러 파트로 분해된 것
+같은 코드가 비춰졌습니다</span>. <span lang=KO>코드의 구조로 보아 </span>‘C<span lang=KO>언어</span>’
+<span lang=KO>코드일 확률이 매우 높습니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>/1, /2,
+/4 directory<span lang=KO>에는 </span>‘offering’ <span lang=KO>파일이 존재하였지만 </span>/3
+<span lang=KO>공간에만 아무 것도 비춰지지 않았습니다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>다시
+단서 찾기</span><span style='line-height:107%;font-family:"Noto Sans KR"'>.</span></p>
+
+<p class=MsoNormal style='margin-left:56.0pt'><span style='line-height:107%;
+font-family:"Noto Sans KR"'><img width=470 height=99 id="그림 3"
+src="4.김관웅_ctf_문제풀이_files/image007.png"></span></p>
+
+<p class=MsoListParagraph style='margin-left:92.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>è<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/room/<span
+lang=KO>에 위치하는 </span>‘papyrus’(/home/khufu/papyrus <span lang=KO>와는 다른 파일</span>)<span
+lang=KO>을 읽어봅니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>4<span
+lang=KO>개의 제물</span>(offering)<span lang=KO>이 모이는 날 신에게 소원</span>(pray)<span
+lang=KO>을 빌 수 있을 것이라고 말합니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>제물이라면
+방금 </span><span style='line-height:107%;font-family:"Noto Sans KR"'>/1~/4 directory
+<span lang=KO>아래에 존재하던 </span>‘offering’<span lang=KO>이라는 파일을 말하는 것 같습니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>/3 <span
+lang=KO>에서만 </span>‘offering’<span lang=KO>이 존재하지 않았기 때문에 이 점을 생각해봅니다</span>.</span></p>
+
+<p class=MsoListParagraph style='margin-left:74.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:Wingdings'>ð<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='line-height:107%;font-family:"Noto Sans KR"'>‘/home/khufu/room/papyrus’<span
+lang=KO>에서</span> 2<span lang=KO>번에 </span>Dedicating(<span lang=KO>봉헌</span>)<span
+lang=KO>은 신에게</span> pray<span lang=KO>하기 가장 좋은 방법이라고 말했는데 </span>/home/khufu/room/dedicate
+<span lang=KO>라는 파일이 존재하는 것을 우린 확인했습니다</span>. <span lang=KO>또한 </span>3<span
+lang=KO>번에 </span>Offering<span lang=KO>은 단어들로 구성 되어 있고 이를 작성하기 위해선</span> book<span
+lang=KO>과 </span>pen<span lang=KO>이 필요하다고 말합니다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:56.0pt;text-indent:-.25in'><span
+style='line-height:107%;font-family:"Noto Sans KR"'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>기존</span><span
+style='line-height:107%;font-family:"Noto Sans KR"'> Offering <span lang=KO>코드 조합해보기</span></span></p>
+
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 0in 1.0pt 4.0pt;
+margin-left:56.15pt;margin-right:0in'>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>#include &lt;stdio.h&gt;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>#include &lt;unistd.h&gt;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>#include &lt;string.h&gt;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+background:#F4B083'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>int main(){</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>char code[] = &quot;touch /home/khufu/.</span><span
+style='line-height:60%;font-family:"Segoe UI Historic",sans-serif;color:black;
+background:#F4B083'>&#78780;&#78193;&#78061;&#77991;&#78146;&#78358;</span><span
+style='line-height:60%;font-family:"Noto Sans KR";color:black;background:#F4B083'>_</span><span
+style='line-height:60%;font-family:"Segoe UI Historic",sans-serif;color:black;
+background:#F4B083'>&#78350;&#78146;&#78284;</span><span style='line-height:
+60%;font-family:"Noto Sans KR";color:black;background:#F4B083'>&quot;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>int core =  system(code); </span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>char guard[1];</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>char altar[7];//2</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+background:#F4B083'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>strcpy(altar, offering);</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+background:#F4B083'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>return 0;</span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:60%;
+border:none;padding:0in'><span style='line-height:60%;font-family:"Noto Sans KR";
+color:black;background:#F4B083'>}</span></p>
+
+</div>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>room/1, room/2, room/4 <span
+lang=KO>의 </span>offering<span lang=KO>들을 조합하면 이런 하나의 </span>C<span lang=KO>언어 코드가
+나오는데 이 코드를 분석했을 때 </span>strcpy <span lang=KO>함수에 </span>altar <span lang=KO>변수에
+옮겨 담을 </span>‘offering’ <span lang=KO>변수가 존재하지 않는 것을 확인할 수 있고 이 과정에서 어떠한 </span>‘<span
+lang=KO>입력 검증</span>’<span lang=KO>도 존재하지 않는다는 것을 확인할 수 있습니다</span>. C<span
+lang=KO>언어에서 코드를 작성할 때 이러한 입력 값 검증 누락은 </span>BoF <span lang=KO>취약점을 발생시킬 수 있는 가장
+대표적인 취약한 코드 설계로 우리는 이 점을 이용해 </span>altar<span lang=KO>에 정적으로 할당된 값보다 더 큰 값을 </span>offering
+<span lang=KO>변수에 할당하고 이를 </span>/home/khufu/room/book_pen <span lang=KO>파일을 통해
+기입해보겠습니다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:"Noto Sans KR"'>8.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/room/book_pen</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=501 height=110
+id="그림 6" src="4.김관웅_ctf_문제풀이_files/image008.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>offering <span lang=KO>변수에 확실하게
+주변 주소 값을 침범 할 수 있는 크기의 값을 할당해줍니다</span>.(<span lang=KO>위 사진의 값은 예시입니다</span>)</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:"Noto Sans KR"'>9.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/room/dedicate</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=488 height=117
+id="그림 7" src="4.김관웅_ctf_문제풀이_files/image009.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘dedicate’ <span lang=KO>파일을
+실행시킨 후 </span>room/3/<span lang=KO>을 확인해보니 </span>‘offering’<span lang=KO>이 생겨났고
+내용을 확인하니 우리가 </span>‘book_pen’<span lang=KO>에 기입했던 값이 그대로 들어갔습니다</span>.</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=KO
+style='line-height:107%;font-family:"Noto Sans KR"'>이제 </span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/room/papyrus <span
+lang=KO>내용에 따라</span> offering 4<span lang=KO>개가 다 모였으니 </span>pray <span
+lang=KO>파일을 실행해봅시다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:"Noto Sans KR"'>10.<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/room/pray</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=318 height=43
+id="그림 8" src="4.김관웅_ctf_문제풀이_files/image010.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘pray’<span lang=KO>를 실행시키니</span>
+5<span lang=KO>번째 변수가</span> redirect<span lang=KO>를 시도하기 애매하다는 것을 보니 적용되는 변수는 최소
+</span>5<span lang=KO>개 이상이고 이와 지금까지 얻은 정보를 바탕으로 추론을 하면 변수 </span>5<span
+lang=KO>개 중 </span>4<span lang=KO>개는 우리가 찾았던 </span>room/n/offering <span
+lang=KO>파일 </span>4<span lang=KO>개이고 나머지 하나는</span> redirect <span lang=KO>시킬 파일인
+것 같습니다</span>.</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>linux<span lang=KO>에서는 </span><i>“cat
+file1 file2 &gt;&gt; file3”</i><span lang=KO>과 같은 명령어 형식으로 </span>file1<span
+lang=KO>과 </span>file2<span lang=KO>의 내용을 합친 </span>file3<span lang=KO>이라는 파일을 만들
+수 있고 이 </span>pray <span lang=KO>파일은 각 </span>offering<span lang=KO>의 파일들의 분할된 </span>c<span
+lang=KO>코드를 하나의 코드로 합쳐주는 기능을 하는 것을 추측할 수 있고 </span>c<span lang=KO>언어 파일인 </span>‘.c’
+<span lang=KO>확장자로 파일을 정해야 할 것입니다</span>.</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘/home/khufu/papyrus’ <span
+lang=KO>파일의 구문을 상기시켜봅시다</span>.</span></p>
+
+<p class=MsoNormal align=left style='margin-left:74.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=306 height=64
+id="그림 10" src="4.김관웅_ctf_문제풀이_files/image011.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:92.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>è<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘magi…c’<span lang=KO>이 필요하답니다</span>.</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:92.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>è<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘magi’<span lang=KO>라는 이름을 가진
+</span>‘.c’<span lang=KO>파일을 만들어보면 어떨까요</span>.</span></p>
+
+<p class=MsoNormal align=left style='margin-left:40.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=602 height=263
+id="그림 12" src="4.김관웅_ctf_문제풀이_files/image012.jpg"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘pray’ <span lang=KO>명령어는 성공적으로
+실행됐고 </span>magi.c<span lang=KO>를 생성한 곳으로 가서 파일을 확인해보니 정말 </span>offering <span
+lang=KO>파일 </span>4<span lang=KO>개가 하나로 합쳐진 </span>c<span lang=KO>코드가 완성됐습니다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:"Noto Sans KR"'>11.<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/magic</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=312 height=76
+id="그림 21" src="4.김관웅_ctf_문제풀이_files/image013.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=KO
+style='line-height:107%;font-family:"Noto Sans KR"'>이 파일을 다시 상기시켜보면 맨 마지막 줄에 </span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>magic<span lang=KO>은 </span>1<span
+lang=KO>분마다 일어난다고 되어있습니다</span>.</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=KO
+style='line-height:107%;font-family:"Noto Sans KR"'>실제로 우리는 </span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>/home/khufu/ <span lang=KO>에는
+</span>‘papyrus’, ‘room’, ‘rosetta_stone”<span lang=KO>이 </span>3<span lang=KO>개의
+파일 및 디렉터리와 방금 우리가 생성해낸 </span>‘magi.c’ <span lang=KO>하나만이 존재했습니다</span>.</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=372 height=53
+id="그림 22" src="4.김관웅_ctf_문제풀이_files/image014.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:92.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>è<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=KO
+style='line-height:107%;font-family:"Noto Sans KR"'>하지만 다시</span><span
+style='line-height:107%;font-family:"Noto Sans KR"'> /home/khufu/ <span
+lang=KO>를 확인해보면 </span>‘magic’<span lang=KO>이라는 존재하지 않던 파일을 확인할 수 있고</span> 1<span
+lang=KO>분마다 </span>magi.c<span lang=KO>가 존재한다면 </span>magic<span lang=KO>이라는 파일이
+생기는 것을 확인할 수 있습니다</span>.</span></p>
+
+<p class=MsoNormal align=left style='margin-left:74.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=496 height=246
+id="그림 23" src="4.김관웅_ctf_문제풀이_files/image015.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:92.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>è<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘magic’ <span lang=KO>파일을 실행하니
+</span>“ .</span><span style='line-height:107%;font-family:"Segoe UI Historic",sans-serif'>&#78780;&#78193;&#78061;&#77991;&#78146;&#78358;</span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>_</span><span
+style='line-height:107%;font-family:"Segoe UI Historic",sans-serif'>&#78350;&#78146;&#78284;</span><span
+style='line-height:107%;font-family:"Noto Sans KR"'> “ <span lang=KO>라는 알 수 없는 숨겨진
+파일이 나왔습니다</span>, <span lang=KO>읽을 수 있는 파일이니 읽어봅시다</span> ( <span lang=KO>파일 읽기를
+시도할 때 저 파일의 이름을 직접 타이핑하기 어려우니 복사 붙여넣기를 통해 시도합니다</span>. )</span></p>
+
+<p class=MsoNormal align=left style='margin-left:74.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=315 height=48
+id="그림 25" src="4.김관웅_ctf_문제풀이_files/image016.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:92.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>è<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><i><span
+style='line-height:107%;font-family:"Noto Sans KR"'>“</span></i><i><span
+style='line-height:107%;font-family:"Segoe UI Historic",sans-serif'>&#78861;&#78780;&#77991;&#78163;&#78753;&#78061;&#78467;&#78016;&#78799;&#78420;&#78358;&#78350;&#78225;&#78506;&#77963;&#78284;&#78143;&#78580;&#78193;&#78283;</span></i><i><span
+style='line-height:107%;font-family:"Noto Sans KR"'> =&gt; (...) =&gt; 58”</span></i><span
+lang=KO style='line-height:107%;font-family:"Noto Sans KR"'>라는 결과 값이 나왔고 이제 저 힌트를
+활용해봅시다</span><span style='line-height:107%;font-family:"Noto Sans KR"'>.</span></p>
+
+<p class=MsoNormal align=left style='text-align:left'><i><span
+style='line-height:107%;font-family:"Noto Sans KR"'>&nbsp;</span></i></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:"Noto Sans KR"'>12.<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>Decoding&amp;Encoding</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=602 height=514
+id="그림 26" src="4.김관웅_ctf_문제풀이_files/image017.jpg"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=KO
+style='line-height:107%;font-family:"Noto Sans KR"'>계속 글에 등장하는 저 상형문자는 </span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>‘Hieroglphs’<span lang=KO>라는
+명칭을 가지고 있으며 </span>‘ancient Egyptian words’ <span lang=KO>같은 이름으로 검색을하여도 인터넷에서 많은
+정보를 찾을 수 있습니다</span>, <span lang=KO>역시 이 문자를 디코딩해주는 사이트도 존재하고 이를 이용해 한 번 디코딩해봅시다</span>.</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=602 height=530
+id="그림 28" src="4.김관웅_ctf_문제풀이_files/image018.jpg"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=KO
+style='line-height:107%;font-family:"Noto Sans KR"'>디코딩 시 </span><span
+style='line-height:107%;font-family:"Noto Sans KR"'>“<span style='color:black;
+background:#F8EFD3'>xgdmklzbthnqfpryAswi”</span><span lang=KO style='color:
+black;background:white'>라는 문자열이 나옵니다</span><span style='color:black;background:
+white'>, <span lang=KO>하지만 </span><i>&quot; </i></span></span><i><span
+style='line-height:107%;font-family:"Segoe UI Historic",sans-serif;color:black;
+background:white'>&#78861;&#78780;&#77991;&#78163;&#78753;&#78061;&#78467;&#78016;&#78799;&#78420;&#78358;&#78350;&#78225;&#78506;&#77963;&#78284;&#78143;&#78580;&#78193;&#78283;</span></i><i><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'>
+=&gt; (...) =&gt; 58 &quot;</span></i><span lang=KO style='line-height:107%;
+font-family:"Noto Sans KR";color:black;background:white'>라는 결과에서 과정이 하나가 더 있었고 </span><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'>“(…)
+=&gt; 58”<span lang=KO>이라는 과정을 보아 </span>base58<span lang=KO>로 </span>encoding<span
+lang=KO>을 시도해봅시다</span>.</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR"'><img width=602 height=470
+id="그림 29" src="4.김관웅_ctf_문제풀이_files/image019.jpg"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'>“2gHsQQTDGYNerJuyFFGeUkFEVDj6”<span
+lang=KO>라는 결과 값이 나왔고 이를</span> ‘tutankhamun’ <span lang=KO>계정에 접속 시도해봅시다</span>.</span></p>
+
+<span style='font-size:10.0pt;line-height:107%;font-family:"Noto Sans KR";
+color:black;background:white'><br clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other;
+word-break:normal'><span style='line-height:107%;font-family:"Noto Sans KR";
+background:white'>&nbsp;</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR";background:white'>&nbsp;</span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:56.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:"Noto Sans KR"'>13.<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'>Final
+flag</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'><img
+width=377 height=113 id="그림 30" src="4.김관웅_ctf_문제풀이_files/image020.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'>Tutankhamun
+<span lang=KO>계정에 성공적으로 접속했고 </span>root directory<span lang=KO>로 이동하니 </span>‘flag’<span
+lang=KO>를 발견할 수 있었습니다</span>.</span></p>
+
+<p class=MsoNormal align=left style='margin-left:56.0pt;text-align:left'><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'><img
+width=602 height=393 id="그림 31" src="4.김관웅_ctf_문제풀이_files/image021.png"></span></p>
+
+<p class=MsoListParagraph align=left style='margin-left:74.0pt;text-align:left;
+text-indent:-.25in'><span style='line-height:107%;font-family:Wingdings'>ð<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='line-height:107%;font-family:"Noto Sans KR";color:black;background:white'>Flag
+<span lang=KO>발견 끝</span>.</span></p>
+
+</div>
+
+</body>
+
+</html>
