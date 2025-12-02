@@ -717,192 +717,45 @@ function encodeSecret($secret) {
         >
       </p>
       <pre class="code-block php-block">
-        <ol type="1"undefined>
-        <li >
-          <spanundefined>&lt;?php</span>
-        </li>
-        <li >
-          <span >header('Content-Type: text/html; charset=UTF-8');</span
-          >
-        </li>
-        <li >
-          <spanundefined>&#xa0;</span>
-        </li>
-        <li >
-          <span >$inc = $_GET['inc'] ?? 'home';</span
-          >
-        </li>
-        <li >
-          <spanundefined>$base = __DIR__;</span>
-        </li>
-        <li >
-          <spanundefined>&#xa0;</span>
-        </li>
-        <li >
-          <span >if (preg_match('/\s|\x00/', $inc)) {</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><span >http_response_code(400);</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><spanundefined>exit('bad input');</span>
-        </li>
-        <li >
-          <spanundefined>}</span>
-        </li>
-        <li >
-          <spanundefined>&#xa0;</span>
-        </li>
-        <li >
-          <span >// 의도적 취약: PHP 스트림 래퍼(php://, filter 체인) 차단 안
-            함</span
-          >
-        </li>
-        <li >
-          <span >$target = $inc . '-view.php';</span
-          >
-        </li>
-        <li >
-          <spanundefined>&#xa0;</span>
-        </li>
-        <li >
-          <spanundefined>// 렌더 시도</span>
-        </li>
-        <li >
-          <spanundefined>ob_start();</span>
-        </li>
-        <li >
-          <span >@include $target; // 존재하지 않아도 경고만</span
-          >
-        </li>
-        <li >
-          <spanundefined>$out = ob_get_clean();</span>
-        </li>
-        <li >
-          <spanundefined>&#xa0;</span>
-        </li>
-        <li >
-          <spanundefined>// 성공 시 화면 출력</span>
-        </li>
-        <li >
-          <spanundefined>if ($out !== '') {</span>
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><spanundefined>echo $out;</span>
-        </li>
-        <li >
-          <spanundefined>} else {</span>
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><span >echo "&lt;h1&gt;Viewer&lt;/h1&gt;";</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><span >echo "&lt;p&gt;Try different templates via
-            ?inc=NAME&lt;/p&gt;";</span
-          >
-        </li>
-        <li >
-          <spanundefined>}</span>
-        </li>
-        <li >
-          <spanundefined>&#xa0;</span>
-        </li>
-        <li >
-          <span >// RCE 증거를 감지해 FLAG 노출(의도된 정답 검증)</span
-          >
-        </li>
-        <li >
-          <span >if (isset($_GET['proof'])) {</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><span >// 사용자가 실행 결과로 정확히 이 토큰을 화면에 뿌리면 FLAG를
-            보여준다</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><span >if (strpos($out, 'PROOF:RCE_OK_7b3c1') !== false) {</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; </span
-          ><span >echo "&lt;hr&gt;&lt;p&gt;FLAG:
-            flag{filter_chain_master}&lt;/p&gt;";</span
-          >
-        </li>
-        <li >
-          <span >&#xa0;&#xa0;&#xa0; </span
-          ><spanundefined>}</span>
-        </li>
-        <li >
-          <spanundefined>}</span>
-        </li>
-        <li >
-          <spanundefined>?&gt;</span>
-        </li>
+        <ol type="1">
+        <li>&lt;?php</li>
+        <li>header('Content-Type: text/html; charset=UTF-8');</li>
+        <li>&#xa0;</li>
+        <li>$inc = $_GET['inc'] ?? 'home';</li>
+        <li>$base = __DIR__;</li>
+        <li>&#xa0;</li>
+        <li>if (preg_match('/\s|\x00/', $inc)) {</li>
+        <li>&#xa0;&#xa0;&#xa0; http_response_code(400);</li>
+        <li>&#xa0;&#xa0;&#xa0; exit('bad input');</li>
+        <li>}</li>
+        <li>&#xa0;</li>
+        <li>// 의도적 취약: PHP 스트림 래퍼(php://, filter 체인) 차단 안 함</li>
+        <li>$target = $inc . '-view.php';</li>
+        <li>&#xa0;</li>
+        <li>// 렌더 시도</li>
+        <li>ob_start();</li>
+        <li>@include $target; // 존재하지 않아도 경고만</li>
+        <li>$out = ob_get_clean();</li>
+        <li>&#xa0;</li>
+        <li>// 성공 시 화면 출력</li>
+        <li>if ($out !== '') {</li>
+        <li>&#xa0;&#xa0;&#xa0; echo $out;</li>
+        <li>} else {</li>
+        <li>&#xa0;&#xa0;&#xa0; echo "&lt;h1&gt;Viewer&lt;/h1&gt;";</li>
+        <li>&#xa0;&#xa0;&#xa0; echo "&lt;p&gt;Try different templates via ?inc=NAME&lt;/p&gt;";</li>
+        <li>}</li>
+        <li>&#xa0;</li>
+        <li>// RCE 증거를 감지해 FLAG 노출(의도된 정답 검증)</li>
+        <li>if (isset($_GET['proof'])) {</li>
+        <li>&#xa0;&#xa0;&#xa0; // 사용자가 실행 결과로 정확히 이 토큰을 화면에 뿌리면 FLAG를 보여준다</li>
+        <li>&#xa0;&#xa0;&#xa0; if (strpos($out, 'PROOF:RCE_OK_7b3c1') !== false) {</li>
+        <li>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; echo "&lt;hr&gt;&lt;p&gt;FLAG: flag{filter_chain_master}&lt;/p&gt;";</li>
+        <li>&#xa0;&#xa0;&#xa0; }</li>
+        <li>}</li>
+        <li>?&gt;</li>
       </ol>
       </pre>
       
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <span   >&#xa0;</span
-        >
-      </p>
-      <pundefined>
-        <spanundefined>&#xa0;</span>
-      </p>
-      <pundefined>
-        <spanundefined>&#xa0;</span>
-      </p>
       <p>
         <span class="step-title">Problem_11</span>
       </p>
