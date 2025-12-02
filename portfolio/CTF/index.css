@@ -31,6 +31,101 @@ body {
   padding: 2.5rem 0 3rem;
 }
 
+/* ===== 상단 탭 네비게이션 ===== */
+
+.tab-shell {
+  max-width: 960px;
+  margin: 0 auto 1.2rem;
+  padding: 0 0.4rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tab-button {
+  flex: 1;
+  text-align: center;
+  padding: 0.55rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: radial-gradient(circle at top, #111827 0, #020617 100%);
+  color: var(--text-sub);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease, box-shadow 0.18s ease, transform 0.08s ease;
+}
+
+.tab-button:hover {
+  color: var(--text-main);
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.28);
+  transform: translateY(-1px);
+}
+
+.tab-button.is-active {
+  background: radial-gradient(circle at top, #0ea5e9 0, #0369a1 45%, #020617 100%);
+  color: #e5f9ff;
+  border-color: rgba(34, 211, 238, 0.95);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.55),
+    0 18px 45px rgba(8, 47, 73, 0.9);
+}
+
+/* ===== 메인 탭 컨테이너 공통 ===== */
+
+.ctf-page,
+.making-page,
+.end-notes {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+  background: rgba(5, 8, 18, 0.9);
+  border-radius: 1rem;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+/* 기본적으로는 CTF 탭만 보이게 하고, 나머지는 JS에서 토글 */
+.making-page,
+.end-notes {
+  display: none;
+}
+
+/* JS 없이도 강제 표시하고 싶을 때 쓸 수 있는 유틸리티 */
+.tab-visible {
+  display: block !important;
+}
+
+/* 탭별 분위기 미묘하게 차이 주기 (선택사항) */
+
+.making-page {
+  background: radial-gradient(circle at top left, #1f2937 0, #020617 65%);
+}
+
+.end-notes {
+  background: radial-gradient(circle at top right, #0f172a 0, #020617 65%);
+}
+
+/* 반응형에서 패딩 축소 */
+
+@media (max-width: 768px) {
+  .ctf-page,
+  .making-page,
+  .end-notes {
+    padding: 1.4rem 1.3rem;
+  }
+
+  .tab-button {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.4rem;
+  }
+}
+
+
+
 .ctf-page {
   max-width: 960px;
   margin: 0 auto;
