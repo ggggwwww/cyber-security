@@ -858,6 +858,409 @@ curl -v -F "file=@./test.php;filename=shell.php" \
           </figcaption>
         </figure>
       </section>
+
+      <header class="ctf-header">
+        <h1 class="heading-main">Pyramid 4 단계 Walk-Through</h1>
+      </header>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">1. SSH 접속 – khufu 계정</h2>
+
+        <p class="para">
+          3단계에서 획득한 비밀번호를 이용해 SSH 접속을 시도한다. 이 단계에서는
+          <code class="code-inline">khufu</code> 계정으로 서버에 로그인한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image001.png"
+            alt="khufu 계정으로 SSH 접속 화면"
+          />
+          <figcaption class="fig-caption">
+            SSH 접속에 사용된 계정 정보: Username <code class="code-inline">khufu</code>, Password
+            <code class="code-inline">747574616e6b68616d756e</code>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">2. 홈 디렉터리 구조 파악</h2>
+
+        <p class="para">
+          로그인 후 <code class="code-inline">ls -la</code> 명령어로
+          <code class="code-inline">/home/khufu</code> 디렉터리 구조를 확인한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image002.png"
+            alt="/home/khufu 디렉터리 구조"
+          />
+          <figcaption class="fig-caption">
+            <code class="code-inline">papyrus</code>, <code class="code-inline">room</code>,
+            <code class="code-inline">rosetta_stone</code> 파일·디렉터리가 존재한다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          먼저 <code class="code-inline">papyrus</code> 파일 내용을 확인하면 피라미드와 마법에 대한
+          서술이 등장하며, 이후 퍼즐 풀이 방향을 암시한다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">3. /home/khufu/room – 네 개의 제물(offering)</h2>
+
+        <p class="para">
+          <code class="code-inline">/home/khufu/room</code> 하위 구조를 살펴보면 여러 디렉터리와 파일이
+          존재한다. 특히 <code class="code-inline">1</code>, <code class="code-inline">2</code>,
+          <code class="code-inline">3</code>, <code class="code-inline">4</code> 디렉터리가 중요하다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image004.png"
+            alt="/home/khufu/room 디렉터리 구조"
+          />
+          <figcaption class="fig-caption">
+            room 디렉터리 내에 1~4 디렉터리와 여러 파일(book_pen, dedicate, pray, papyrus 등)이 있다.
+          </figcaption>
+        </figure>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image005.png"
+            alt="room/1 디렉터리 내용"
+          />
+        </figure>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image006.png"
+            alt="room/2, room/4 디렉터리 내용"
+          />
+          <figcaption class="fig-caption">
+            /1, /2, /4 디렉터리에는 공통 이름의 파일
+            <code class="code-inline">offering</code> 이 존재하며, 잘려 있는 C 코드 조각처럼 보인다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          /3 디렉터리에는 <code class="code-inline">offering</code> 파일이 존재하지 않으며,
+          이후 퍼즐에서 이 누락된 제물을 생성하는 것이 목표가 된다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">4. room/papyrus – 힌트 텍스트 분석</h2>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image007.png"
+            alt="room/papyrus 파일 내용"
+          />
+          <figcaption class="fig-caption">
+            room/papyrus 파일은 네 개의 제물(offering)과 봉헌(dedicating), prayer 에 대한 힌트를 준다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          room/papyrus 에 따르면, 네 개의 제물이 모두 모이면
+          <code class="code-inline">pray</code> 를 통해 소원을 빌 수 있다. 또한
+          봉헌(dedicating)은 신에게 기도하는 가장 좋은 방법이며, offering 을 작성하기 위해서는
+          <code class="code-inline">book</code> 과 <code class="code-inline">pen</code> 이 필요하다는
+          내용을 포함한다.
+        </p>
+
+        <p class="para">
+          이를 통해 <code class="code-inline">room/book_pen</code> 파일이 사용자의 입력을 받아
+          <code class="code-inline">offering</code> 내용을 구성하고,
+          <code class="code-inline">dedicate</code> 와 <code class="code-inline">pray</code> 가 그
+          흐름을 이어가는 구조일 것이라 추론할 수 있다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">5. offering C 코드 조합과 BoF 취약점</h2>
+
+        <p class="para">
+          room/1, room/2, room/4 의 <code class="code-inline">offering</code> 파일을 하나로
+          합쳐보면 아래와 같은 C 코드가 된다.
+        </p>
+
+        <pre class="code-block">
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+  char code[] = "touch /home/khufu/.&lt;특수문자열&gt;_&lt;특수문자열&gt;";
+  int core = system(code);
+  char guard[1];
+  char altar[7]; // 2
+
+  strcpy(altar, offering);
+
+  return 0;
+}</pre>
+
+        <p class="para">
+          코드 상에서 <code class="code-inline">altar</code> 배열은 크기가 7로 고정되어 있지만,
+          <code class="code-inline">strcpy(altar, offering);</code> 호출에는 길이 검증이 없으므로
+          입력 값이 크면 버퍼 오버플로우가 발생할 수 있다.
+        </p>
+
+        <p class="para">
+          이 취약점을 이용해 <code class="code-inline">offering</code> 변수에 충분히 긴 문자열을
+          집어넣고, 이후 흐름에서 이를 실행시키는 방식으로 익스플로잇을 진행한다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">6. book_pen, dedicate – 누락된 3번째 제물 생성</h2>
+
+        <h3 class="heading-sub">6‑1. book_pen 에 공격용 입력 작성</h3>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image008.png"
+            alt="book_pen 파일에 긴 offering 값 작성"
+          />
+          <figcaption class="fig-caption">
+            book_pen 파일에 altar 크기를 넘어서는 길이의 문자열을 기록한다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          <code class="code-inline">/home/khufu/room/book_pen</code> 파일에
+          <code class="code-inline">offering</code> 변수로 쓰일 긴 문자열을 기입해, 주변 메모리
+          영역까지 침범할 수 있도록 구성한다. 스크린샷에 보이는 값은 예시이며, 실제 공격에 맞게 조정할
+          수 있다.
+        </p>
+
+        <h3 class="heading-sub">6‑2. dedicate 실행 후 room/3/offering 생성</h3>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image009.png"
+            alt="dedicate 실행 및 room/3/offering 생성 확인"
+          />
+          <figcaption class="fig-caption">
+            dedicate 실행 후 room/3 디렉터리에 offering 파일이 새로 생성된다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          <code class="code-inline">/home/khufu/room/dedicate</code> 파일을 실행하면, 이전에 없던
+          <code class="code-inline">room/3/offering</code> 이 생성되고, 내용에는
+          <code class="code-inline">book_pen</code> 에 입력했던 문자열이 그대로 들어간 것을
+          확인할 수 있다.
+        </p>
+
+        <p class="para">
+          이제 room/1~4 의 네 개 offering 이 모두 준비되었으므로,
+          <code class="code-inline">papyrus</code> 힌트에 따라
+          <code class="code-inline">pray</code> 를 실행해 제물이 모두 모이도록 한다.
+        </p>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">7. pray – offering 결합과 magi.c 생성</h2>
+
+        <p class="para">
+          <code class="code-inline">/home/khufu/room/pray</code> 파일을 실행하면 분할된 네 개의
+          offering 파일을 하나로 합쳐 새로운 C 소스 파일을 생성하려는 동작이 수행된다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image010.png"
+            alt="pray 실행 결과 로그"
+          />
+          <figcaption class="fig-caption">
+            pray 실행 시 5번째 인자 관련 메시지를 통해 최소 5개의 인자가 사용됨을 유추할 수 있다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          Linux 에서는 <code class="code-inline">cat file1 file2 &gt;&gt; file3</code> 처럼 여러
+          파일을 이어붙여 하나의 파일을 만드는 것이 가능하다. pray 는 네 개의 offering 파일을 하나의
+          C 코드로 묶는 역할을 하는 것으로 보이며, 결과 파일 이름은
+          <code class="code-inline">.c</code> 확장자를 가져야 한다.
+        </p>
+
+        <p class="para">
+          <code class="code-inline">/home/khufu/papyrus</code> 내용을 다시 보면 “magi…c 가 필요하다”
+          라는 문장이 등장하므로, <code class="code-inline">magi.c</code> 라는 이름으로 코드를
+          생성하는 흐름을 추측할 수 있다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image011.png"
+            alt="papyrus 의 magi 관련 구문"
+          />
+          <figcaption class="fig-caption">
+            papyrus 에서 magi/magic 관련 힌트를 다시 확인
+          </figcaption>
+        </figure>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image012.jpg"
+            alt="pray 실행 후 magi.c 생성"
+          />
+          <figcaption class="fig-caption">
+            pray 실행이 성공적으로 끝나면 magi.c 가 생성되고, 네 개의 offering 코드가 합쳐진 완전한 C
+            코드가 된다.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">8. magic – 주기적 실행과 숨겨진 파일</h2>
+
+        <p class="para">
+          <code class="code-inline">/home/khufu/magic</code> 파일을 다시 열어 보면 마지막 줄에
+          “magic 은 1분마다 일어난다” 는 설명이 있다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image013.png"
+            alt="magic 파일 내용"
+          />
+          <figcaption class="fig-caption">
+            magi.c 가 존재할 경우 1분마다 magic 이라는 실행 파일이 생성되는 구조를 암시한다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          실제로 <code class="code-inline">/home/khufu</code> 디렉터리를 다시 확인해 보면, 이전에
+          없던 <code class="code-inline">magic</code> 파일이 새로 생긴 것을 볼 수 있고, magi.c 가
+          존재할 때마다 일정 주기로 해당 바이너리가 생성된다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image014.png"
+            alt="/home/khufu 에 magic 파일 생성"
+          />
+        </figure>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image015.png"
+            alt="magic 실행 후 숨겨진 파일 생성"
+          />
+          <figcaption class="fig-caption">
+            magic 실행 시 특수 문자로 된 숨겨진 파일이 생성된다.
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          <code class="code-inline">./magic</code> 을 실행하면 특수 문자로 구성된 파일 이름이 출력되며,
+          해당 파일을 읽을 수 있는 권한이 있으므로 내용을 확인해 본다. 파일 이름은 직접 타이핑하기
+          어렵기 때문에, 터미널에서 복사·붙여넣기를 사용하는 것이 편리하다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image016.png"
+            alt="숨겨진 파일 내용 일부"
+          />
+          <figcaption class="fig-caption">
+            특수 문자로 구성된 힌트 문자열과 “=&gt; (...) =&gt; 58” 이라는 추가 힌트가 포함되어 있다.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">9. Hieroglyphs 디코딩과 Base58 인코딩</h2>
+
+        <p class="para">
+          숨겨진 파일과 이전 단계에서 계속 등장하던 상형문자는 ‘Hieroglyphs’ 라고 부르며, 온라인
+          도구를 활용해 영문 문자열로 디코딩할 수 있다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image017.jpg"
+            alt="Hieroglyphs 디코딩 도구 사용"
+          />
+          <figcaption class="fig-caption">
+            Hieroglyphs 디코더를 사용해 상형문자 문자열을 영문으로 변환
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          디코딩 결과 <code class="code-inline">xgdmklzbthnqfpryAswi</code> 라는 문자열을 얻을 수
+          있다. 하지만 힌트에는 “(...) =&gt; 58” 이라고 되어 있으므로, 추가로 Base58 인코딩을 적용해야
+          한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image018.jpg"
+            alt="디코딩 결과 xgdmklzbthnqfpryAswi"
+          />
+          <figcaption class="fig-caption">
+            Hieroglyphs 를 디코딩해 얻은 문자열 xgdmklzbthnqfpryAswi
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          CyberChef 등 도구에서 Base58 인코딩을 수행하면
+          <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code> 라는 값을 얻을 수 있다. 이
+          값이 다음 SSH 계정 비밀번호로 사용된다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image019.jpg"
+            alt="Base58 인코딩 결과"
+          />
+          <figcaption class="fig-caption">
+            Base58 인코딩 결과: <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="ctf-section">
+        <h2 class="heading-sub">10. 최종 플래그 – tutankhamun 계정</h2>
+
+        <p class="para">
+          최종적으로 <code class="code-inline">tutankhamun</code> 계정에 SSH 접속을 시도한다.
+          비밀번호로는 방금 구한 Base58 인코딩 문자열
+          <code class="code-inline">2gHsQQTDGYNerJuyFFGeUkFEVDj6</code> 를 사용한다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image020.png"
+            alt="tutankhamun 계정 SSH 접속 성공"
+          />
+          <figcaption class="fig-caption">
+            Tutankhamun 계정으로 성공적으로 접속한 화면
+          </figcaption>
+        </figure>
+
+        <p class="para">
+          접속 후 루트 디렉터리로 이동하면 <code class="code-inline">flag</code> 파일을 발견할 수
+          있고, 이 파일 내용을 출력하면 Pyramid CTF 의 최종 플래그를 획득하게 된다.
+        </p>
+
+        <figure class="fig">
+          <img
+            src="4.김관웅_ctf_문제풀이_files/image021.png"
+            alt="root 디렉터리의 flag 파일"
+          />
+          <figcaption class="fig-caption">
+            root 디렉터리에서 발견한 final flag 파일
+          </figcaption>
+        </figure>
+      </section>
+      
     </main>
   </body>
 </html>
