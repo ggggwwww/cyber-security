@@ -1,6 +1,6 @@
 body {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
-    font-family: 'Inter', 'Pretendard', 'Noto Sans KR', 'Open Sans', Arial, sans-serif;
+    background: #f7f9fa;
+    font-family: 'Pretendard', 'Noto Sans KR', 'Open Sans', Arial, sans-serif;
 }
 
 /* 사진 비율 유지, 최대폭 900px, 폭 90%로 한눈에 들어오게 */
@@ -13,7 +13,6 @@ img {
     display: block;
     margin: 2rem auto;
     border-radius: 0.8rem;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.09);
     background: #fff;
-    border: 1px solid #e2e8f0;
 }
